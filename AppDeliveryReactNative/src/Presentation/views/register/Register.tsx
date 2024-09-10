@@ -4,8 +4,12 @@ import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { RootStackParamList } from "../../../../App"
 import { MyColors } from "../../theme/AppTheme"
+import useViewModel from "./ViewModel"
+import { CustomTextInput } from "../../components/CustomTextInput"
 
 export const RegisterScreen = () => {
+
+    const { name, lastname, email, phone, password, confirmPassword, onChange, register } = useViewModel()
 
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
@@ -24,76 +28,58 @@ export const RegisterScreen = () => {
             </View>
             <View style={styles.form}>
                 <Text style={styles.formText}>REGISTRARSE</Text>
-                <View style={styles.formInput}>
-                    <Image
-                        source={require("../../../../assets/user.png")}
-                        style={styles.formIcon}
-                    />
-                    <TextInput 
-                        style={styles.formTextInput}
-                        placeholder='Nombre'
-                        keyboardType='default'
-                    />
-                </View>
-                <View style={styles.formInput}>
-                    <Image
-                        source={require("../../../../assets/my_user.png")}
-                        style={styles.formIcon}
-                    />
-                    <TextInput 
-                        style={styles.formTextInput}
-                        placeholder='Apellidos'
-                        keyboardType='default'
-                    />
-                </View>
-                <View style={styles.formInput}>
-                    <Image
-                        source={require("../../../../assets/email.png")}
-                        style={styles.formIcon}
-                    />
-                    <TextInput 
-                        style={styles.formTextInput}
-                        placeholder='Correo electrónico'
-                        keyboardType='email-address'
-                    />
-                </View>
-                <View style={styles.formInput}>
-                    <Image
-                        source={require("../../../../assets/phone.png")}
-                        style={styles.formIcon}
-                    />
-                    <TextInput 
-                        style={styles.formTextInput}
-                        placeholder='Teléfono'
-                        keyboardType='numeric'
-                    />
-                </View>
-                <View style={styles.formInput}>
-                    <Image
-                        source={require("../../../../assets/password.png")}
-                        style={styles.formIcon}
-                    />
-                    <TextInput 
-                        style={styles.formTextInput}
-                        placeholder='Contraseña'
-                        keyboardType='default'
-                        secureTextEntry={true}
-                    />
-                </View>
-                <View style={styles.formInput}>
-                    <Image
-                        source={require("../../../../assets/confirm_password.png")}
-                        style={styles.formIcon}
-                    />
-                    <TextInput 
-                        style={styles.formTextInput}
-                        placeholder='Confirmar contraseña'
-                        keyboardType='default'
-                        secureTextEntry={true}
-                    />
-                </View>
+                <CustomTextInput 
+                    image={require("../../../../assets/user.png")}
+                    placeholder="Nombre"
+                    value={name}
+                    keyboardType="default"
+                    property="name"
+                    onChangeText={onChange}
+                />
+                <CustomTextInput 
+                    image={require("../../../../assets/my_user.png")}
+                    placeholder="Apellidos"
+                    value={lastname}
+                    keyboardType="default"
+                    property="lastname"
+                    onChangeText={onChange}
+                />
+                <CustomTextInput 
+                    image={require("../../../../assets/email.png")}
+                    placeholder="Email"
+                    value={email}
+                    keyboardType="email-address"
+                    property="email"
+                    onChangeText={onChange}
+                />
+                <CustomTextInput 
+                    image={require("../../../../assets/phone.png")}
+                    placeholder="Teléfono"
+                    value={phone}
+                    keyboardType="numeric"
+                    property="phone"
+                    onChangeText={onChange}
+                />
+                <CustomTextInput 
+                    image={require("../../../../assets/password.png")}
+                    placeholder="Contraseña"
+                    value={password}
+                    keyboardType="default"
+                    secureTextEntry={true}
+                    property="password"
+                    onChangeText={onChange}
+                />
+                <CustomTextInput 
+                    image={require("../../../../assets/confirm_password.png")}
+                    placeholder="Confirmar contraseña"
+                    value={confirmPassword}
+                    keyboardType="default"
+                    secureTextEntry={true}
+                    property="confirmPassword"
+                    onChangeText={onChange}
+                />
                 <View style={{marginTop: 30}}>
-                    <RoundedButton text='CONFIRMAR' onPress={() => ToastAndroid.show("HOLA", ToastAndroid.SHORT)} />
+                    <RoundedButton text='CONFIRMAR' onPress={register} />
                 </View>
                 <View style={styles.formRegister}>
                     <Text>¿No tienes cuenta?</Text>
@@ -132,21 +118,6 @@ const styles = StyleSheet.create({
     formText: {
         fontWeight: "bold",
         fontSize: 16
-    },
-    formIcon: {
-        width: 25,
-        height: 25,
-        marginTop: 5
-    },
-    formInput: {
-        flexDirection: "row",
-        marginTop: 30
-    },
-    formTextInput: {
-        flex: 1,
-        borderBottomWidth: 1,
-        borderBottomColor: "#aaaaaa",
-        marginLeft: 15
     },
     formRegister: {
         flexDirection: "row",
