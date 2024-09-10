@@ -1,11 +1,11 @@
-import { View, TextInput, Image, Text, StyleSheet, TouchableOpacity } from "react-native"
-import { RoundedButton } from "../../components/RoundedButton"
-import { MyColors } from "../../theme/AppTheme"
+import { View, Image, Text, TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { RootStackParamList } from "../../../../App"
-import useViewModel from "./ViewModel"
 import { CustomTextInput } from "../../components/CustomTextInput"
+import { RoundedButton } from "../../components/RoundedButton"
+import useViewModel from "./ViewModel"
+import styles from "./Styles"
 
 export const HomeScreen = () => {
 
@@ -60,60 +60,3 @@ export const HomeScreen = () => {
         </View>
     )
 }
-    
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'black',
-    },
-    imageBackground: {
-        width: "100%",
-        height: "100%",
-        opacity: 0.7,
-        bottom: "30%"
-    },
-    form: {
-        width: "100%",
-        height: "40%",
-        backgroundColor: "white",
-        position: "absolute",
-        bottom: 0,
-        borderTopLeftRadius: 40,
-        borderTopRightRadius: 40,
-        padding: 30
-    }, 
-    formText: {
-        fontWeight: "bold",
-        fontSize: 16
-    },
-    formRegister: {
-        flexDirection: "row",
-        justifyContent: "center",
-        marginTop: 30
-    },
-    formRegisterText: {
-        fontStyle: "italic",
-        color: MyColors.primary,
-        borderBottomWidth: 1,
-        borderBottomColor: MyColors.primary,
-        fontWeight: "bold",
-        marginLeft: 10
-    },
-    logoContainer: {
-        position: "absolute",
-        alignSelf: "center",
-        top: "15%"
-    },
-    logoImage: {
-        width: 100,
-        height: 100
-    },
-    logoText: {
-        color: "white",
-        textAlign: "center",
-        fontSize: 20,
-        fontWeight: "bold",
-        marginTop: 10
-    }
-})
-
