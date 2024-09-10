@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ToastAndroi
 import { RoundedButton } from "../../components/RoundedButton"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../../../App"
+import { RootStackParamList } from "../../../../App"
 import { MyColors } from "../../theme/AppTheme"
 
 export const RegisterScreen = () => {
@@ -12,12 +12,12 @@ export const RegisterScreen = () => {
     return (
         <View style={styles.container}>
             <Image 
-                source={require('../../../assets/chef.jpg')} 
+                source={require('../../../../assets/chef.jpg')} 
                 style={styles.imageBackground}
             />
             <View style={styles.logoContainer}>
                 <Image
-                    source={require("../../../assets/user_image.png")}
+                    source={require("../../../../assets/user_image.png")}
                     style={styles.logoImage}
                 />
                 <Text style={styles.logoText}>SELECCIONA UNA IMAGEN</Text>
@@ -26,7 +26,7 @@ export const RegisterScreen = () => {
                 <Text style={styles.formText}>REGISTRARSE</Text>
                 <View style={styles.formInput}>
                     <Image
-                        source={require("../../../assets/user.png")}
+                        source={require("../../../../assets/user.png")}
                         style={styles.formIcon}
                     />
                     <TextInput 
@@ -37,7 +37,7 @@ export const RegisterScreen = () => {
                 </View>
                 <View style={styles.formInput}>
                     <Image
-                        source={require("../../../assets/my_user.png")}
+                        source={require("../../../../assets/my_user.png")}
                         style={styles.formIcon}
                     />
                     <TextInput 
@@ -48,7 +48,7 @@ export const RegisterScreen = () => {
                 </View>
                 <View style={styles.formInput}>
                     <Image
-                        source={require("../../../assets/email.png")}
+                        source={require("../../../../assets/email.png")}
                         style={styles.formIcon}
                     />
                     <TextInput 
@@ -59,7 +59,7 @@ export const RegisterScreen = () => {
                 </View>
                 <View style={styles.formInput}>
                     <Image
-                        source={require("../../../assets/phone.png")}
+                        source={require("../../../../assets/phone.png")}
                         style={styles.formIcon}
                     />
                     <TextInput 
@@ -70,7 +70,7 @@ export const RegisterScreen = () => {
                 </View>
                 <View style={styles.formInput}>
                     <Image
-                        source={require("../../../assets/password.png")}
+                        source={require("../../../../assets/password.png")}
                         style={styles.formIcon}
                     />
                     <TextInput 
@@ -82,7 +82,7 @@ export const RegisterScreen = () => {
                 </View>
                 <View style={styles.formInput}>
                     <Image
-                        source={require("../../../assets/confirm_password.png")}
+                        source={require("../../../../assets/confirm_password.png")}
                         style={styles.formIcon}
                     />
                     <TextInput 

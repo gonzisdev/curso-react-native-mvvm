@@ -1,28 +1,26 @@
-import { View, TextInput, ToastAndroid, Image, Text, StyleSheet, TouchableOpacity } from "react-native"
+import { View, TextInput, Image, Text, StyleSheet, TouchableOpacity } from "react-native"
 import { RoundedButton } from "../../components/RoundedButton"
 import { MyColors } from "../../theme/AppTheme"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../../../App"
-import { useState } from "react"
+import { RootStackParamList } from "../../../../App"
+import useViewModel from "./ViewModel"
 
 export const HomeScreen = () => {
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const { email, password, onChange } = useViewModel()
 
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
-
 
     return (
         <View style={styles.container}>
             <Image 
-                source={require('../../../assets/chef.jpg')} 
+                source={require('../../../../assets/chef.jpg')} 
                 style={styles.imageBackground}
             />
             <View style={styles.logoContainer}>
                 <Image
-                    source={require("../../../assets/logo.png")}
+                    source={require("../../../../assets/logo.png")}
                     style={styles.logoImage}
                 />
                 <Text style={styles.logoText}>FOOD APP</Text>
@@ -31,7 +29,7 @@ export const HomeScreen = () => {
                 <Text style={styles.formText}>INGRESAR</Text>
                 <View style={styles.formInput}>
                     <Image
-                        source={require("../../../assets/email.png")}
+                        source={require("../../../../assets/email.png")}
                         style={styles.formIcon}
                     />
                     <TextInput 
@@ -39,12 +37,12 @@ export const HomeScreen = () => {
                         placeholder='Correo electrónico'
                         keyboardType='email-address'
                         value={email}
-                        onChangeText={(text) => setEmail(text)}
+                        onChangeText={(text) => onChange("email", text)}
                     />
                 </View>
                 <View style={styles.formInput}>
                     <Image
-                        source={require("../../../assets/password.png")}
+                        source={require("../../../../assets/password.png")}
                         style={styles.formIcon}
                     />
                     <TextInput 
@@ -53,7 +51,7 @@ export const HomeScreen = () => {
                         keyboardType='default'
                         secureTextEntry={true}
                         value={password}
-                        onChangeText={(text) => setPassword(text)}
+                        onChangeText={(text) => onChange("password", text)}
                     />
                 </View>
                 <View style={{marginTop: 30}}>
