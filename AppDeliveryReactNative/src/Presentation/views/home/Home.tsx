@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { RootStackParamList } from "../../../../App"
 import useViewModel from "./ViewModel"
+import { CustomTextInput } from "../../components/CustomTextInput"
 
 export const HomeScreen = () => {
 
@@ -27,33 +28,23 @@ export const HomeScreen = () => {
             </View>
             <View style={styles.form}>
                 <Text style={styles.formText}>INGRESAR</Text>
-                <View style={styles.formInput}>
-                    <Image
-                        source={require("../../../../assets/email.png")}
-                        style={styles.formIcon}
-                    />
-                    <TextInput 
-                        style={styles.formTextInput}
-                        placeholder='Correo electrónico'
-                        keyboardType='email-address'
-                        value={email}
-                        onChangeText={(text) => onChange("email", text)}
-                    />
-                </View>
-                <View style={styles.formInput}>
-                    <Image
-                        source={require("../../../../assets/password.png")}
-                        style={styles.formIcon}
-                    />
-                    <TextInput 
-                        style={styles.formTextInput}
-                        placeholder='Contraseña'
-                        keyboardType='default'
-                        secureTextEntry={true}
-                        value={password}
-                        onChangeText={(text) => onChange("password", text)}
-                    />
-                </View>
+                <CustomTextInput 
+                    image={require("../../../../assets/email.png")}
+                    placeholder="Correo electrónico"
+                    value={email}
+                    keyboardType="email-address"
+                    property="email"
+                    onChangeText={onChange}
+                />
+                <CustomTextInput 
+                    image={require("../../../../assets/password.png")}
+                    placeholder="Contraseña"
+                    value={password}
+                    keyboardType="default"
+                    secureTextEntry={true}
+                    property="password"
+                    onChangeText={onChange}
+                />
                 <View style={{marginTop: 30}}>
                     <RoundedButton text='ENTRAR' onPress={() => {}} />
                 </View>
@@ -72,72 +63,57 @@ export const HomeScreen = () => {
     
 const styles = StyleSheet.create({
     container: {
-    flex: 1,
-    backgroundColor: 'black',
+        flex: 1,
+        backgroundColor: 'black',
     },
     imageBackground: {
-    width: "100%",
-    height: "100%",
-    opacity: 0.7,
-    bottom: "30%"
+        width: "100%",
+        height: "100%",
+        opacity: 0.7,
+        bottom: "30%"
     },
     form: {
-    width: "100%",
-    height: "40%",
-    backgroundColor: "white",
-    position: "absolute",
-    bottom: 0,
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    padding: 30
+        width: "100%",
+        height: "40%",
+        backgroundColor: "white",
+        position: "absolute",
+        bottom: 0,
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
+        padding: 30
     }, 
     formText: {
-    fontWeight: "bold",
-    fontSize: 16
-    },
-    formIcon: {
-    width: 25,
-    height: 25,
-    marginTop: 5
-    },
-    formInput: {
-    flexDirection: "row",
-    marginTop: 30
-    },
-    formTextInput: {
-    flex: 1,
-    borderBottomWidth: 1,
-    borderBottomColor: "#aaaaaa",
-    marginLeft: 15
+        fontWeight: "bold",
+        fontSize: 16
     },
     formRegister: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 30
+        flexDirection: "row",
+        justifyContent: "center",
+        marginTop: 30
     },
     formRegisterText: {
-    fontStyle: "italic",
-    color: MyColors.primary,
-    borderBottomWidth: 1,
-    borderBottomColor: MyColors.primary,
-    fontWeight: "bold",
-    marginLeft: 10
+        fontStyle: "italic",
+        color: MyColors.primary,
+        borderBottomWidth: 1,
+        borderBottomColor: MyColors.primary,
+        fontWeight: "bold",
+        marginLeft: 10
     },
     logoContainer: {
-    position: "absolute",
-    alignSelf: "center",
-    top: "15%"
+        position: "absolute",
+        alignSelf: "center",
+        top: "15%"
     },
     logoImage: {
-    width: 100,
-    height: 100
+        width: 100,
+        height: 100
     },
     logoText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 10
+        color: "white",
+        textAlign: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+        marginTop: 10
     }
 })
 
