@@ -14,7 +14,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{
-        headerShown: false
+        headerShown: false,
+        headerBackVisible: true
       }}>
         <Stack.Screen 
           name="HomeScreen"
@@ -23,6 +24,10 @@ const App = () => {
         <Stack.Screen 
           name="RegisterScreen"
           component={RegisterScreen}
+          options={{
+            title: "Nuevo usuario",
+            headerShown: true
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

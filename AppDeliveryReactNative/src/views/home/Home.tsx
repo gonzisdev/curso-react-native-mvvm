@@ -12,52 +12,52 @@ export const HomeScreen = () => {
     return (
         <View style={styles.container}>
             <Image 
-            source={require('../../../assets/chef.jpg')} 
-            style={styles.imageBackground}
+                source={require('../../../assets/chef.jpg')} 
+                style={styles.imageBackground}
             />
             <View style={styles.logoContainer}>
-            <Image
-                source={require("../../../assets/logo.png")}
-                style={styles.logoImage}
-            />
-            <Text style={styles.logoText}>FOOD APP</Text>
+                <Image
+                    source={require("../../../assets/logo.png")}
+                    style={styles.logoImage}
+                />
+                <Text style={styles.logoText}>FOOD APP</Text>
             </View>
             <View style={styles.form}>
-            <Text style={styles.formText}>INGRESAR</Text>
-            <View style={styles.formInput}>
-                <Image
-                source={require("../../../assets/email.png")}
-                style={styles.formIcon}
-                />
-                <TextInput 
-                style={styles.formTextInput}
-                placeholder='Correo electrónico'
-                keyboardType='email-address'
-                />
-            </View>
-            <View style={styles.formInput}>
-                <Image
-                source={require("../../../assets/password.png")}
-                style={styles.formIcon}
-                />
-                <TextInput 
-                style={styles.formTextInput}
-                placeholder='Contraseña'
-                keyboardType='default'
-                secureTextEntry={true}
-                />
-            </View>
-            <View style={{marginTop: 30}}>
-                <RoundedButton text='ENTRAR' onPress={() => ToastAndroid.show("HOLA", ToastAndroid.SHORT)} />
-            </View>
-            <View style={styles.formRegister}>
-                <Text>¿No tienes cuenta?</Text>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("RegisterScreen")}
-                >
-                    <Text style={styles.formRegisterText}>Regístrate</Text>
-                </TouchableOpacity>
-            </View>
+                <Text style={styles.formText}>INGRESAR</Text>
+                <View style={styles.formInput}>
+                    <Image
+                        source={require("../../../assets/email.png")}
+                        style={styles.formIcon}
+                    />
+                    <TextInput 
+                        style={styles.formTextInput}
+                        placeholder='Correo electrónico'
+                        keyboardType='email-address'
+                    />
+                </View>
+                <View style={styles.formInput}>
+                    <Image
+                        source={require("../../../assets/password.png")}
+                        style={styles.formIcon}
+                    />
+                    <TextInput 
+                        style={styles.formTextInput}
+                        placeholder='Contraseña'
+                        keyboardType='default'
+                        secureTextEntry={true}
+                    />
+                </View>
+                <View style={{marginTop: 30}}>
+                    <RoundedButton text='ENTRAR' onPress={() => ToastAndroid.show("HOLA", ToastAndroid.SHORT)} />
+                </View>
+                <View style={styles.formRegister}>
+                    <Text>¿No tienes cuenta?</Text>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("RegisterScreen")}
+                    >
+                        <Text style={styles.formRegisterText}>Regístrate</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     )
