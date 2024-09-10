@@ -4,10 +4,15 @@ import { MyColors } from "../../theme/AppTheme"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { RootStackParamList } from "../../../App"
+import { useState } from "react"
 
 export const HomeScreen = () => {
 
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+
 
     return (
         <View style={styles.container}>
@@ -33,6 +38,8 @@ export const HomeScreen = () => {
                         style={styles.formTextInput}
                         placeholder='Correo electrónico'
                         keyboardType='email-address'
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
                     />
                 </View>
                 <View style={styles.formInput}>
@@ -45,10 +52,12 @@ export const HomeScreen = () => {
                         placeholder='Contraseña'
                         keyboardType='default'
                         secureTextEntry={true}
+                        value={password}
+                        onChangeText={(text) => setPassword(text)}
                     />
                 </View>
                 <View style={{marginTop: 30}}>
-                    <RoundedButton text='ENTRAR' onPress={() => ToastAndroid.show("HOLA", ToastAndroid.SHORT)} />
+                    <RoundedButton text='ENTRAR' onPress={() => {}} />
                 </View>
                 <View style={styles.formRegister}>
                     <Text>¿No tienes cuenta?</Text>
