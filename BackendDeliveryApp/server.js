@@ -1,6 +1,7 @@
 import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
+import userRoutes from "./routes/userRoutes.js"
 
 const app = express()
 app.use(express.json())
@@ -13,7 +14,7 @@ dotenv.config()
 const whitelist = [process.env.FRONTEND_URL]
 const corsOptions = {
     origin: function(origin, callback){
-        if(whitelist.includes(origin)){
+        if(!whitelist.includes(origin)){
             // Puede consultar la API
             callback(null, true)
         }else{
@@ -30,15 +31,4 @@ const SERVER = app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`)
 })
 
-app.get('/', (req, res) => {
-    res.send('Ruta raiz del backend')
-})
-
-app.get('/test', (req, res) => {
-    res.send('Esta es la ruta test')
-})
-
-app.use((err, req, res, next) => {
-    console.log(err)
-    res.status(err.status || 500).send(err.stack)
-})
+app.use('/api/users', userRoutes)
