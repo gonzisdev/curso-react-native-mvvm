@@ -1,5 +1,6 @@
 export type ResponseApiDelivery = {
     success: boolean
     message: string
-    data: any
+    data?: any
+    error?: any
 }
