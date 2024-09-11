@@ -1,17 +1,19 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native"
-import { useNavigation } from "@react-navigation/native"
-import { NativeStackNavigationProp } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../../../../App"
+import { View, Text, Image, TouchableOpacity, ScrollView, ToastAndroid } from "react-native"
 import { CustomTextInput } from "../../components/CustomTextInput"
 import { RoundedButton } from "../../components/RoundedButton"
 import useViewModel from "./ViewModel"
 import styles from "./Styles"
+import { useEffect } from "react"
 
 export const RegisterScreen = () => {
 
-    const { name, lastname, email, phone, password, confirmPassword, onChange, register } = useViewModel()
+    const { name, lastname, email, phone, password, confirmPassword, onChange, register, errorMessage } = useViewModel()
 
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+    useEffect(() => {
+        if (errorMessage !== "") {
+            ToastAndroid.show(errorMessage, ToastAndroid.LONG)
+        }
+    }, [errorMessage])
 
     return (
         <View style={styles.container}>
@@ -81,14 +83,6 @@ export const RegisterScreen = () => {
                     />
                     <View style={{marginTop: 30}}>
                         <RoundedButton text='CONFIRMAR' onPress={register} />
-                    </View>
-                    <View style={styles.formRegister}>
-                        <Text>¿No tienes cuenta?</Text>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate("RegisterScreen")}
-                        >
-                            <Text style={styles.formRegisterText}>Regístrate</Text>
-                        </TouchableOpacity>
                     </View>
                 </ScrollView>
             </View>

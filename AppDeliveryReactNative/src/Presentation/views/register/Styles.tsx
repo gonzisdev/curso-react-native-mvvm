@@ -14,7 +14,7 @@ const RegisterStyles = StyleSheet.create({
     },
     form: {
         width: "100%",
-        height: "72%",
+        height: "65%",
         backgroundColor: "white",
         position: "absolute",
         bottom: 0,
@@ -25,19 +25,6 @@ const RegisterStyles = StyleSheet.create({
     formText: {
         fontWeight: "bold",
         fontSize: 16
-    },
-    formRegister: {
-        flexDirection: "row",
-        justifyContent: "center",
-        marginTop: 30
-    },
-    formRegisterText: {
-        fontStyle: "italic",
-        color: MyColors.primary,
-        borderBottomWidth: 1,
-        borderBottomColor: MyColors.primary,
-        fontWeight: "bold",
-        marginLeft: 10
     },
     logoContainer: {
         position: "absolute",
