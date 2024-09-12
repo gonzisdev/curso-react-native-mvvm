@@ -1,0 +1,1 @@
+export const secretOrKey = "MIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQBWuwD2/DxR2W/xamNXQ6AkzWdFw9BzSpjeEBnLz2f3c7Fmzi32PAdO"

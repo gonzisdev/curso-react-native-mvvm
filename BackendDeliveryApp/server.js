@@ -2,6 +2,9 @@ import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
 import userRoutes from "./routes/userRoutes.js"
+import passport from "passport"
+import { auth } from "./config/passport.js"
+
 
 const app = express()
 app.use(express.json())
@@ -25,6 +28,9 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
+app.use(passport.initialize())
+app.use(passport.session())
+auth(passport)
 
 const PORT = process.env.PORT || 4000
 const SERVER = app.listen(PORT, () => {

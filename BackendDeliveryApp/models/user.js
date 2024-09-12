@@ -18,7 +18,6 @@ export class User {
 
     static async create(user) {
 		const hash = await bcrypt.hash(user.password, 10)
-		
 		try {
 			const query = `
                 INSERT INTO 
@@ -46,6 +45,62 @@ export class User {
 			]);
 			if (result[0].affectedRows > 0) {                
 				return result[0].insertId;
+			} else {
+				return null;
+			};
+		} catch (error) {
+			console.error("Error creating user:", error);
+			throw error;
+		};
+	};
+
+	static async findById(id) {
+		try {
+			const query = `
+				SELECT 
+					id,
+					email,
+					name,
+					lastname,
+					phone,
+					image,
+					password
+				FROM 
+					users
+				WHERE 
+					id = ?
+            `;
+			const [rows] = await db.query(query, [id]);
+			if (rows.length > 0) {                
+				return rows[0];
+			} else {
+				return null;
+			};
+		} catch (error) {
+			console.error("Error fetching user by ID:", error);
+			throw error;
+		};
+	};
+
+	static async findByEmail(email) {
+		try {
+			const query = `
+				SELECT 
+					id,
+					email,
+					name,
+					lastname,
+					phone,
+					image,
+					password
+				FROM 
+					users
+				WHERE 
+					email = ?
+            `;
+			const [rows] = await db.query(query, [email]);
+			if (rows.length > 0) {                
+				return rows[0];
 			} else {
 				return null;
 			};
