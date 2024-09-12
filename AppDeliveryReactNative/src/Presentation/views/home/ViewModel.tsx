@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { LoginAuthUseCase } from "../../../Domain/useCases/auth/LoginAuth"
 import { SaveUserUseCase } from "../../../Domain/useCases/userLocal/SaveUser"
-import { GetUserUseCase } from "../../../Domain/useCases/userLocal/GetUser"
+import { useUserLocal } from "../../hooks/useUserLocal"
 
 const HomeViewModel = () => {
 
@@ -10,16 +10,9 @@ const HomeViewModel = () => {
         email: "",
         password: ""
     })
-
-    useEffect(() => {
-        getUserSession()
-    }, [])
-
-    const getUserSession = async () => {
-        const user = await GetUserUseCase()
-        console.log('USUARIO SESION: ' + JSON.stringify(user))
-    }
-
+    const { user } = useUserLocal()
+    console.log('USUARIO DE SESION: ' + JSON.stringify(user));
+    
     const onChange = (property: string, value: any) => {
         setValues({
             ...values,
@@ -38,7 +31,6 @@ const HomeViewModel = () => {
             }
         }
     }
-
 
     const isValidForm = (): boolean => {
         if (values.email === '') {
