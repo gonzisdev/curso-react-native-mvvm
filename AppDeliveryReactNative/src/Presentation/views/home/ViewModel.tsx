@@ -1,5 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { LoginAuthUseCase } from "../../../Domain/useCases/auth/LoginAuth"
+import { SaveUserUseCase } from "../../../Domain/useCases/userLocal/SaveUser"
+import { GetUserUseCase } from "../../../Domain/useCases/userLocal/GetUser"
 
 const HomeViewModel = () => {
 
@@ -8,6 +10,15 @@ const HomeViewModel = () => {
         email: "",
         password: ""
     })
+
+    useEffect(() => {
+        getUserSession()
+    }, [])
+
+    const getUserSession = async () => {
+        const user = await GetUserUseCase()
+        console.log('USUARIO SESION: ' + JSON.stringify(user))
+    }
 
     const onChange = (property: string, value: any) => {
         setValues({
@@ -22,6 +33,8 @@ const HomeViewModel = () => {
             console.log("Result: " + JSON.stringify(response))      
             if (!response.success) {
                 setErrorMessage(response.message)
+            } else {
+                await SaveUserUseCase(response.data)
             }
         }
     }
