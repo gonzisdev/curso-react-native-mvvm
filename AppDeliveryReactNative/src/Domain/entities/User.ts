@@ -7,4 +7,5 @@ export type User = {
     image?: string
     password: string
     confirmPassword: string
+    session_token?: string
 }

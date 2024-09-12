@@ -10,18 +10,16 @@ export class userController {
         const password = req.body.password
         const user = await User.findByEmail(email)
         if (!user) {
-            res.status(401).json({ 
+            return res.status(401).json({ 
                 success: false,
-                message: 'El email no fue encontrado',
-                error: error.message
+                message: 'El email no fue encontrado'
              }); 
         }
         const isPasswordValid = await bcrypt.compare(password, user.password)
         if (!isPasswordValid) {
-            res.status(401).json({ 
+            return res.status(401).json({ 
                 success: false,
-                message: 'Contraseña incorrecta',
-                error: error.message
+                message: 'Contraseña incorrecta'
              }); 
         }
         const token = jwt.sign({id: user.id, email: user.email}, secretOrKey, {})
@@ -34,7 +32,7 @@ export class userController {
             image: user.image,
             session_token: `JWT ${token}`
         }
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: 'El usuario fue autenticado',
             data
@@ -45,14 +43,14 @@ export class userController {
         const user = req.body
         try {
             const newUser = await User.create(user)
-            res.status(201).json({
+            return res.status(201).json({
                 success: true,
                 message: 'El registro se realizó correctamente',
                 data: newUser
             })
         } catch (error) {
             console.log(error);
-            res.status(501).json({ 
+            return res.status(501).json({ 
                 success: false,
                 message: 'Hubo un error con el registro del usuario',
                 error: error.message
