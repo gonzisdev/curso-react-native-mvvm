@@ -1,4 +1,5 @@
 import { db } from "../config/config.js"
+import bcrypt from "bcrypt"
 
 export class User {
     static table = "users";
@@ -16,6 +17,8 @@ export class User {
 	}
 
     static async create(user) {
+		const hash = await bcrypt.hash(user.password, 10)
+		
 		try {
 			const query = `
                 INSERT INTO 
@@ -37,7 +40,7 @@ export class User {
 				user.lastname,
 				user.phone,
 				user.image,
-				user.password,
+				hash,
 				new Date(),
                 new Date()
 			]);
