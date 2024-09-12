@@ -2,6 +2,6 @@ import { UserLocalRepositoryImpl } from "../../../Data/repositories/UserLocalRep
 
 const { remove } = new UserLocalRepositoryImpl()
 
-export const RemoveUserUseCase = async () => {
+export const RemoveUserLocalUseCase = async () => {
     return await remove()
 }

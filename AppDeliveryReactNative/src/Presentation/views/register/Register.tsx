@@ -1,9 +1,9 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, ToastAndroid } from "react-native"
+import { useEffect } from "react"
+import { View, Text, Image, ScrollView, ToastAndroid } from "react-native"
 import { CustomTextInput } from "../../components/CustomTextInput"
 import { RoundedButton } from "../../components/RoundedButton"
 import useViewModel from "./ViewModel"
 import styles from "./Styles"
-import { useEffect } from "react"
 
 export const RegisterScreen = () => {
 

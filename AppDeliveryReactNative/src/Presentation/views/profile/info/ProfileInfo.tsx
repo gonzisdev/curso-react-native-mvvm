@@ -1,7 +1,7 @@
 import { View, Button} from "react-native"
-import useViewModel from "./ViewModel"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { RootStackParamList } from "../../../../../App"
+import useViewModel from "./ViewModel"
 
 type ProfileInfoScreenProps = NativeStackScreenProps<RootStackParamList, 'ProfileInfoScreen'>
 

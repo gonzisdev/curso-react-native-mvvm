@@ -21,7 +21,7 @@ export const HomeScreen = ({navigation, route}: HomeScreenProps) => {
 
     useEffect(() => {
         if (user?.id !== null && user?.id !== undefined) {
-            navigation.navigate('ProfileInfoScreen')
+            navigation.replace('ProfileInfoScreen')
         }
     }, [user])
 
@@ -33,11 +33,11 @@ export const HomeScreen = ({navigation, route}: HomeScreenProps) => {
             />
             <View style={styles.logoContainer}>
                 <Image 
-                    source={require("../../../../assets/logo.png")}
+                    source={require("../../../../assets/logo.png")} 
                     style={styles.logoImage}
                 />
                 <Text style={styles.logoText}>FOOD APP</Text>
-            </View>
+            </View> 
             <View style={styles.form}> 
                 <Text style={styles.formText}>INGRESAR</Text>
                 <CustomTextInput 

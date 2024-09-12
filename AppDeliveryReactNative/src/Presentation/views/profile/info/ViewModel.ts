@@ -1,9 +1,9 @@
-import { RemoveUserUseCase } from "../../../../Domain/useCases/userLocal/DeleteUser"
+import { RemoveUserLocalUseCase } from "../../../../Domain/useCases/userLocal/RemoveUserLocal"
 
 const ProfileInfoViewModel = () => {
 
   const removeSession = async () => {
-    await RemoveUserUseCase()
+    await RemoveUserLocalUseCase()
   }
 
   return {
