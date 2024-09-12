@@ -1,9 +1,20 @@
-import { View, Text } from "react-native"
+import { View, Button} from "react-native"
+import useViewModel from "./ViewModel"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { RootStackParamList } from "../../../../../App"
 
-export const ProfileInfoScreen = () => {
+type ProfileInfoScreenProps = NativeStackScreenProps<RootStackParamList, 'ProfileInfoScreen'>
+
+export const ProfileInfoScreen = ({navigation, route}: ProfileInfoScreenProps) => {
+
+    const { removeSession } = useViewModel()
+
   return (
     <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-        <Text>ProfileInfoScreen</Text>
+        <Button 
+            title="Cerrar sesión"
+            onPress={() => {removeSession(), navigation.navigate('HomeScreen')}}
+        />
     </View>
   )
 }

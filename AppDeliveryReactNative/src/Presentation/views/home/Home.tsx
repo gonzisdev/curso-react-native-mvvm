@@ -32,13 +32,13 @@ export const HomeScreen = ({navigation, route}: HomeScreenProps) => {
                 style={styles.imageBackground}
             />
             <View style={styles.logoContainer}>
-                <Image
+                <Image 
                     source={require("../../../../assets/logo.png")}
                     style={styles.logoImage}
                 />
                 <Text style={styles.logoText}>FOOD APP</Text>
             </View>
-            <View style={styles.form}>
+            <View style={styles.form}> 
                 <Text style={styles.formText}>INGRESAR</Text>
                 <CustomTextInput 
                     image={require("../../../../assets/email.png")}
