@@ -48,7 +48,8 @@ const HomeViewModel = () => {
         ...values,
         onChange,
         login,
-        errorMessage
+        errorMessage,
+        user
     }
 }
 
