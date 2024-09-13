@@ -4,6 +4,7 @@ import cors from "cors"
 import userRoutes from "./routes/userRoutes.js"
 import passport from "passport"
 import { auth } from "./config/passport.js"
+import multer from "multer"
 
 
 const app = express()
