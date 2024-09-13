@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { RegisterAuthUseCase } from "../../../Domain/useCases/auth/RegisterAuth"
+import * as ImagePicker from "expo-image-picker"
 
 const RegisterViewModel = () => {
 
@@ -9,9 +10,24 @@ const RegisterViewModel = () => {
         lastname: "",
         email: "",
         phone: "",
+        image: "",
         password: "",
         confirmPassword: ""
     })
+    const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()
+
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            quality: 1
+        })
+        if (!result.canceled && result.assets && result.assets.length > 0) {
+            const selectedImage = result.assets[0]
+            onChange("image", selectedImage.uri)
+            setFile(selectedImage)
+          }
+    }
 
     const onChange = (property: string, value: any) => {
         setValues({
@@ -63,6 +79,7 @@ const RegisterViewModel = () => {
         ...values,
         onChange,
         register,
+        pickImage,
         errorMessage
     }
 }
