@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { RegisterAuthUseCase } from "../../../Domain/useCases/auth/RegisterAuth"
+import { RegisterWithImageAuthUseCase } from "../../../Domain/useCases/auth/RegisterWithImageAuth"
 import * as ImagePicker from "expo-image-picker"
 
 const RegisterViewModel = () => {
@@ -51,7 +52,8 @@ const RegisterViewModel = () => {
 
     const register = async () => {
         if (isValidForm()) {
-            const response = await RegisterAuthUseCase(values)
+            //const response = await RegisterAuthUseCase(values)
+            const response = await RegisterWithImageAuthUseCase(values, file!)
             console.log("Result: " + JSON.stringify(response))
         }
     }
@@ -71,6 +73,10 @@ const RegisterViewModel = () => {
         }
         if (values.phone === '') {
             setErrorMessage("Introduce tu teléfono")
+            return false
+        }
+        if (values.image === '') {
+            setErrorMessage("Selecciona una imagen")
             return false
         }
         if (values.password === '') {

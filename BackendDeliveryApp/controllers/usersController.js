@@ -73,7 +73,7 @@ export class userController {
             const newUser = await User.create(user)
             user.id = `${newUser}`
             const token = jwt.sign({id: user.id, email: user.email}, secretOrKey, {})
-            user.session_token = token
+            user.session_token = `JWT ${token}`
             return res.status(201).json({
                 success: true,
                 message: 'El registro se realizó correctamente',
