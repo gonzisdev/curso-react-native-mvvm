@@ -1,45 +1,33 @@
 import { db } from "../config/config.js"
 import bcrypt from "bcrypt"
 
-export class User {
-    static table = "users";
+export class Rol {
+    static table = "roles";
 
-	constructor({id, email, name,lastname, phone, image, password, created_at, updated_at}) {
+	constructor({id, name, image, route, created_at, updated_at}) {
 		this.id = id;
-		this.email = email;
 		this.name = name;
-        this.lastname = lastname;
-        this.phone = phone;
         this.image = image;
-        this.password = password;
+        this.route = route;
         this.created_at = created_at;
         this.updated_at = updated_at;
 	}
 
-    static async create(user) {
-		const hash = await bcrypt.hash(user.password, 10)
+    static async create(id_user, id_rol) {
 		try {
 			const query = `
                 INSERT INTO 
-                    ${this.table}(
-                        email,
-                        name,
-                        lastname,
-                        phone,
-                        image,
-                        password,
+                    user_has_roles(
+                        id_user,
+                        id_rol,
                         created_at,
                         updated_at
                     )
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES(?, ?, ?, ?)
             `;
 			const result = await db.query(query, [
-				user.email,
-				user.name,
-				user.lastname,
-				user.phone,
-				user.image,
-				hash,
+				id_user,
+				id_rol,
 				new Date(),
                 new Date()
 			]);
@@ -49,7 +37,7 @@ export class User {
 				return null;
 			};
 		} catch (error) {
-			console.error("Error creating user:", error);
+			console.error("Error creating rol:", error);
 			throw error;
 		};
 	};
@@ -66,7 +54,7 @@ export class User {
 					image,
 					password
 				FROM 
-					${this.table}
+					users
 				WHERE 
 					id = ?
             `;
@@ -94,7 +82,7 @@ export class User {
 					image,
 					password
 				FROM 
-					${this.table}
+					users
 				WHERE 
 					email = ?
             `;
