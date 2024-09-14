@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { View, Image, Text, TouchableOpacity, ToastAndroid } from "react-native"
-import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../../../../App"
 import { CustomTextInput } from "../../components/CustomTextInput"
 import { RoundedButton } from "../../components/RoundedButton"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { RootStackParamList } from "../../../../App"
 import useViewModel from "./ViewModel"
 import styles from "./Styles"
 

@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react"
-import { View, Text, Image, ScrollView, ToastAndroid, TouchableOpacity } from "react-native"
+import { View, Text, Image, ScrollView, ToastAndroid, TouchableOpacity, ActivityIndicator } from "react-native"
 import { CustomTextInput } from "../../components/CustomTextInput"
 import { RoundedButton } from "../../components/RoundedButton"
+import { ModalPickImage } from "../../components/ModalPickImage"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { RootStackParamList } from "../../../../App"
 import useViewModel from "./ViewModel"
 import styles from "./Styles"
-import { ModalPickImage } from "../../components/ModalPickImage"
+import { MyColors } from "../../theme/AppTheme"
 
-export const RegisterScreen = () => {
+type RegisterScreenProps = NativeStackScreenProps<RootStackParamList, 'HomeScreen'>
 
-    const { name, lastname, email, phone, image, password, confirmPassword, onChange, register, errorMessage, pickImage, takePhoto } = useViewModel()
+export const RegisterScreen = ({navigation, route}: RegisterScreenProps) => {
+
+    const { name, lastname, email, phone, image, password, confirmPassword, onChange, register, errorMessage, pickImage, takePhoto, user, loading } = useViewModel()
     const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
@@ -16,6 +21,12 @@ export const RegisterScreen = () => {
             ToastAndroid.show(errorMessage, ToastAndroid.LONG)
         }
     }, [errorMessage])
+
+    useEffect(() => {
+        if (user?.id !== null && user?.id !== undefined) {
+            navigation.replace('ProfileInfoScreen')
+        }
+    }, [user])
 
     return (
         <View style={styles.container}>
@@ -105,6 +116,7 @@ export const RegisterScreen = () => {
                 modalUseState={modalVisible}
                 setModalUseState={setModalVisible}
             />
+            {loading && <ActivityIndicator size="large" color={MyColors.primary} style={styles.loading} /> }
         </View>
     )
 }
