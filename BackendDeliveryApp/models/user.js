@@ -58,17 +58,39 @@ export class User {
 		try {
 			const query = `
 				SELECT 
-					id,
-					email,
-					name,
-					lastname,
-					phone,
-					image,
-					password
+					U.id,
+					U.email,
+					U.name,
+					U.lastname,
+					U.phone,
+					U.image,
+					U.password,
+					CONCAT(
+						'[', 
+						GROUP_CONCAT(
+							CONCAT(
+								'{"id": ', R.id, ', ',
+								'"name": "', R.name, '", ',
+								'"image": "', IFNULL(R.image, ''), '", ',
+								'"route": "', IFNULL(R.route, ''), '"}'
+							)
+						SEPARATOR ', '), 
+						']'
+					) AS roles
 				FROM 
-					${this.table}
+					${this.table} AS U
+				INNER JOIN
+					user_has_roles AS UHR 
+				ON 
+					UHR.id_user = U.id
+				INNER JOIN
+					roles AS R 
+				ON 
+					UHR.id_rol = R.id
 				WHERE 
-					id = ?
+					U.id = ?
+				GROUP BY
+					U.id
             `;
 			const [rows] = await db.query(query, [id]);
 			if (rows.length > 0) {                
@@ -86,17 +108,39 @@ export class User {
 		try {
 			const query = `
 				SELECT 
-					id,
-					email,
-					name,
-					lastname,
-					phone,
-					image,
-					password
+					U.id,
+					U.email,
+					U.name,
+					U.lastname,
+					U.phone,
+					U.image,
+					U.password,
+					CONCAT(
+						'[', 
+						GROUP_CONCAT(
+							CONCAT(
+								'{"id": ', R.id, ', ',
+								'"name": "', R.name, '", ',
+								'"image": "', IFNULL(R.image, ''), '", ',
+								'"route": "', IFNULL(R.route, ''), '"}'
+							)
+						SEPARATOR ', '), 
+						']'
+					) AS roles
 				FROM 
-					${this.table}
+					${this.table} AS U
+				INNER JOIN
+					user_has_roles AS UHR 
+				ON 
+					UHR.id_user = U.id
+				INNER JOIN
+					roles AS R 
+				ON 
+					UHR.id_rol = R.id
 				WHERE 
-					email = ?
+					U.email = ?
+				GROUP BY
+					U.id
             `;
 			const [rows] = await db.query(query, [email]);
 			if (rows.length > 0) {                

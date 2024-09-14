@@ -32,7 +32,8 @@ export class userController {
             email: user.email,
             phone: user.phone,
             image: user.image,
-            session_token: `JWT ${token}`
+            session_token: `JWT ${token}`,
+            roles: user.roles
         }
         return res.status(201).json({
             success: true,
