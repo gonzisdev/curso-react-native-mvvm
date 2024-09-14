@@ -1,3 +1,4 @@
+import { Image } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { AdminCategoryListScreen } from "../views/admin/category/list/CategoryList"
 import { AdminOrderListScreen } from "../views/admin/order/list/OrderList"
@@ -7,10 +8,49 @@ export const AdminTabsNavigator = () => {
   const Tab = createBottomTabNavigator();
 
     return (
-        <Tab.Navigator>
-          <Tab.Screen name="AdminCategoryListScreen" component={AdminCategoryListScreen} />
-          <Tab.Screen name="AdminOrderListScreen" component={AdminOrderListScreen} />
-          <Tab.Screen name="ProfileInfoScreen" component={ProfileInfoScreen} />
-        </Tab.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen 
+          name="AdminCategoryListScreen" 
+          component={AdminCategoryListScreen} 
+          options={{
+            title: "Categorías",
+            tabBarLabel: "Categorías",
+            tabBarIcon: ({color}) => (
+              <Image 
+                source={require('../../../assets/list.png')}
+                style={{width: 25, height: 25}}
+              />
+            )
+          }}
+        />
+        <Tab.Screen 
+          name="AdminOrderListScreen" 
+          component={AdminOrderListScreen} 
+          options={{
+            title: "Pedidos",
+            tabBarLabel: "Pedidos",
+            tabBarIcon: ({color}) => (
+              <Image 
+                source={require('../../../assets/orders.png')}
+                style={{width: 25, height: 25}}
+              />
+            )
+          }}
+        />
+        <Tab.Screen 
+          name="ProfileInfoScreen" 
+          component={ProfileInfoScreen} 
+          options={{
+            title: "Perfil",
+            tabBarLabel: "Perfil",
+            tabBarIcon: ({color}) => (
+              <Image 
+                source={require('../../../assets/user_menu.png')}
+                style={{width: 25, height: 25}}
+              />
+            )
+          }}
+        />
+      </Tab.Navigator>
     )
   }

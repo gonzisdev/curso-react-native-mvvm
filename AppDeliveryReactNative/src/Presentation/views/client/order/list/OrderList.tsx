@@ -4,7 +4,7 @@ export const ClientOrderListScreen = () => {
   return (
     <View>
         <Text>
-            Admincategory
+            client order
         </Text>
     </View>
   )

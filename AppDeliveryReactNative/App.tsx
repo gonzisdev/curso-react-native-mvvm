@@ -10,7 +10,7 @@ export type RootStackParamList = {
   HomeScreen: undefined
   RegisterScreen: undefined
   RolesScreen: undefined
-  AdmintTabsNavigator: undefined
+  AdminTabsNavigator: undefined
   ClientTabsNavigator: undefined
 }
 

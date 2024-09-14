@@ -17,7 +17,7 @@ export const RolesItem = ({rol, height, width, navigation}: RolesItemProps) => {
         style={{...styles.container, height: height, width: width}}
         onPress={() => {
             if (rol.name === "ADMIN") {
-                navigation.replace("AdmintTabsNavigator")
+                navigation.replace("AdminTabsNavigator")
             } else if (rol.name === "CLIENTE") {
                 navigation.replace("ClientTabsNavigator")
             }
