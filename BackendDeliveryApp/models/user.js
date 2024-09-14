@@ -69,7 +69,7 @@ export class User {
 						'[', 
 						GROUP_CONCAT(
 							CONCAT(
-								'{"id": ', R.id, ', ',
+								'{"id": "', R.id, '", ',
 								'"name": "', R.name, '", ',
 								'"image": "', IFNULL(R.image, ''), '", ',
 								'"route": "', IFNULL(R.route, ''), '"}'
@@ -119,7 +119,7 @@ export class User {
 						'[', 
 						GROUP_CONCAT(
 							CONCAT(
-								'{"id": ', R.id, ', ',
+								'{"id": "', R.id, '", ',
 								'"name": "', R.name, '", ',
 								'"image": "', IFNULL(R.image, ''), '", ',
 								'"route": "', IFNULL(R.route, ''), '"}'

@@ -1,3 +1,5 @@
+import { Rol } from "./Rol"
+
 export type User = {
     id?: string
     name: string
@@ -8,4 +10,5 @@ export type User = {
     password: string
     confirmPassword: string
     session_token?: string
+    roles?: Rol[]
 }

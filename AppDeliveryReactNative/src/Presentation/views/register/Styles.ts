@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native"
-import { MyColors } from "../../theme/AppTheme"
 
 const RegisterStyles = StyleSheet.create({
     container: {

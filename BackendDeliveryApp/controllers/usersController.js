@@ -33,7 +33,7 @@ export class userController {
             phone: user.phone,
             image: user.image,
             session_token: `JWT ${token}`,
-            roles: user.roles
+            roles: JSON.parse(user.roles)
         }
         return res.status(201).json({
             success: true,
