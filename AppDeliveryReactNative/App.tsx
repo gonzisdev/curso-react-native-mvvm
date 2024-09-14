@@ -2,14 +2,16 @@ import { NavigationContainer } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { HomeScreen } from "./src/Presentation/views/home/Home"
 import { RegisterScreen } from "./src/Presentation/views/register/Register"
-import { ProfileInfoScreen } from "./src/Presentation/views/profile/info/ProfileInfo"
 import { RolesScreen } from "./src/Presentation/views/roles/Roles"
+import { AdminTabsNavigator } from "./src/Presentation/navigator/AdminTabsNavigator"
+import { ClientTabsNavigator } from "./src/Presentation/navigator/ClientTabsNavigator"
 
 export type RootStackParamList = {
   HomeScreen: undefined
   RegisterScreen: undefined
-  ProfileInfoScreen: undefined
   RolesScreen: undefined
+  AdmintTabsNavigator: undefined
+  ClientTabsNavigator: undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
@@ -34,19 +36,20 @@ const App = () => {
           }}
         />
         <Stack.Screen 
-          name="ProfileInfoScreen"
-          component={ProfileInfoScreen}
-          options={{
-            title: "Perfil de usuario"
-          }}
-        />
-        <Stack.Screen 
           name="RolesScreen"
           component={RolesScreen}
           options={{
             title: "Selecciona un rol",
             headerShown: true
           }}
+        />
+        <Stack.Screen 
+          name="AdminTabsNavigator"
+          component={AdminTabsNavigator}
+        />
+        <Stack.Screen 
+          name="ClientTabsNavigator"
+          component={ClientTabsNavigator}
         />
       </Stack.Navigator>
     </NavigationContainer>

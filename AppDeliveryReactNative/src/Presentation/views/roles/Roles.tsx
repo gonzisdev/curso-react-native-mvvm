@@ -3,9 +3,13 @@ import { View, Dimensions } from "react-native"
 import { RolesItem } from "./Item"
 import Carousel from "react-native-reanimated-carousel"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { RootStackParamList } from "../../../../App"
 import useViewModel from "./ViewModel"
 
-export const RolesScreen = () => {
+type RolesScreenProps = NativeStackScreenProps<RootStackParamList, 'RolesScreen'>
+
+export const RolesScreen = ({navigation, route}: RolesScreenProps) => {
 
     const { user } = useViewModel()
 
@@ -31,7 +35,7 @@ export const RolesScreen = () => {
                 data={user?.roles!}
                 scrollAnimationDuration={5000}
                 // onSnapToItem={(index) => console.log('current index:', index)}
-                renderItem={({ item }) => <RolesItem rol={item} height={420} width={width - 100} />}
+                renderItem={({ item }) => <RolesItem rol={item} height={420} width={width - 100} navigation={navigation} />}
                 modeConfig={{
                     snapDirection,
                     stackInterval: 30

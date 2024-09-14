@@ -24,7 +24,7 @@ export const HomeScreen = ({navigation, route}: HomeScreenProps) => {
             if (user.roles?.length! > 1) {
                 navigation.replace('RolesScreen')
             } else {
-                navigation.replace('ProfileInfoScreen')
+                navigation.replace('ClientTabsNavigator')
             }
         }
     }, [user])

@@ -28,7 +28,7 @@ INSERT INTO roles(
     updated_at
 )
 VALUES(
-    'RESTAURANTE',
+    'ADMIN',
     '/restaurant/orders/list',
     '2024-09-14',
     '2024-09-14'
