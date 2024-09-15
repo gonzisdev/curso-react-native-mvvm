@@ -5,6 +5,7 @@ import { ClientOrderListScreen } from "../views/client/order/list/OrderList"
 import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo"
 
 export const ClientTabsNavigator = () => {
+  
   const Tab = createBottomTabNavigator();
 
     return (
@@ -43,6 +44,7 @@ export const ClientTabsNavigator = () => {
           options={{
             title: "Perfil",
             tabBarLabel: "Perfil",
+            headerShown: false,
             tabBarIcon: ({color}) => (
               <Image 
                 source={require('../../../assets/user_menu.png')}
