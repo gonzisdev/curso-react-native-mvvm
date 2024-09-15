@@ -1,19 +1,19 @@
 import { StyleSheet } from "react-native"
 
-const styles = StyleSheet.create({
+const ProfileUpdateStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "black"
+        backgroundColor: 'black',
     },
     imageBackground: {
         width: "100%",
         height: "100%",
-        opacity: 0.7,
+        opacity: 0.6,
         bottom: "30%"
     },
     form: {
         width: "100%",
-        height: "45%",
+        height: "50%",
         backgroundColor: "white",
         position: "absolute",
         bottom: 0,
@@ -25,32 +25,15 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 16
     },
-    formInfo: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    formContent:{
-        marginLeft: 15
-    },
-    formImage: {
-      height: 30,
-      width: 30 
-    },
-    formTextDescription:{
-        fontSize: 12,
-        color: "gray"
-    },
     logoContainer: {
         position: "absolute",
         alignSelf: "center",
-        top: "14%"
+        alignItems: "center",
+        top: "10%"
     },
     logoImage: {
-        width: 180,
-        height: 180,
-        borderWidth: 2,
-        borderColor: "white",
-        borderRadius: 100
+        width: 100,
+        height: 100
     },
     logoText: {
         color: "white",
@@ -59,15 +42,13 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginTop: 10
     },
-    logout: {
+    loading: {
         position: "absolute",
-        top: 30,
-        right: 15
-    },
-    logoutImage: {
-        width: 40,
-        height: 40,
+        bottom: 0,
+        top: 0,
+        right: 0,
+        left: 0
     }
 })
 
-export default styles
+export default ProfileUpdateStyles

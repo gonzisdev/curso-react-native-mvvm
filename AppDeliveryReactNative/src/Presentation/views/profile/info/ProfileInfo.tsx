@@ -18,7 +18,7 @@ export const ProfileInfoScreen = ({navigation, route}: ProfileInfoScreenProps) =
             onPress={() => {removeSession(), navigation.navigate('HomeScreen')}}
         /> */}
         <Image 
-            source={require('../../../../../assets/chef.jpg')} 
+            source={require('../../../../../assets/city.jpg')} 
             style={styles.imageBackground}
         />
         <TouchableOpacity style={styles.logout}  onPress={() => {removeSession(), navigation.replace('HomeScreen')}}>
@@ -64,7 +64,7 @@ export const ProfileInfoScreen = ({navigation, route}: ProfileInfoScreenProps) =
                 <Text style={styles.formTextDescription}>Teléfono</Text>
               </View>
             </View>
-            <RoundedButton text="ACTUALIZAR INFORMACIÓN" onPress={() => {}} />
+            <RoundedButton text="ACTUALIZAR INFORMACIÓN" onPress={() => {navigation.navigate('ProfileUpdateScreen')}} />
         </View>
     </View>
   )
