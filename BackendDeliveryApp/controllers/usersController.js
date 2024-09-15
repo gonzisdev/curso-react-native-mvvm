@@ -91,4 +91,50 @@ export class userController {
             })
         }
     }
+
+    static updateWithImage = async (req, res) => {
+        const user = JSON.parse(req.body.user) 
+        const files = req.file
+        if (files.length > 0) {
+            const path = `image_${Date.now()}`
+            const url = await storage(files[0], path)
+            if (url != undefined && url != null) {
+                user.image = url
+            }
+        }
+        try {
+            await User.update(user)
+            return res.status(201).json({
+                success: true,
+                message: 'El usuario se actualizó correctamente', 
+                data: user
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error con la actualización del usuario',
+                error: error.message
+            })
+        }
+    }
+
+    static updateWithoutImage = async (req, res) => {
+        const user = req.body
+        try {
+            await User.updateWithoutImage(user)
+            return res.status(201).json({
+                success: true,
+                message: 'El usuario se actualizó correctamente', 
+                data: user
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error con la actualización del usuario',
+                error: error.message
+            })
+        }
+    }
 }

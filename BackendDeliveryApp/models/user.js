@@ -5,15 +5,15 @@ export class User {
     static table = "users";
 
 	constructor({id, email, name,lastname, phone, image, password, created_at, updated_at}) {
-		this.id = id;
-		this.email = email;
-		this.name = name;
-        this.lastname = lastname;
-        this.phone = phone;
-        this.image = image;
-        this.password = password;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
+		this.id = id
+		this.email = email
+		this.name = name
+        this.lastname = lastname
+        this.phone = phone
+        this.image = image
+        this.password = password
+        this.created_at = created_at
+        this.updated_at = updated_at
 	}
 
     static async create(user) {
@@ -42,17 +42,17 @@ export class User {
 				hash,
 				new Date(),
                 new Date()
-			]);
+			])
 			if (result[0].affectedRows > 0) {                
-				return result[0].insertId;
+				return result[0].insertId
 			} else {
-				return null;
-			};
+				return null
+			}
 		} catch (error) {
 			console.error("Error creating user:", error);
-			throw error;
-		};
-	};
+			throw error
+		}
+	}
 
 	static async findById(id) {
 		try {
@@ -92,17 +92,17 @@ export class User {
 				GROUP BY
 					U.id
             `;
-			const [rows] = await db.query(query, [id]);
+			const [rows] = await db.query(query, [id])
 			if (rows.length > 0) {                
-				return rows[0];
+				return rows[0]
 			} else {
-				return null;
-			};
+				return null
+			}
 		} catch (error) {
-			console.error("Error fetching user by ID:", error);
-			throw error;
-		};
-	};
+			console.error("Error fetching user by ID:", error)
+			throw error
+		}
+	}
 
 	static async findByEmail(email) {
 		try {
@@ -142,15 +142,80 @@ export class User {
 				GROUP BY
 					U.id
             `;
-			const [rows] = await db.query(query, [email]);
+			const [rows] = await db.query(query, [email])
 			if (rows.length > 0) {                
 				return rows[0];
+			} else {
+				return null
+			}
+		} catch (error) {
+			console.error("Error fetching user by email:", error);
+			throw error
+		}
+	}
+
+	static async update(user) {
+		try {
+			const query = `
+                UPDATE 
+                    ${this.table}
+				SET
+					name = ?,
+					lastname = ?,
+					phone = ?,
+					updated_at = ?,
+				WHERE
+					id = ?
+            `;
+			const result = await db.query(query, [
+				user.name,
+				user.lastname,
+				user.phone,
+                new Date(),
+				user.id
+			])
+			if (result[0].affectedRows > 0) {                
+				return result[0].insertId
 			} else {
 				return null;
 			};
 		} catch (error) {
-			console.error("Error fetching user by email:", error);
-			throw error;
-		};
-	};
+			console.error("Error updating user:", error)
+			throw error
+		}
+	}
+
+	static async updateWithoutImage(user) {
+		try {
+			const query = `
+                UPDATE 
+                    ${this.table}
+				SET
+					name = ?,
+					lastname = ?,
+					phone = ?,
+					image = ?,
+					updated_at = ?,
+				WHERE
+					id = ?
+            `;
+			const result = await db.query(query, [
+				user.name,
+				user.lastname,
+				user.phone,
+				user.image,
+                new Date(),
+				user.id
+			])
+			if (result[0].affectedRows > 0) {                
+				return result[0].insertId
+			} else {
+				return null;
+			};
+		} catch (error) {
+			console.error("Error updating user:", error)
+			throw error
+		}
+	}
+
 }
