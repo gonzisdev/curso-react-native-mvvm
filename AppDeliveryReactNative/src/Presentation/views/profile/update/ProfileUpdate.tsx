@@ -15,7 +15,7 @@ export const ProfileUpdateScreen = ({navigation, route}: ProfileUpdateScreenProp
 
     const { user } = route.params
 
-    const { name, lastname, phone, image, onChange, update, errorMessage, pickImage, takePhoto, loading } = useViewModel(user)
+    const { name, lastname, phone, image, onChange, update, errorMessage, pickImage, takePhoto, loading, successMessage} = useViewModel(user)
     const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
@@ -23,6 +23,12 @@ export const ProfileUpdateScreen = ({navigation, route}: ProfileUpdateScreenProp
             ToastAndroid.show(errorMessage, ToastAndroid.LONG)
         }
     }, [errorMessage])
+
+    useEffect(() => {
+        if (successMessage !== "") {
+            ToastAndroid.show(successMessage, ToastAndroid.LONG)
+        }
+    }, [successMessage])
 
     return (
         <View style={styles.container}>
