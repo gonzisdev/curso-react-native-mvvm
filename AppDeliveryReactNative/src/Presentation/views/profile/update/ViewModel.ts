@@ -1,26 +1,20 @@
 import { useState } from "react"
-import { RegisterWithImageAuthUseCase } from "../../../../Domain/useCases/auth/RegisterWithImageAuth"
+import { UpdateUserUseCase } from "../../../../Domain/useCases/user/UpdateUser"
+import { UpdateWithImageUserUseCase } from "../../../../Domain/useCases/user/UpdateWithImageUser"
 import { SaveUserLocalUseCase } from "../../../../Domain/useCases/userLocal/SaveUserLocal"
 import { useUserLocal } from "../../../hooks/useUserLocal"
 import * as ImagePicker from "expo-image-picker"
+import { User } from "../../../../Domain/entities/User"
+import { ResponseApiDelivery } from "../../../../Data/sources/remote/models/ResponseApiDelivery"
 
-const ProfileUpdateViewModel = () => {
+const ProfileUpdateViewModel = (user: User) => {
 
     const [errorMessage, setErrorMessage] = useState("")
-    const [values, setValues] = useState({
-        name: "",
-        lastname: "",
-        email: "",
-        phone: "",
-        image: "",
-        password: "",
-        confirmPassword: ""
-    })
+    const [values, setValues] = useState(user)
     const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()
     const [loading, setLoading] = useState(false)
 
-    const { user, getUserSession } = useUserLocal()
-    console.log('USUARIO DE SESION: ' + JSON.stringify(user));
+    const { getUserSession } = useUserLocal()
 
     const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -55,21 +49,15 @@ const ProfileUpdateViewModel = () => {
         })
     }
 
-    const onChangeInfoUpdate = (name: string, lastname: string, phone: string) => {
-        setValues({
-            ...values,
-            name,
-            lastname,
-            phone
-        })
-    }
-
-
-    const register = async () => {
+    const update = async () => {
         if (isValidForm()) {
             setLoading(true)
-            //const response = await RegisterAuthUseCase(values)
-            const response = await RegisterWithImageAuthUseCase(values, file!)
+            let response = {} as ResponseApiDelivery
+            if (values.image?.includes('https://')) {
+                response = await UpdateUserUseCase(values)
+            } else {
+                response = await UpdateWithImageUserUseCase(values, file!)
+            }
             setLoading(false)
             console.log("Result: " + JSON.stringify(response))
             if (!response.success) {
@@ -90,28 +78,8 @@ const ProfileUpdateViewModel = () => {
             setErrorMessage("Introduce tus apellidos")
             return false
         }
-        if (values.email === '') {
-            setErrorMessage("Introduce tu email")
-            return false
-        }
         if (values.phone === '') {
             setErrorMessage("Introduce tu teléfono")
-            return false
-        }
-        if (values.image === '') {
-            setErrorMessage("Selecciona una imagen")
-            return false
-        }
-        if (values.password === '') {
-            setErrorMessage("Introduce tu contraseña")
-            return false
-        }
-        if (values.confirmPassword === '') {
-            setErrorMessage("Confirma tu contraseña")
-            return false
-        }
-        if (values.password !== values.confirmPassword) {
-            setErrorMessage("Las contraseñas no coinciden")
             return false
         }
         return true
@@ -120,13 +88,11 @@ const ProfileUpdateViewModel = () => {
     return {
         ...values,
         onChange,
-        register,
+        update,
         pickImage,
         takePhoto,
         errorMessage,
-        user,
-        loading,
-        onChangeInfoUpdate
+        loading
     }
 }
 

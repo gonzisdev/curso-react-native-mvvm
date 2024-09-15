@@ -163,7 +163,7 @@ export class User {
 					name = ?,
 					lastname = ?,
 					phone = ?,
-					updated_at = ?,
+					updated_at = ?
 				WHERE
 					id = ?
             `;
@@ -195,7 +195,7 @@ export class User {
 					lastname = ?,
 					phone = ?,
 					image = ?,
-					updated_at = ?,
+					updated_at = ?
 				WHERE
 					id = ?
             `;

@@ -13,7 +13,9 @@ type ProfileUpdateScreenProps = NativeStackScreenProps<RootStackParamList, 'Prof
 
 export const ProfileUpdateScreen = ({navigation, route}: ProfileUpdateScreenProps) => {
 
-    const { name, lastname, phone, image, onChange, register, errorMessage, pickImage, takePhoto, user, loading, onChangeInfoUpdate } = useViewModel()
+    const { user } = route.params
+
+    const { name, lastname, phone, image, onChange, update, errorMessage, pickImage, takePhoto, loading } = useViewModel(user)
     const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
@@ -21,10 +23,6 @@ export const ProfileUpdateScreen = ({navigation, route}: ProfileUpdateScreenProp
             ToastAndroid.show(errorMessage, ToastAndroid.LONG)
         }
     }, [errorMessage])
-
-    useEffect(() => {
-        onChangeInfoUpdate(user?.name!, user?.lastname!, user?.phone!)
-    }, [user])
 
     return (
         <View style={styles.container}>
@@ -78,7 +76,7 @@ export const ProfileUpdateScreen = ({navigation, route}: ProfileUpdateScreenProp
                         onChangeText={onChange}
                     />
                     <View style={{marginTop: 30}}>
-                        <RoundedButton text='CONFIRMAR' onPress={register} />
+                        <RoundedButton text='CONFIRMAR' onPress={update} />
                     </View>
                 </ScrollView>
             </View>

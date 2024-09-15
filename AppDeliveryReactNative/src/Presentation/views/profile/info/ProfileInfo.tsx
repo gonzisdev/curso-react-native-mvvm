@@ -64,7 +64,7 @@ export const ProfileInfoScreen = ({navigation, route}: ProfileInfoScreenProps) =
                 <Text style={styles.formTextDescription}>Teléfono</Text>
               </View>
             </View>
-            <RoundedButton text="ACTUALIZAR INFORMACIÓN" onPress={() => {navigation.navigate('ProfileUpdateScreen')}} />
+            <RoundedButton text="ACTUALIZAR INFORMACIÓN" onPress={() => {navigation.navigate('ProfileUpdateScreen', {user: user!})}} />
         </View>
     </View>
   )
