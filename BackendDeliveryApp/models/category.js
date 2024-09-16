@@ -1,8 +1,7 @@
 import { db } from "../config/config.js"
-import bcrypt from "bcrypt"
 
 export class Category {
-    static table = "categories";
+    static table = "categories"
 
 	constructor({id, name, description, image, created_at, updated_at}) {
 		this.id = id
@@ -39,7 +38,7 @@ export class Category {
 				return null
 			}
 		} catch (error) {
-			console.error("Error creating category:", error);
+			console.error("Error creating category:", error)
 			throw error
 		}
 	}
