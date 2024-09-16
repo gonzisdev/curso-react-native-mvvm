@@ -29,4 +29,22 @@ export class categoriesController {
             })
         }
     }
+
+    static getAll = async (req, res) => {
+        try {
+            const data = await Category.getAll()
+            return res.status(201).json({
+                success: true,
+                message: 'Las categorías se listaron correctamente', 
+                data
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error al listar las categorías',
+                error: error.message
+            })
+        }
+    }
 }

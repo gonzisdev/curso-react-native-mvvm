@@ -42,4 +42,29 @@ export class Category {
 			throw error
 		}
 	}
+
+	static async getAll() {
+		try {
+			const query = `
+                SELECT 
+					id,
+					name,
+					description,
+					image
+				FROM
+					${this.table}
+				ORDER BY
+					name
+            `;
+			const [rows] = await db.query(query)
+			if (rows.length > 0) {                
+				return rows;
+			} else {
+				return null
+			}
+		} catch (error) {
+			console.error("Error fetching all categories:", error)
+			throw error
+		}
+	}
 }
