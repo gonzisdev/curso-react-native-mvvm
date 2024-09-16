@@ -87,4 +87,36 @@ export class Category {
 			throw error
 		}
 	}
+
+	static async update(category) {
+		try {
+			const query = `
+                UPDATE 
+                    ${this.table}
+				SET
+					name = ?,
+					description = ?,
+					image = ?,
+					updated_at = ?
+				WHERE
+					id = ?
+            `;
+			const result = await db.query(query, [
+				category.name,
+				category.description,
+				category.image,
+                new Date(),
+				category.id
+			])
+			if (result[0].affectedRows > 0) {                
+				return category.id
+			} else {
+				return null;
+			};
+		} catch (error) {
+			console.error("Error updating category:", error)
+			throw error
+		}
+	}
+
 }
