@@ -5,4 +5,5 @@ import { Category } from "../entities/Category"
 export type CategoryRepository = {
     getAll(): Promise<Category[]>
     create(category: Category,  file: ImagePicker.ImagePickerAsset): Promise<ResponseApiDelivery>
+    remove(id: Category['id']): Promise<ResponseApiDelivery>
 }

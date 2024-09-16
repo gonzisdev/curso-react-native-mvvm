@@ -47,4 +47,23 @@ export class categoriesController {
             })
         }
     }
+
+    static delete = async (req, res) => {
+        try {
+            const id = req.params.id
+            const data = await Category.delete(id)
+            return res.status(201).json({
+                success: true,
+                message: 'Las categoría se eliminó correctamente', 
+                data
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error al eliminar la categoría',
+                error: error.message
+            })
+        }
+    }
 }

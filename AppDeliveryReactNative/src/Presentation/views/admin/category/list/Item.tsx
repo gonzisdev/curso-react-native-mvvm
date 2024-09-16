@@ -3,9 +3,10 @@ import { Category } from "../../../../../Domain/entities/Category"
 
 type AdminCategoryListItemProps = {
     category: Category
+    remove: (id: Category['id']) => void
 }
 
-export const AdminCategoryListItem = ({category}: AdminCategoryListItemProps) => {
+export const AdminCategoryListItem = ({category, remove}: AdminCategoryListItemProps) => {
   return (
     <TouchableOpacity>
         <View style={styles.container}>
@@ -24,7 +25,9 @@ export const AdminCategoryListItem = ({category}: AdminCategoryListItemProps) =>
                         source={require('../../../../../../assets/edit.png')}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => remove(category.id!)}
+                >
                     <Image 
                         style={styles.actionImage}
                         source={require('../../../../../../assets/trash.png')}
