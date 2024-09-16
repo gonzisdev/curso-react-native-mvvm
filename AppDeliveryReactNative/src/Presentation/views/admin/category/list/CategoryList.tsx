@@ -1,6 +1,7 @@
 import { View, Text, FlatList } from "react-native"
 import useViewModel from "./ViewModel"
 import { useEffect } from "react"
+import { AdminCategoryListItem } from "./Item"
 
 export const AdminCategoryListScreen = () => {
 
@@ -11,11 +12,11 @@ export const AdminCategoryListScreen = () => {
   }, [])
 
   return (
-    <View>
+    <View style={{backgroundColor: "white"}}>
         <FlatList
           data={categories}
           keyExtractor={(item) => item.id!}
-          renderItem={({item}) => <Text>{item.name}</Text>}
+          renderItem={({item}) => <AdminCategoryListItem category={item} />}
         />
     </View>
   )
