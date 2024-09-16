@@ -1,7 +1,5 @@
 import { useContext, useState } from "react"
 import { LoginAuthUseCase } from "../../../Domain/useCases/auth/LoginAuth"
-import { SaveUserLocalUseCase } from "../../../Domain/useCases/userLocal/SaveUserLocal"
-import { useUserLocal } from "../../hooks/useUserLocal"
 import { UserContext } from "../../context/UserContext"
 
 const HomeViewModel = () => {
