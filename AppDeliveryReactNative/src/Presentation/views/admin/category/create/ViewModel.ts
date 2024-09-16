@@ -21,10 +21,13 @@ const AdminCategoryCreateViewModel = () => {
     }
 
     const CreateCategory = async () => {
+        setLoading(true)
         const response = await CreateCategoryUseCase(values, file!)
+        setLoading(false)
         if (response.success) {
             setResponseMessage(response.message)
         }
+        resetForm()
     }
 
     const pickImage = async () => {
@@ -51,6 +54,14 @@ const AdminCategoryCreateViewModel = () => {
             onChange("image", selectedImage.uri)
             setFile(selectedImage)
           }
+    }
+
+    const resetForm = () => {
+        setValues({
+            name: "",
+            description: "",
+            image: ""
+        })
     }
 
     return {
