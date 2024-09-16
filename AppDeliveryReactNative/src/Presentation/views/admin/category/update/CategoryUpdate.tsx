@@ -4,12 +4,12 @@ import { CustomTextInput } from "../../../../components/CustomTextInput"
 import { RoundedButton } from "../../../../components/RoundedButton"
 import { ModalPickImage } from "../../../../components/ModalPickImage"
 import { MyColors, MyStyles } from "../../../../theme/AppTheme"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import useViewModel from "./ViewModel"
 import styles from "./Styles"
-import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../../../../../../App"
+import { CategoryStackParamList } from "../../../../navigator/AdminCategoryNavigator"
 
-type AdminCategoryUpdateScreenProps = NativeStackScreenProps<RootStackParamList, 'AdminCategoryUpdateScreen'>
+type AdminCategoryUpdateScreenProps = NativeStackScreenProps<CategoryStackParamList, 'AdminCategoryUpdateScreen'>
 
 export const AdminCategoryUpdateScreen = ({navigation, route}: AdminCategoryUpdateScreenProps) => {
 

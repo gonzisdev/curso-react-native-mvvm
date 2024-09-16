@@ -4,8 +4,9 @@ import { RolesItem } from "./Item"
 import Carousel from "react-native-reanimated-carousel"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../../../../App"
+
 import useViewModel from "./ViewModel"
+import { RootStackParamList } from "../../navigator/MainStackNavigator"
 
 type RolesScreenProps = NativeStackScreenProps<RootStackParamList, 'RolesScreen'>
 

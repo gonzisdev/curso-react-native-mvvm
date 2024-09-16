@@ -2,7 +2,8 @@ import { TouchableOpacity, View, Image, Text, StyleSheet } from "react-native"
 import { Rol } from "../../../Domain/entities/Rol"
 import { MyColors } from "../../theme/AppTheme"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../../../../App"
+import { RootStackParamList } from "../../navigator/MainStackNavigator"
+
 
 type RolesItemProps = {
     rol: Rol

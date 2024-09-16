@@ -2,7 +2,8 @@ import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import { Category } from "../../../../../Domain/entities/Category"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../../../../../../App"
+import { CategoryStackParamList } from "../../../../navigator/AdminCategoryNavigator"
+
 
 type AdminCategoryListItemProps = {
     category: Category
@@ -11,7 +12,7 @@ type AdminCategoryListItemProps = {
 
 export const AdminCategoryListItem = ({category, remove}: AdminCategoryListItemProps) => {
 
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+    const navigation = useNavigation<NativeStackNavigationProp<CategoryStackParamList>>()
 
   return (
     <TouchableOpacity>

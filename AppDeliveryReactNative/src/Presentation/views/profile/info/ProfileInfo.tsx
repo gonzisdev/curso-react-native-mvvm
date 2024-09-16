@@ -1,6 +1,6 @@
 import { View, Button, Text, Image, TouchableOpacity} from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { RootStackParamList } from "../../../../../App"
+import { RootStackParamList } from "../../../navigator/MainStackNavigator"
 import useViewModel from "./ViewModel"
 import styles from "./Styles"
 import { RoundedButton } from "../../../components/RoundedButton"

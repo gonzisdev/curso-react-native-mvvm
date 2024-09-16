@@ -5,11 +5,7 @@ import { AdminCategoryListItem } from "./Item"
 
 export const AdminCategoryListScreen = () => {
 
-  const { categories, getCategories, deleteCategory, responseMessage } = useViewModel()
-
-  useEffect(() => {
-    getCategories()
-  }, [])
+  const { categories, deleteCategory, responseMessage } = useViewModel()
 
   useEffect(() => {
     if (responseMessage !== '') {

@@ -1,35 +1,32 @@
 import { Image, TouchableOpacity } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { AdminCategoryListScreen } from "../views/admin/category/list/CategoryList"
 import { AdminOrderListScreen } from "../views/admin/order/list/OrderList"
 import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo"
+import { AdminCategoryNavigator } from "./AdminCategoryNavigator"
 
 export const AdminTabsNavigator = () => {
 
   const Tab = createBottomTabNavigator()
 
     return (
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
         <Tab.Screen 
-          name="AdminCategoryListScreen" 
-          component={AdminCategoryListScreen} 
+          name="AdminCategoryNavigator" 
+          component={AdminCategoryNavigator} 
           options={({route, navigation}) => (
             {
               title: "Categorías",
               tabBarLabel: "Categorías",
-              tabBarIcon: ({color}) => (
+              headerShown: true,
+              tabBarIcon: () => (
                 <Image 
                   source={require('../../../assets/list.png')}
                   style={{width: 25, height: 25}}
                 />
-              ),
-              headerRight: () => (
-                <TouchableOpacity onPress={() => navigation.navigate('AdminCategoryCreateScreen')}>
-                  <Image 
-                    source={require('../../../assets/add.png')}
-                    style={{width: 35, height: 35, marginRight: 15}}
-                  />
-                </TouchableOpacity>
               )
             }
           )}
