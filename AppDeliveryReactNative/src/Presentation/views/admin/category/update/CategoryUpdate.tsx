@@ -15,7 +15,7 @@ export const AdminCategoryUpdateScreen = ({navigation, route}: AdminCategoryUpda
 
     const { category } = route.params
 
-    const { name, description, onChange, takePhoto, pickImage, loading, responseMessage, image, CreateCategory } = useViewModel(category)
+    const { name, description, onChange, takePhoto, pickImage, loading, responseMessage, image, updateCategory } = useViewModel(category)
     const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
@@ -64,8 +64,8 @@ export const AdminCategoryUpdateScreen = ({navigation, route}: AdminCategoryUpda
         </View>
         <View style={styles.buttonContainer}>
             <RoundedButton 
-                text="CREAR CATEGORÍA"
-                onPress={CreateCategory}
+                text="ACTUALIZAR CATEGORÍA"
+                onPress={updateCategory}
             />
         </View>
         <ModalPickImage 

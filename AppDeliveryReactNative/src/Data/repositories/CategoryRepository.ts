@@ -50,4 +50,35 @@ export class CategoryRepositoryImpl implements CategoryRepository {
         }
     }
 
+    async update(category: Category): Promise<ResponseApiDelivery> {
+        try {
+            const response = await ApiDelivery.put<ResponseApiDelivery>('/categories/update', category)
+            return Promise.resolve(response.data)
+        } catch (error) {
+            let e = (error as AxiosError)
+            console.log(JSON.stringify(e.response?.data))
+            const apiError: ResponseApiDelivery = JSON.parse(JSON.stringify(e.response?.data))
+            return Promise.resolve(apiError)
+        }
+    }
+
+    async updateWithImage(category: Category, file: ImagePicker.ImagePickerAsset): Promise<ResponseApiDelivery> {
+        try {
+            let data = new FormData()
+            data.append('image', {
+                uri: file.uri,
+                name: file.uri.split('/').pop(),
+                type: mime.getType(file.uri)!
+            } as any)
+            data.append('category', JSON.stringify(category))
+            const response = await ApiDeliveryForImage.put<ResponseApiDelivery>('/categories/updateWithImage', data)
+            return Promise.resolve(response.data)
+        } catch (error) {
+            let e = (error as AxiosError)
+            console.log(JSON.stringify(e.response?.data))
+            const apiError: ResponseApiDelivery = JSON.parse(JSON.stringify(e.response?.data))
+            return Promise.resolve(apiError)
+        }
+    }
+
 }

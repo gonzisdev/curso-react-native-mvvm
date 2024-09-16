@@ -1,6 +1,8 @@
 import { useState } from "react"
 import * as ImagePicker from "expo-image-picker"
-import { CreateCategoryUseCase } from "../../../../../Domain/useCases/category/CreateCategory"
+import { UpdateCategoryUseCase } from "../../../../../Domain/useCases/category/UpdateCategory"
+import { UpdateWithImageCategoryUseCase } from "../../../../../Domain/useCases/category/UpdateWithImageCategory"
+import { ResponseApiDelivery } from "../../../../../Data/sources/remote/models/ResponseApiDelivery"
 import { Category } from "../../../../../Domain/entities/Category"
 
 const AdminCategoryUpdateViewModel = (category: Category) => {
@@ -17,9 +19,14 @@ const AdminCategoryUpdateViewModel = (category: Category) => {
         })
     }
 
-    const CreateCategory = async () => {
+    const updateCategory = async () => {
         setLoading(true)
-        const response = await CreateCategoryUseCase(values, file!)
+        let response = {} as ResponseApiDelivery
+        if (values.image?.includes('https://')) {
+            response = await UpdateCategoryUseCase(values)
+        } else {
+            response = await UpdateWithImageCategoryUseCase(values, file!)
+        }
         setLoading(false)
         if (response.success) {
             setResponseMessage(response.message)
@@ -68,7 +75,7 @@ const AdminCategoryUpdateViewModel = (category: Category) => {
         pickImage,
         loading,
         responseMessage,
-        CreateCategory
+        updateCategory
     }
 }
 
