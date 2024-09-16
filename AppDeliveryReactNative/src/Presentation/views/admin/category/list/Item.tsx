@@ -1,5 +1,8 @@
 import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import { Category } from "../../../../../Domain/entities/Category"
+import { useNavigation } from "@react-navigation/native"
+import { NativeStackNavigationProp } from "@react-navigation/native-stack"
+import { RootStackParamList } from "../../../../../../App"
 
 type AdminCategoryListItemProps = {
     category: Category
@@ -7,6 +10,9 @@ type AdminCategoryListItemProps = {
 }
 
 export const AdminCategoryListItem = ({category, remove}: AdminCategoryListItemProps) => {
+
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+
   return (
     <TouchableOpacity>
         <View style={styles.container}>
@@ -19,7 +25,9 @@ export const AdminCategoryListItem = ({category, remove}: AdminCategoryListItemP
                 <Text style={styles.description}>{category.description}</Text>
             </View>
             <View style={styles.actionContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('AdminCategoryUpdateScreen', {category: category})}
+                >
                     <Image 
                         style={styles.actionImage}
                         source={require('../../../../../../assets/edit.png')}
