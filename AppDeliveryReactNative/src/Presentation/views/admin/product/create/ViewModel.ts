@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import * as ImagePicker from "expo-image-picker"
-import { CategoryContext } from "../../../../context/CategoryContext"
 import { Category } from "../../../../../Domain/entities/Category"
+import { ProductContext } from "../../../../context/ProductContext"
 
 const AdminProductCreateViewModel = (category: Category) => {
 
@@ -12,14 +12,14 @@ const AdminProductCreateViewModel = (category: Category) => {
         image1: "",
         image2: "",
         image3: "",
-        idCategory: category.id,
-        price: ""
+        id_category: category.id,
+        price: 0
     })
     const [file1, setFile1] = useState<ImagePicker.ImagePickerAsset>()
     const [file2, setFile2] = useState<ImagePicker.ImagePickerAsset>()
     const [file3, setFile3] = useState<ImagePicker.ImagePickerAsset>()
     const [loading, setLoading] = useState(false)
-    const { create } = useContext(CategoryContext)
+    const { create } = useContext(ProductContext)
     
     const onChange = (property: string, value: any) => {
         setValues({
@@ -29,13 +29,17 @@ const AdminProductCreateViewModel = (category: Category) => {
     }
 
     const createProduct = async () => {
-        // setLoading(true)
-        // const response = await create(values, file!)
-        // setLoading(false)
-        // if (response.success) {
-        //     setResponseMessage(response.message)
-        // }
-        // resetForm()
+        let files = []
+        files.push(file1!)
+        files.push(file2!)
+        files.push(file3!)
+        setLoading(true)
+        const response = await create(values, files)
+        setLoading(false)
+        if (response.success) {
+            setResponseMessage(response.message)
+        }
+        resetForm()
     }
 
     const pickImage = async (numberImage: number) => {
@@ -95,8 +99,8 @@ const AdminProductCreateViewModel = (category: Category) => {
             image1: "",
             image2: "",
             image3: "",
-            idCategory: "",
-            price: ""
+            id_category: category.id,
+            price: 0
         })
     }
 
