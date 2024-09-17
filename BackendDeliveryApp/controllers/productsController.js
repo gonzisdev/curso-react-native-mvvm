@@ -52,4 +52,23 @@ export class productsController {
             }
         }
     }
+
+    static findByCategory = async (req, res) => {
+        const id_category = req.params.id_category
+        try {
+            const data = await Product.findByCategory(id_category)
+            return res.status(201).json({
+                success: true,
+                message: 'Laos productos se listaron correctamente', 
+                data: data
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error al listar los productos por categoría',
+                error: error.message
+            })
+        }
+    }
 }

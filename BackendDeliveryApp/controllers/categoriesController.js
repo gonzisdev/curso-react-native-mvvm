@@ -5,10 +5,10 @@ export class categoriesController {
 
     static create = async (req, res) => {
         const category = JSON.parse(req.body.category) 
-        const files = req.file
-        if (files.length > 0) {
+        const file = req.file
+        if (file) {
             const path = `image_${Date.now()}`
-            const url = await storage(files[0], path)
+            const url = await storage(file, path)
             if (url != undefined && url != null) {
                 category.image = url
             }
@@ -32,10 +32,10 @@ export class categoriesController {
 
     static updateWithImage = async (req, res) => {
         const category = JSON.parse(req.body.category) 
-        const files = req.file
-        if (files.length > 0) {
+        const file = req.file
+        if (file) {
             const path = `image_${Date.now()}`
-            const url = await storage(files[0], path)
+            const url = await storage(file, path)
             if (url != undefined && url != null) {
                 category.image = url
             }

@@ -19,6 +19,8 @@ export class ProductRepositoryImpl implements ProductRepository{
                 } as any)
             })
             data.append('product', JSON.stringify(product))
+            console.log(data);
+            
             const response = await ApiDeliveryForImage.post<ResponseApiDelivery>('/products/create', data)
             return Promise.resolve(response.data)
         } catch (error) {

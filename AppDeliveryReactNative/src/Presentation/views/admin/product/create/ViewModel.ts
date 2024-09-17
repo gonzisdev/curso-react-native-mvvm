@@ -26,6 +26,7 @@ const AdminProductCreateViewModel = (category: Category) => {
             ...values,
             [property]: value
         })
+        
     }
 
     const createProduct = async () => {
@@ -51,17 +52,17 @@ const AdminProductCreateViewModel = (category: Category) => {
         if (!result.canceled && result.assets && result.assets.length > 0) {
             if(numberImage == 1){
                 const selectedImage = result.assets[0]
-                onChange("image", selectedImage.uri)
+                onChange("image1", selectedImage.uri)
                 setFile1(selectedImage)
             }
             else if(numberImage == 2){
                 const selectedImage = result.assets[0]
-                onChange("image", selectedImage.uri)
+                onChange("image2", selectedImage.uri)
                 setFile2(selectedImage)
             } 
             else if(numberImage == 3){
                 const selectedImage = result.assets[0]
-                onChange("image", selectedImage.uri)
+                onChange("image3", selectedImage.uri)
                 setFile3(selectedImage)
             }
           }
@@ -76,17 +77,17 @@ const AdminProductCreateViewModel = (category: Category) => {
         if (!result.canceled && result.assets && result.assets.length > 0) {
             if(numberImage == 1){
                 const selectedImage = result.assets[0]
-                onChange("image", selectedImage.uri)
+                onChange("image1", selectedImage.uri)
                 setFile1(selectedImage)
             }
             else if(numberImage == 2){
                 const selectedImage = result.assets[0]
-                onChange("image", selectedImage.uri)
+                onChange("image2", selectedImage.uri)
                 setFile2(selectedImage)
             } 
             else if(numberImage == 3){
                 const selectedImage = result.assets[0]
-                onChange("image", selectedImage.uri)
+                onChange("image3", selectedImage.uri)
                 setFile3(selectedImage)
             }
           }

@@ -63,10 +63,10 @@ export class userController {
 
     static registerWithImage = async (req, res) => {
         const user = JSON.parse(req.body.user) 
-        const files = req.file
-        if (files.length > 0) {
+        const file = req.file
+        if (file) {
             const path = `image_${Date.now()}`
-            const url = await storage(files[0], path)
+            const url = await storage(file, path)
             if (url != undefined && url != null) {
                 user.image = url
             }

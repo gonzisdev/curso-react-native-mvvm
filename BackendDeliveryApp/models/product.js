@@ -61,26 +61,16 @@ export class Product {
                 UPDATE  
                     ${this.table}
 				SET
-					name = ?,
-					description = ?,
-					price = ?,
 					image1 = ?,
 					image2 = ?,
-					image3 = ?,
-					id_category = ?,
-					updated_at = ?
+					image3 = ?
 				WHERE
 					id = ?
             `;
 			const result = await db.query(query, [
-				product.name,
-				product.description,
-				product.price,
 				product.image1,
 				product.image2,
 				product.image3,
-				product.id_category,
-				new Date(),
 				product.id
 			])
 			if (result[0].affectedRows > 0) {                
@@ -90,6 +80,35 @@ export class Product {
 			}
 		} catch (error) {
 			console.error("Error updating product:", error)
+			throw error
+		}
+	}
+
+	static async findByCategory(id_category) {
+		try {
+			const query = `
+				SELECT
+					P.id,
+					P.name,
+					P.description,
+					P.price,
+					P.image1,
+					P.image2,
+					P.image3,
+					P.id_category
+				FROM
+					${this.table} as P
+				WHERE
+					P.id_category = ?
+            `;
+			const [rows]  = await db.query(query, [id_category])
+			if (rows.length > 0) {                
+				return rows
+			} else {
+				return null
+			}
+		} catch (error) {
+			console.error("Error fetching products by category:", error)
 			throw error
 		}
 	}
