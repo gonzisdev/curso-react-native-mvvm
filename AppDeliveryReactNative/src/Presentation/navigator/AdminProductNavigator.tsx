@@ -2,9 +2,12 @@ import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navig
 import { Category } from "../../Domain/entities/Category"
 import { AdminProductListScreen } from "../views/admin/product/list/ProductList"
 import { CategoryStackParamList } from "./AdminCategoryNavigator"
+import { AdminProductCreateScreen } from "../views/admin/product/create/ProductCreate"
+import { TouchableOpacity, Image } from "react-native"
 
 export type ProductStackParamList = {
     AdminProductListScreen: {category: Category}
+    AdminProductCreateScreen: {category: Category}
 }
 
 type AdminProductNavigatorProps = NativeStackScreenProps<CategoryStackParamList, 'AdminProductNavigator'>
@@ -22,6 +25,29 @@ export const AdminProductNavigator = ({navigation, route}: AdminProductNavigator
             name="AdminProductListScreen"
             component={AdminProductListScreen}
             initialParams={{category: route.params.category}}
+            options={({route, navigation}) => (
+                {
+                  title: "Productos",
+                  headerShown: true,
+                  headerRight: () => (
+                    <TouchableOpacity onPress={() => navigation.navigate('AdminProductCreateScreen')}>
+                      <Image 
+                        source={require('../../../assets/add.png')}
+                        style={{width: 35, height: 35, marginRight: 15}}
+                      />
+                    </TouchableOpacity>
+                  )
+                }
+              )}
+        />
+        <Stack.Screen 
+            name="AdminProductCreateScreen"
+            component={AdminProductCreateScreen}
+            initialParams={{category: route.params.category}}
+            options={{
+                title: "Nuevo producto",
+                headerShown: true
+            }}
         />
     </Stack.Navigator>
   )
