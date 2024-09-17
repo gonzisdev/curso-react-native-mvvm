@@ -1,8 +1,9 @@
 import { useContext, useState } from "react"
 import * as ImagePicker from "expo-image-picker"
 import { CategoryContext } from "../../../../context/CategoryContext"
+import { Category } from "../../../../../Domain/entities/Category"
 
-const AdminProductCreateViewModel = () => {
+const AdminProductCreateViewModel = (category: Category) => {
 
     const [responseMessage, setResponseMessage] = useState("")
     const [values, setValues] = useState({
@@ -11,10 +12,12 @@ const AdminProductCreateViewModel = () => {
         image1: "",
         image2: "",
         image3: "",
-        idCategory: "",
+        idCategory: category.id,
         price: ""
     })
-    const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()
+    const [file1, setFile1] = useState<ImagePicker.ImagePickerAsset>()
+    const [file2, setFile2] = useState<ImagePicker.ImagePickerAsset>()
+    const [file3, setFile3] = useState<ImagePicker.ImagePickerAsset>()
     const [loading, setLoading] = useState(false)
     const { create } = useContext(CategoryContext)
     
@@ -25,7 +28,7 @@ const AdminProductCreateViewModel = () => {
         })
     }
 
-    const CreateCategory = async () => {
+    const createProduct = async () => {
         // setLoading(true)
         // const response = await create(values, file!)
         // setLoading(false)
@@ -35,29 +38,53 @@ const AdminProductCreateViewModel = () => {
         // resetForm()
     }
 
-    const pickImage = async () => {
+    const pickImage = async (numberImage: number) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             quality: 1
         })
         if (!result.canceled && result.assets && result.assets.length > 0) {
-            const selectedImage = result.assets[0]
-            onChange("image", selectedImage.uri)
-            setFile(selectedImage)
+            if(numberImage == 1){
+                const selectedImage = result.assets[0]
+                onChange("image", selectedImage.uri)
+                setFile1(selectedImage)
+            }
+            else if(numberImage == 2){
+                const selectedImage = result.assets[0]
+                onChange("image", selectedImage.uri)
+                setFile2(selectedImage)
+            } 
+            else if(numberImage == 3){
+                const selectedImage = result.assets[0]
+                onChange("image", selectedImage.uri)
+                setFile3(selectedImage)
+            }
           }
     }
 
-    const takePhoto = async () => {
+    const takePhoto = async (numberImage: number) => {
         let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             quality: 1
         })
         if (!result.canceled && result.assets && result.assets.length > 0) {
-            const selectedImage = result.assets[0]
-            onChange("image", selectedImage.uri)
-            setFile(selectedImage)
+            if(numberImage == 1){
+                const selectedImage = result.assets[0]
+                onChange("image", selectedImage.uri)
+                setFile1(selectedImage)
+            }
+            else if(numberImage == 2){
+                const selectedImage = result.assets[0]
+                onChange("image", selectedImage.uri)
+                setFile2(selectedImage)
+            } 
+            else if(numberImage == 3){
+                const selectedImage = result.assets[0]
+                onChange("image", selectedImage.uri)
+                setFile3(selectedImage)
+            }
           }
     }
 
@@ -80,7 +107,7 @@ const AdminProductCreateViewModel = () => {
         pickImage,
         loading,
         responseMessage,
-        CreateCategory
+        createProduct
     }
 }
 
