@@ -82,7 +82,7 @@ export class categoriesController {
             return res.status(201).json({
                 success: true,
                 message: 'Las categorías se listaron correctamente', 
-                data
+                data: data
             })
         } catch (error) {
             console.log(error);

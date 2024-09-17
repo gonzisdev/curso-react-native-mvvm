@@ -12,6 +12,7 @@ export const AdminCategoryListScreen = () => {
       ToastAndroid.show(responseMessage, ToastAndroid.LONG)
     }
   }, [responseMessage])
+  
 
   return (
     <View style={{backgroundColor: "white"}}>

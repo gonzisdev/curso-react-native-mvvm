@@ -21,7 +21,7 @@ export const AdminTabsNavigator = () => {
             {
               title: "Categorías",
               tabBarLabel: "Categorías",
-              headerShown: true,
+              headerShown: false,
               tabBarIcon: () => (
                 <Image 
                   source={require('../../../assets/list.png')}

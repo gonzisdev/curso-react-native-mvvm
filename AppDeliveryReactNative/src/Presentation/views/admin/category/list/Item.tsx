@@ -15,7 +15,9 @@ export const AdminCategoryListItem = ({category, remove}: AdminCategoryListItemP
     const navigation = useNavigation<NativeStackNavigationProp<CategoryStackParamList>>()
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+        onPress={() => navigation.navigate('AdminProductNavigator', {category: category})}
+    >
         <View style={styles.container}>
             <Image 
                 source={{uri: category.image}}

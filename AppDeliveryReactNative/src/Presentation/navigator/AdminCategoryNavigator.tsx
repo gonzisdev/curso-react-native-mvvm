@@ -5,11 +5,13 @@ import { CategoryProvider } from '../context/CategoryContext'
 import { AdminCategoryCreateScreen } from '../views/admin/category/create/CategoryCreate'
 import { AdminCategoryUpdateScreen } from '../views/admin/category/update/CategoryUpdate'
 import { AdminCategoryListScreen } from '../views/admin/category/list/CategoryList'
+import { AdminProductNavigator } from './AdminProductNavigator'
 
 export type CategoryStackParamList = {
     AdminCategoryListScreen: undefined
     AdminCategoryCreateScreen: undefined
     AdminCategoryUpdateScreen: {category: Category}
+    AdminProductNavigator: {category: Category}
 }
 
 export const AdminCategoryNavigator = () => {
@@ -55,6 +57,10 @@ export const AdminCategoryNavigator = () => {
                 title: "Editar categoría",
                 headerShown: true
                 }}
+            />
+            <Stack.Screen 
+                name="AdminProductNavigator"
+                component={AdminProductNavigator}
             />
         </Stack.Navigator>
     </CategoryState>

@@ -1,8 +1,8 @@
 import storage from "../utils/cloud_storage.js"
-import asyncForEach from "../utils/async_foreach.js"
+import { asyncForEach } from "../utils/async_foreach.js"
 import { Product } from "../models/product.js"
 
-export class categoriesController {
+export class productsController {
 
     static create = async (req, res) => {
         const product = JSON.parse(req.body.product) 
