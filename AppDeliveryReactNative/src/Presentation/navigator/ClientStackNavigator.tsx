@@ -2,10 +2,13 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { ClientCategoryListScreen } from "../views/client/category/list/CategoryList"
 import { ClientProductListScreen } from "../views/client/product/list/ProductList"
 import { Category } from "../../Domain/entities/Category"
+import { ClientProductDetailScreen } from "../views/client/product/detail/ProductDetail"
+import { Product } from "../../Domain/entities/Product"
 
 export type ClientStackParamList = {
     ClientCategoryListScreen: undefined
     ClientProductListScreen: {id_category: Category['id']}
+    ClientProductDetailScreen: {product: Product}
 }
 
 export const ClientStackNavigator = () => {
@@ -13,10 +16,7 @@ export const ClientStackNavigator = () => {
     const Stack = createNativeStackNavigator<ClientStackParamList>()
     
     return (
-        <Stack.Navigator screenOptions={{
-            headerShown: false,
-            headerBackVisible: true
-        }}>
+        <Stack.Navigator>
             <Stack.Screen 
                 name="ClientCategoryListScreen"
                 component={ClientCategoryListScreen}
@@ -31,6 +31,13 @@ export const ClientStackNavigator = () => {
                 options={{
                     title: "Productos",
                     headerShown: true
+                }}
+            />
+            <Stack.Screen 
+                name="ClientProductDetailScreen"
+                component={ClientProductDetailScreen}
+                options={{
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>

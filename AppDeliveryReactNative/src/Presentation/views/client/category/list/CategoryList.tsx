@@ -23,7 +23,6 @@ export const ClientCategoryListScreen = ({navigation, route}: ClientCategoryList
       getCategories()
     }, [])
 
-    
   return (
       <GestureHandlerRootView style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "white"}}>
           <View style={{position: "absolute", alignSelf: "center", top: height * 0.1}}>

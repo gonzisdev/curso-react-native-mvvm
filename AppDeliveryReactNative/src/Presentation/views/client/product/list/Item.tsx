@@ -12,7 +12,7 @@ export const ClientProductListItem = ({product, navigation}: ClientProductListIt
 
   return (
     <TouchableOpacity
-        //onPress={() => navigation.navigate('AdminProductNavigator', {category: category})}
+        onPress={() => navigation.navigate('ClientProductDetailScreen', {product: product})}
     >
         <View style={styles.container}>
             <View style={styles.info}>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         marginTop: 3
     },
     price: {
-        color: "green",
+        color: "black",
         fontSize: 12,
         fontWeight: "bold"
     },
