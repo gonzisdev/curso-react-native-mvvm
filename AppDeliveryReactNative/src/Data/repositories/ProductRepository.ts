@@ -2,9 +2,10 @@ import { Product } from "../../Domain/entities/Product"
 import { ProductRepository } from "../../Domain/repositories/ProductRepository"
 import { ResponseApiDelivery } from "../sources/remote/models/ResponseApiDelivery"
 import { AxiosError } from "axios"
-import { ApiDeliveryForImage } from "../sources/remote/api/ApiDelivery"
+import { ApiDelivery, ApiDeliveryForImage } from "../sources/remote/api/ApiDelivery"
 import * as ImagePicker from "expo-image-picker"
 import mime from "mime"
+import { Category } from "../../Domain/entities/Category"
 
 export class ProductRepositoryImpl implements ProductRepository{
 
@@ -28,6 +29,17 @@ export class ProductRepositoryImpl implements ProductRepository{
             console.log(JSON.stringify(e.response?.data))
             const apiError: ResponseApiDelivery = JSON.parse(JSON.stringify(e.response?.data))
             return Promise.resolve(apiError)
+        }
+    }
+
+    async getProductsByCategory(id_category: Category['id']): Promise<Product[]> {
+        try {
+            const response = await ApiDelivery.get<{data: Product[]}>(`/products/findByCategory/${id_category}`)
+            return Promise.resolve(response.data.data)
+        } catch (error) {
+            let e = (error as AxiosError)
+            console.log(JSON.stringify(e.response?.data))
+            return Promise.resolve([])
         }
     }
 }
