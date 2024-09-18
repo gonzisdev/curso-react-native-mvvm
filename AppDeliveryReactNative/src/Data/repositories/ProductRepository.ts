@@ -21,7 +21,6 @@ export class ProductRepositoryImpl implements ProductRepository{
             })
             data.append('product', JSON.stringify(product))
             console.log(data);
-            
             const response = await ApiDeliveryForImage.post<ResponseApiDelivery>('/products/create', data)
             return Promise.resolve(response.data)
         } catch (error) {
@@ -40,6 +39,40 @@ export class ProductRepositoryImpl implements ProductRepository{
             let e = (error as AxiosError)
             console.log(JSON.stringify(e.response?.data))
             return Promise.resolve([])
+        }
+    }
+
+    async update(product: Product): Promise<ResponseApiDelivery> {
+        try {
+            const response = await ApiDelivery.put<ResponseApiDelivery>('/products/update', product)
+            return Promise.resolve(response.data)
+        } catch (error) {
+            let e = (error as AxiosError)
+            console.log(JSON.stringify(e.response?.data))
+            const apiError: ResponseApiDelivery = JSON.parse(JSON.stringify(e.response?.data))
+            return Promise.resolve(apiError)
+        }
+    }
+
+    async updateWithImage(product: Product, files: ImagePicker.ImagePickerAsset[]): Promise<ResponseApiDelivery> {
+        try {
+            let data = new FormData()
+            files.forEach(file => {
+                data.append('image', {
+                    uri: file.uri,
+                    name: file.uri.split('/').pop(),
+                    type: mime.getType(file.uri)!
+                } as any)
+            })
+            data.append('product', JSON.stringify(product))
+            console.log(data);
+            const response = await ApiDeliveryForImage.put<ResponseApiDelivery>('/products/updateWithImage', data)
+            return Promise.resolve(response.data)
+        } catch (error) {
+            let e = (error as AxiosError)
+            console.log(JSON.stringify(e.response?.data))
+            const apiError: ResponseApiDelivery = JSON.parse(JSON.stringify(e.response?.data))
+            return Promise.resolve(apiError)
         }
     }
 

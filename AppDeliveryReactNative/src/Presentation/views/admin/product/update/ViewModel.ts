@@ -3,6 +3,7 @@ import * as ImagePicker from "expo-image-picker"
 import { Category } from "../../../../../Domain/entities/Category"
 import { ProductContext } from "../../../../context/ProductContext"
 import { Product } from "../../../../../Domain/entities/Product"
+import { ResponseApiDelivery } from "../../../../../Data/sources/remote/models/ResponseApiDelivery"
 
 const AdminProductUpdateViewModel = (product: Product, category: Category) => {
 
@@ -12,7 +13,7 @@ const AdminProductUpdateViewModel = (product: Product, category: Category) => {
     const [file2, setFile2] = useState<ImagePicker.ImagePickerAsset>()
     const [file3, setFile3] = useState<ImagePicker.ImagePickerAsset>()
     const [loading, setLoading] = useState(false)
-    const { create } = useContext(ProductContext)
+    const { update, updateWithImage } = useContext(ProductContext)
     
     const onChange = (property: string, value: any) => {
         setValues({
@@ -22,18 +23,22 @@ const AdminProductUpdateViewModel = (product: Product, category: Category) => {
         
     }
 
-    const createProduct = async () => {
+    const updateProduct = async () => {
         let files = []
         files.push(file1!)
         files.push(file2!)
         files.push(file3!)
         setLoading(true)
-        const response = await create(values, files)
+        let response = {} as ResponseApiDelivery
+        if (values.image1.includes('https://') && values.image2.includes('https://') && values.image3.includes('https://')) {
+            response = await update(values)
+        } else {
+            response = await updateWithImage(values, files)
+        }
         setLoading(false)
         if (response.success) {
             setResponseMessage(response.message)
         }
-        resetForm()
     }
 
     const pickImage = async (numberImage: number) => {
@@ -86,18 +91,6 @@ const AdminProductUpdateViewModel = (product: Product, category: Category) => {
           }
     }
 
-    const resetForm = () => {
-        setValues({
-            name: "",
-            description: "",
-            image1: "",
-            image2: "",
-            image3: "",
-            id_category: category.id,
-            price: 0
-        })
-    }
-
     return {
         ...values,
         onChange,
@@ -105,7 +98,7 @@ const AdminProductUpdateViewModel = (product: Product, category: Category) => {
         pickImage,
         loading,
         responseMessage,
-        createProduct
+        updateProduct
     }
 }
 

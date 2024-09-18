@@ -73,7 +73,10 @@ export class productsController {
     }
 
     static update = async (req, res) => {
+        console.log(req.body);
+        
         const product = req.body
+        
         try {
             const data = await Product.updateWithoutImage(product)
             return res.status(201).json({

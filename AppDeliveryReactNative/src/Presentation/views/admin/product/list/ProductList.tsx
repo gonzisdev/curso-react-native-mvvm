@@ -13,7 +13,9 @@ export const AdminProductListScreen = ({navigation, route}: AdminProductListScre
     const { products, getProducts, deleteProduct, responseMessage } = useViewModel()
 
     useEffect(()=> {
-      getProducts(category.id)
+      if (category.id !== undefined && category.id !== null) {
+        getProducts(category.id)
+      }
     }, [])
 
     useEffect(()=> {

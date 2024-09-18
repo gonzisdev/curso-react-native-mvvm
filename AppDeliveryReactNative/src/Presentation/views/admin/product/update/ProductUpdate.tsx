@@ -14,7 +14,7 @@ type AdminProductUpdateScreenProps = NativeStackScreenProps<ProductStackParamLis
 export const AdminProductUpdateScreen = ({navigation, route}: AdminProductUpdateScreenProps) => {
 
     const { category, product } = route.params
-    const { name, description, onChange, takePhoto, pickImage, loading, responseMessage, image1, image2, image3, price, createProduct } = useViewModel(product, category)
+    const { name, description, onChange, takePhoto, pickImage, loading, responseMessage, image1, image2, image3, price, updateProduct } = useViewModel(product, category)
     const [modalVisible, setModalVisible] = useState(false)
     const [numberImage, setNumberImage] = useState(1)
 
@@ -124,8 +124,8 @@ export const AdminProductUpdateScreen = ({navigation, route}: AdminProductUpdate
                 />
                 <View style={styles.buttonContainer}>
                     <RoundedButton 
-                        text="CREAR PRODUCTO"
-                        onPress={createProduct}
+                        text="ACTUALIZAR PRODUCTO"
+                        onPress={updateProduct}
                     />
                 </View>
             </ScrollView>
