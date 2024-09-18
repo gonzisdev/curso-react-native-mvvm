@@ -27,7 +27,7 @@ export const AdminProductListScreen = ({navigation, route}: AdminProductListScre
         <FlatList 
           data={products}
           keyExtractor={(item) => item.id!}
-          renderItem={({item}) => <AdminProductListItem product={item} remove={deleteProduct} />}
+          renderItem={({item}) => <AdminProductListItem product={item} remove={deleteProduct} category={category} />}
         />
     </View>
   )

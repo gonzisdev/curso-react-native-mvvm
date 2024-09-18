@@ -3,7 +3,7 @@ import { View, Image, TextInput, StyleSheet, KeyboardType } from "react-native"
 type CustomTextInputProps = {
     image: any
     placeholder: string
-    value: string
+    value: any
     keyboardType: KeyboardType
     secureTextEntry?: boolean
     property: string

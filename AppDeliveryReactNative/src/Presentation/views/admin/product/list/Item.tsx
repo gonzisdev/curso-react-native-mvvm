@@ -1,18 +1,20 @@
 import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
-import { CategoryStackParamList } from "../../../../navigator/AdminCategoryNavigator"
 import { Product } from "../../../../../Domain/entities/Product"
+import { ProductStackParamList } from "../../../../navigator/AdminProductNavigator"
+import { Category } from "../../../../../Domain/entities/Category"
 
 
 type AdminProductListItemProps = {
     product: Product
+    category: Category
     remove: (product: Product) => void
 }
 
-export const AdminProductListItem = ({product, remove}: AdminProductListItemProps) => {
+export const AdminProductListItem = ({product, category, remove}: AdminProductListItemProps) => {
 
-    const navigation = useNavigation<NativeStackNavigationProp<CategoryStackParamList>>()
+    const navigation = useNavigation<NativeStackNavigationProp<ProductStackParamList>>()
 
   return (
     <TouchableOpacity
@@ -30,7 +32,7 @@ export const AdminProductListItem = ({product, remove}: AdminProductListItemProp
             </View>
             <View style={styles.actionContainer}>
                 <TouchableOpacity
-                    //onPress={() => navigation.navigate('AdminCategoryUpdateScreen', {category: category})}
+                    onPress={() => navigation.navigate('AdminProductUpdateScreen', {product: product, category: category})}
                 >
                     <Image 
                         style={styles.actionImage}
