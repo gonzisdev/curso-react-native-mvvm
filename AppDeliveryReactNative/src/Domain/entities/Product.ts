@@ -9,4 +9,5 @@ export type Product = {
     image3: string
     price: number
     id_category: Category['id']
+    quantity?: number
 }

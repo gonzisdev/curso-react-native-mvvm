@@ -13,7 +13,7 @@ export const ClientProductDetailScreen = ({navigation, route}: ClientProductDeta
 
     const { product } = route.params
 
-    const { productImageList, addItem, removeItem, quantity, price } = useViewModel(product)
+    const { productImageList, addItem, removeItem, quantity, price, addToBag, shoppingBag } = useViewModel(product)
 
     const width = Dimensions.get('window').width
     const height = Dimensions.get('window').height
@@ -62,7 +62,7 @@ export const ClientProductDetailScreen = ({navigation, route}: ClientProductDeta
                 <Text style={styles.actionText}>+</Text>
             </TouchableOpacity>
             <View style={styles.buttonAdd}>
-                <RoundedButton text="AÑADIR" onPress={() => {}} />
+                <RoundedButton text="AÑADIR" onPress={addToBag} />
             </View>
         </View>
       </View>
