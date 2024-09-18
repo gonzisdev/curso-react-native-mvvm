@@ -15,11 +15,7 @@ export const ClientCategoryItem = ({category, height, width, navigation}: Client
     <TouchableOpacity 
         style={{...styles.container, height: height, width: width}}
         onPress={() => {
-            // if (rol.name === "ADMIN") {
-            //     navigation.replace("AdminTabsNavigator")
-            // } else if (rol.name === "CLIENTE") {
-            //     navigation.replace("ClientTabsNavigator")
-            // }
+            navigation.navigate('ClientProductListScreen', {id_category: category.id})
         }}
     >
         <View style={styles.imageContainer}>
@@ -63,7 +59,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: "black",
-        fontSize: 18,
+        fontSize: 25,
         fontWeight: "bold"
     }
 })
