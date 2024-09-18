@@ -34,7 +34,7 @@ export const ShoppingBagItem = ({product, addItem, substractItem, deleteItem}: S
                         <Text style={styles.actionText}>+</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => deleteItem(product)}>
                     <Image 
                         style={styles.deleteItem}
                         source={require('../../../../../assets/trash.png')}
