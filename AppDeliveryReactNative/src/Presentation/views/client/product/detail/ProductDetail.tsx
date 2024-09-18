@@ -13,7 +13,7 @@ export const ClientProductDetailScreen = ({navigation, route}: ClientProductDeta
 
     const { product } = route.params
 
-    const { productImageList } = useViewModel(product)
+    const { productImageList, addItem, removeItem, quantity, price } = useViewModel(product)
 
     const width = Dimensions.get('window').width
     const height = Dimensions.get('window').height
@@ -27,7 +27,8 @@ export const ClientProductDetailScreen = ({navigation, route}: ClientProductDeta
                 height={height}
                 autoPlay={true}
                 data={productImageList}
-                scrollAnimationDuration={10000}
+                autoPlayInterval={10000}
+                scrollAnimationDuration={1000}
                 // onSnapToItem={(index) => console.log('current index:', index)}
                 renderItem={({ item }) => <Image source={{uri: item}} style={styles.productImage} />}
             />
@@ -46,18 +47,18 @@ export const ClientProductDetailScreen = ({navigation, route}: ClientProductDeta
             <View style={styles.divider}></View>
 
             <Text style={styles.descriptionTitle}>Tu orden</Text>
-            <Text style={styles.descriptionContent}>Cantidad: </Text>
-            <Text style={styles.descriptionContent}>Precio c/u: </Text>
+            <Text style={styles.descriptionContent}>Cantidad: {quantity}</Text>
+            <Text style={styles.descriptionContent}>Precio total: {price}€</Text>
             <View style={styles.divider}></View>
         </View>
         <View style={styles.productActions}>
-            <TouchableOpacity style={styles.actionLess}>
+            <TouchableOpacity style={styles.actionLess} onPress={removeItem}>
                 <Text style={styles.actionText}>-</Text>
             </TouchableOpacity>
             <View style={styles.quantity}>
-                <Text style={styles.actionText}>0</Text>
+                <Text style={styles.actionText}>{quantity}</Text>
             </View>
-            <TouchableOpacity style={styles.actionAdd}>
+            <TouchableOpacity style={styles.actionAdd} onPress={addItem}>
                 <Text style={styles.actionText}>+</Text>
             </TouchableOpacity>
             <View style={styles.buttonAdd}>
@@ -65,6 +66,12 @@ export const ClientProductDetailScreen = ({navigation, route}: ClientProductDeta
             </View>
         </View>
       </View>
+      <TouchableOpacity style={styles.back} onPress={() => navigation.pop()}>
+            <Image 
+                source={require('../../../../../../assets/back.png')}
+                style={styles.backImage}
+            />
+        </TouchableOpacity>
     </View>
   )
 }
