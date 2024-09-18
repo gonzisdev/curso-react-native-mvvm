@@ -3,6 +3,7 @@ import useViewModel from "./ViewModel"
 import { useEffect } from "react"
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { ClientProductListItem } from "./Item"
 
 type ClientProductListScreenProps = NativeStackScreenProps<ClientStackParamList, 'ClientProductListScreen'>
 
@@ -17,11 +18,11 @@ export const ClientProductListScreen = ({navigation, route}: ClientProductListSc
     }, [])
 
   return (
-    <View>
+    <View style={{flex: 1, backgroundColor: "white"}}>
         <FlatList 
             data={products}
             keyExtractor={(item) => item.id!}
-            renderItem={({item}) => <Text>{item.name}</Text>}
+            renderItem={({item}) => <ClientProductListItem product={item} navigation={navigation} />}
         />
     </View>
   )
