@@ -1,13 +1,22 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { ProductContext } from "../../../../context/ProductContext"
+import { Product } from "../../../../../Domain/entities/Product"
 
 const AdminProductListViewModel = () => {
 
-    const { products, getProducts } = useContext(ProductContext)
+    const { products, getProducts, remove } = useContext(ProductContext)
+    const [responseMessage, setResponseMessage] = useState('')
+
+    const deleteProduct = async (product: Product) => {
+        const result = await remove(product)
+        setResponseMessage(result.message)
+    }
  
   return {
     products,
-    getProducts
+    getProducts,
+    deleteProduct,
+    responseMessage
   }
 }
 

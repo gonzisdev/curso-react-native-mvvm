@@ -6,4 +6,5 @@ import * as ImagePicker from "expo-image-picker"
 export type ProductRepository = {
     create(product: Product, files: ImagePicker.ImagePickerAsset[]): Promise<ResponseApiDelivery> 
     getProductsByCategory(id_category: Category['id']): Promise<Product[]>
+    remove(product: Product): Promise<ResponseApiDelivery>
 }

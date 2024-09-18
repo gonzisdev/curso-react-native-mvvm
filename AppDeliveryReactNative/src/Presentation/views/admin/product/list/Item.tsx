@@ -1,5 +1,4 @@
 import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native"
-import { Category } from "../../../../../Domain/entities/Category"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { CategoryStackParamList } from "../../../../navigator/AdminCategoryNavigator"
@@ -8,7 +7,7 @@ import { Product } from "../../../../../Domain/entities/Product"
 
 type AdminProductListItemProps = {
     product: Product
-    remove: (id: Category['id']) => void
+    remove: (product: Product) => void
 }
 
 export const AdminProductListItem = ({product, remove}: AdminProductListItemProps) => {
@@ -39,7 +38,7 @@ export const AdminProductListItem = ({product, remove}: AdminProductListItemProp
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => remove(product.id!)}
+                    onPress={() => remove(product)}
                 >
                     <Image 
                         style={styles.actionImage}
