@@ -59,7 +59,7 @@ export class productsController {
             const data = await Product.findByCategory(id_category)
             return res.status(201).json({
                 success: true,
-                message: 'Laos productos se listaron correctamente', 
+                message: 'Los productos se listaron correctamente', 
                 data: data
             })
         } catch (error) {
@@ -69,6 +69,74 @@ export class productsController {
                 message: 'Hubo un error al listar los productos por categoría',
                 error: error.message
             })
+        }
+    }
+
+    static update = async (req, res) => {
+        const product = req.body
+        try {
+            const data = await Product.updateWithoutImage(product)
+            return res.status(201).json({
+                success: true,
+                message: 'El producto se actualizó correctamente', 
+                data: data
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error al actualizar el producto',
+                error: error.message
+            })
+        }
+    }
+
+    static updateWithImage = async (req, res) => {
+        const product = JSON.parse(req.body.product) 
+        const files = req.files
+        let inserts = 0
+        if (files.length === 0) {
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error al actualizar el producto, no tiene imágenes',
+            })
+        } else {
+            try {
+                const newProduct = await Product.updateWithoutImage(product)
+                product.id = newProduct
+                const start = async () => {
+                    await asyncForEach(files, async (file) => {
+                        const path = `image_${Date.now()}`
+                        const url = await storage(file, path)
+                        if (url != undefined && url != null) {
+                            if (inserts == 0 ) {
+                                product.image1 = url
+                            } else if (inserts == 1) {
+                                product.image2 = url
+                            } else if (inserts == 2) {
+                                product.image3 = url
+                            }
+                        }
+                        const updatedProduct = await Product.update(product)
+                        inserts = inserts + 1
+                        if (inserts == files.length) {
+                            return res.status(201).json({
+                                success: true,
+                                message: 'El producto se actualizó correctamente', 
+                                data: updatedProduct
+                            })
+                        }
+                    })
+                }
+                start()
+            } catch (error) {
+                console.log(error);
+                return res.status(501).json({ 
+                    success: false,
+                    message: 'Hubo un error al actualizar el producto',
+                    error: error.message
+                })
+            }
         }
     }
 

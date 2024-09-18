@@ -55,6 +55,39 @@ export class Product {
 		}
 	}
 
+	static async updateWithoutImage(product) {
+		try {
+			const query = `
+                UPDATE  
+                    ${this.table}
+				SET
+				    name = ?,
+                    description = ?,
+					price = ?,
+					id_category = ?,
+                    updated_at = ?
+				WHERE
+					id = ?
+            `;
+			const result = await db.query(query, [
+				product.name,
+				product.description,
+				product.price,
+				product.id_category,
+				new Date(),
+				product.id
+			])
+			if (result[0].affectedRows > 0) {                
+				return product.id
+			} else {
+				return null
+			}
+		} catch (error) {
+			console.error("Error updating product:", error)
+			throw error
+		}
+	}
+
 	static async update(product) {
 		try {
 			const query = `
