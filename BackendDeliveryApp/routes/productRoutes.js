@@ -11,6 +11,6 @@ export const upload = multer({
 
 router.route('/findByCategory/:id_category').get(passport.authenticate('jwt', {session: false}), productsController.findByCategory)
 router.route('/create').post(passport.authenticate('jwt', {session: false}), upload.array('image', 3), productsController.create)
-
+router.route('/delete/:id').delete(passport.authenticate('jwt', {session: false}), productsController.delete)
 
 export default router

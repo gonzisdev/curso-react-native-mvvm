@@ -71,4 +71,23 @@ export class productsController {
             })
         }
     }
+
+    static delete = async (req, res) => {
+        try {
+            const id = req.params.id
+            const data = await Product.delete(id)
+            return res.status(201).json({
+                success: true,
+                message: 'El producto se eliminó correctamente', 
+                data
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error al eliminar el producto',
+                error: error.message
+            })
+        }
+    }
 }

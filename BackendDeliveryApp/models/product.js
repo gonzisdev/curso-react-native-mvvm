@@ -112,4 +112,24 @@ export class Product {
 			throw error
 		}
 	}
+
+	static async delete(id) {
+		try {
+			const query = `
+				DELETE FROM
+					${this.table}
+				WHERE 
+					id = ?
+            `;
+			const [result] = await db.query(query, [id])
+			if (result.affectedRows > 0) {                
+				return id
+			} else {
+				return null
+			}
+		} catch (error) {
+			console.error("Error deleting product by ID:", error)
+			throw error
+		}
+	}
 }
