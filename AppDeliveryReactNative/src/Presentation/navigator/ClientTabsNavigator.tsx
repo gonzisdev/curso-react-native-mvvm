@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { ClientCategoryListScreen } from "../views/client/category/list/CategoryList"
 import { ClientOrderListScreen } from "../views/client/order/list/OrderList"
 import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo"
+import { ClientStackNavigator } from "./ClientStackNavigator"
 
 export const ClientTabsNavigator = () => {
   
@@ -11,18 +12,21 @@ export const ClientTabsNavigator = () => {
     return (
       <Tab.Navigator>
         <Tab.Screen 
-          name="AdminCategoryListScreen" 
-          component={ClientCategoryListScreen} 
-          options={{
-            title: "Categorías",
-            tabBarLabel: "Categorías",
-            tabBarIcon: ({color}) => (
-              <Image 
-                source={require('../../../assets/list.png')}
-                style={{width: 25, height: 25}}
-              />
-            )
-          }}
+          name="ClientStackNavigator" 
+          component={ClientStackNavigator} 
+          options={({route, navigation}) => (
+            {
+              title: "Categorías",
+              tabBarLabel: "Categorías",
+              headerShown: false,
+              tabBarIcon: () => (
+                <Image 
+                  source={require('../../../assets/list.png')}
+                  style={{width: 25, height: 25}}
+                />
+              )
+            }
+          )}
         />
         <Tab.Screen 
           name="AdminOrderListScreen" 
