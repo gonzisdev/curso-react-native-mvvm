@@ -1,7 +1,8 @@
 import { useEffect } from "react"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { View, FlatList, Text } from "react-native"
+import { View, FlatList } from "react-native"
 import { ProductStackParamList } from "../../../../navigator/AdminProductNavigator"
+import { AdminProductListItem } from "./Item"
 import useViewModel from "./ViewModel"
 
 type AdminProductListScreenProps = NativeStackScreenProps<ProductStackParamList, 'AdminProductListScreen'>
@@ -16,11 +17,11 @@ export const AdminProductListScreen = ({navigation, route}: AdminProductListScre
     }, [])
 
   return (
-    <View style={{marginTop: 50}}>
+    <View style={{backgroundColor: "white"}}>
         <FlatList 
           data={products}
           keyExtractor={(item) => item.id!}
-          renderItem={({item}) => <Text>{item.name}</Text>}
+          renderItem={({item}) => <AdminProductListItem product={item} remove={() => {}} />}
         />
     </View>
   )
