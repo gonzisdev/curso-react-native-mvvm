@@ -5,6 +5,11 @@ import MapView, { Camera } from "react-native-maps"
 const ClientAddressViewModel = () => {
 
     const [messagePermissions, setMessagePermissions] = useState('')
+    const [refPoint, setRefPoint] = useState({
+        name: '',
+        latitude: 0.0,
+        longitude: 0.0
+    })
     const [postition, setPosition] = useState<Location.LocationObjectCoords>()
     const mapRef = useRef<MapView | null>(null)
 
@@ -17,6 +22,30 @@ const ClientAddressViewModel = () => {
         }
         requestPermissions()
     }, [])
+
+    const onRegionChangeComplete = async (latitude: number, longitude: number) => {
+        try {
+            const place = await Location.reverseGeocodeAsync({
+                latitude: latitude,
+                longitude: longitude
+            })
+            let city
+            let street
+            let streetNumber
+            place.find(p => {
+                city = p.city
+                street= p.street
+                streetNumber= p.streetNumber
+                setRefPoint({
+                    name: `${street}, ${streetNumber}, ${city}`,
+                    latitude: latitude,
+                    longitude: longitude
+                })
+            })
+        } catch (error) {
+            console.log('ERROR: '+ error)
+        }
+    }
 
     const startForegroundUpdate = async () => {
         const { granted } = await Location.getForegroundPermissionsAsync()
@@ -42,7 +71,9 @@ const ClientAddressViewModel = () => {
   return {
     messagePermissions,
     postition,
-    mapRef
+    mapRef,
+    onRegionChangeComplete,
+    ...refPoint
   }
 }
 

@@ -8,7 +8,7 @@ import styles from "./Styles"
 
 export const ClientAddressMapScreen = () => {
 
-    const { messagePermissions, postition, mapRef } = useViewModel()
+    const { messagePermissions, postition, mapRef, onRegionChangeComplete, name, latitude, longitude } = useViewModel()
 
     useEffect(() => {
         if (messagePermissions != '') {
@@ -23,13 +23,14 @@ export const ClientAddressMapScreen = () => {
             customMapStyle={stylesMap}
             style={{height: "100%", width: "100%"}}
             provider={PROVIDER_GOOGLE}
+            onRegionChangeComplete={(region) => onRegionChangeComplete(region.latitude, region.longitude)}
         />
         <Image 
             style={styles.imageLocation}
             source={require('../../../../../../assets/location_home.png')}
         />
         <View style={styles.refPoint}>
-            <Text style={styles.refPointText}>Punto de ref</Text>
+            <Text style={styles.refPointText}>{name}</Text>
         </View>
         <View style={styles.buttonRefPoint}> 
             <RoundedButton text="SELECCIONAR PUNTO" onPress={() => {}} />
