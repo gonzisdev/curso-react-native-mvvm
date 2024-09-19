@@ -48,4 +48,31 @@ export class Address {
 			throw error
 		}
 	}
+
+    static async findByUser(id_user) {
+		try {
+			const query = `
+				SELECT
+					id,
+                    address,
+                    neighborhood,
+                    lat,
+                    lng,
+                    id_user
+				FROM
+					${this.table}
+				WHERE
+					id_user = ?
+            `;
+			const [rows]  = await db.query(query, [id_user])
+			if (rows.length > 0) {                
+				return rows
+			} else {
+				return null
+			}
+		} catch (error) {
+			console.error("Error fetching adresses by user:", error)
+			throw error
+		}
+	}
 }
