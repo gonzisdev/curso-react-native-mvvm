@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native"
+import { View, FlatList } from "react-native"
 import useViewModel from "./ViewModel"
 import { useEffect } from "react"
 import { ClientStackParamList } from "../../../../navigator/ClientStackNavigator"
@@ -14,9 +14,10 @@ export const ClientProductListScreen = ({navigation, route}: ClientProductListSc
     const { products, getProducts } = useViewModel()
 
     useEffect(() => {
-        getProducts(id_category)
+      if (id_category !== undefined && id_category !== null)
+        getProducts(id_category);
     }, [])
-
+    
   return (
     <View style={{flex: 1, backgroundColor: "white"}}>
         <FlatList 
