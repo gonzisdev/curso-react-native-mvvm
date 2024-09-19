@@ -7,12 +7,16 @@ import { Product } from "../../Domain/entities/Product"
 import { ShoppingBagProvider } from "../context/ShoppingBagContext"
 import { TouchableOpacity, Image } from "react-native"
 import { ClientShoppingBagScreen } from "../views/client/shopping_bag/ShoppingBag"
+import { ClientAddressListScreen } from "../views/client/address/list/AddressList"
+import { ClientAddressCreateScreen } from "../views/client/address/create/AddressCreate"
 
 export type ClientStackParamList = {
     ClientCategoryListScreen: undefined
     ClientProductListScreen: {id_category: Category['id']}
     ClientProductDetailScreen: {product: Product}
     ClientShoppingBagScreen: undefined
+    ClientAddressListScreen: undefined
+    ClientAddressCreateScreen: undefined
 }
 
 export const ClientStackNavigator = () => {
@@ -70,6 +74,32 @@ export const ClientStackNavigator = () => {
                     component={ClientShoppingBagScreen}
                     options={{
                         title: "Mi orden",
+                        headerShown: true
+                    }}
+                />
+                <Stack.Screen 
+                    name="ClientAddressListScreen"
+                    component={ClientAddressListScreen}
+                    options={({route, navigation}) => (
+                      {
+                        title: "Mis direcciones",
+                        headerShown: true,
+                        headerRight: () => (
+                          <TouchableOpacity onPress={() => navigation.navigate("ClientAddressCreateScreen")}>
+                            <Image 
+                              source={require('../../../assets/add.png')}
+                              style={{width: 30, height: 30, marginRight: 15}}
+                            />
+                          </TouchableOpacity>
+                        )
+                      }
+                  )}
+              />
+              <Stack.Screen 
+                    name="ClientAddressCreateScreen"
+                    component={ClientAddressCreateScreen}
+                    options={{
+                        title: "Nueva dirección",
                         headerShown: true
                     }}
                 />

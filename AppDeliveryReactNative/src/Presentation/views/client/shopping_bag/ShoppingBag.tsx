@@ -3,8 +3,12 @@ import useViewModel from "./ViewModel"
 import { ShoppingBagItem } from "./Item"
 import { RoundedButton } from "../../../components/RoundedButton"
 import styles from "./Styles"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { ClientStackParamList } from "../../../navigator/ClientStackNavigator"
 
-export const ClientShoppingBagScreen = () => {
+type ClientShoppingBagScreenProps = NativeStackScreenProps<ClientStackParamList, "ClientShoppingBagScreen">
+
+export const ClientShoppingBagScreen = ({navigation, route}: ClientShoppingBagScreenProps) => {
 
     const { shoppingBag, total, addItem, substractItem, deleteItem } = useViewModel()
 
@@ -21,7 +25,7 @@ export const ClientShoppingBagScreen = () => {
                 <Text>{total}€</Text>
             </View>
             <View style={styles.buttonAdd}>
-                <RoundedButton text="CONFIRMAR ORDEN" onPress={() => {}} />
+                <RoundedButton text="CONFIRMAR ORDEN" onPress={() => navigation.navigate("ClientAddressListScreen")} />
             </View>
         </View>
     </View>
