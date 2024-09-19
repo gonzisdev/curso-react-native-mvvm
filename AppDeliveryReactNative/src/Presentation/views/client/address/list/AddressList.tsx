@@ -1,18 +1,10 @@
-import { useEffect } from "react"
-import { View, Text, FlatList } from "react-native"
+import { View, FlatList } from "react-native"
 import useViewModel from "./ViewModel"
 import { AddressListItem } from "./Item"
 
 export const ClientAddressListScreen = () => {
 
-  const { address, getAddress, checked, changeRadioValue } = useViewModel()
-
-  useEffect(() => {
-    getAddress()
-  }, [])
-
-  console.log(address);
-  
+  const { address, checked, changeRadioValue } = useViewModel()  
 
   return (
     <View style={{flex: 1, backgroundColor: "white"}}>

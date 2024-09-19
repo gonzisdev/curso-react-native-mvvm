@@ -14,7 +14,7 @@ const ClientAddressCreateViewModel = () => {
         id_user: ""
     })
     const [loading, setLoading] = useState(false)
-    const { user, saveUserSession } = useContext(UserContext)
+    const { user, saveUserSession, getUserSession } = useContext(UserContext)
 
     useEffect(() => {
         if (user.id != '' || user.id != null) {
@@ -42,7 +42,8 @@ const ClientAddressCreateViewModel = () => {
             resetForm()
             user.address = values
             user.address.id = response.data
-            saveUserSession(user)
+            await saveUserSession(user)
+            getUserSession()
         }
     }
 

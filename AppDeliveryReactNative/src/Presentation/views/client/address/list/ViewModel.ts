@@ -10,7 +10,10 @@ const ClientAddressListViewModel = () => {
     const [checked, setChecked] = useState('')
 
     useEffect(() => {
-        changeRadioValue(user.address!)
+        getAddress()
+        if (user.address !== null && user.address!== undefined) {
+            changeRadioValue(user.address)
+        }
     }, [user])
 
     const changeRadioValue = (address: Address) => {
@@ -26,7 +29,6 @@ const ClientAddressListViewModel = () => {
 
     return {
         address,
-        getAddress,
         checked,
         changeRadioValue
     }
