@@ -3,7 +3,7 @@ import { Address } from "../models/address.js"
 export class addressController {
 
     static create = async (req, res) => {
-        const address = JSON.parse(req.body) 
+        const address = req.body
         try {
             const newAddress = await Address.create(address)
             return res.status(201).json({

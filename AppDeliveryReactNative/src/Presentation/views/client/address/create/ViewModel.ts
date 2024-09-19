@@ -1,5 +1,6 @@
-import { useContext, useState } from "react"
-import * as ImagePicker from "expo-image-picker"
+import { useContext, useEffect, useState } from "react"
+import { CreateAddressUseCase } from "../../../../../Domain/useCases/address/CreateAddress"
+import { UserContext } from "../../../../context/UserContext"
 
 const ClientAddressCreateViewModel = () => {
 
@@ -7,10 +8,19 @@ const ClientAddressCreateViewModel = () => {
     const [values, setValues] = useState({
         address: "",
         neighborhood: "",
-        refPoint: ""
+        refPoint: "",
+        lat: 0.0,
+        lng: 0.0,
+        id_user: ""
     })
-    const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()
     const [loading, setLoading] = useState(false)
+    const { user } = useContext(UserContext)
+
+    useEffect(() => {
+        if (user.id != '' || user.id != null) {
+            onChange('id_user', user.id)
+        }
+    }, [user])
     
     const onChange = (property: string, value: any) => {
         setValues({
@@ -19,29 +29,38 @@ const ClientAddressCreateViewModel = () => {
         })
     }
 
-    const CreateCategory = async () => {
-        // setLoading(true)
-        // const response = await create(values, file!)
-        // setLoading(false)
-        // if (response.success) {
-        //     setResponseMessage(response.message)
-        // }
-        // resetForm()
+    const onChangeRefPoint = (refPoint: string, lat :number, lng :number) => {
+        setValues({...values, refPoint, lat, lng})
+    }
+
+    const createAddress = async () => {
+        setLoading(true)
+        const response = await CreateAddressUseCase(values)
+        setLoading(false)
+        if (response.success) {
+            setResponseMessage(response.message)
+        }
+        resetForm()
     }
 
     const resetForm = () => {
-        // setValues({
-        //     name: "",
-        //     description: "",
-        //     image: ""
-        // })
+        setValues({
+            address: "",
+            neighborhood: "",
+            refPoint: "",
+            lat: 0.0,
+            lng: 0.0,
+            id_user: user.id!
+        })
     }
 
     return {
         ...values,
         onChange,
+        onChangeRefPoint,
         loading,
         responseMessage,
+        createAddress
     }
 }
 
