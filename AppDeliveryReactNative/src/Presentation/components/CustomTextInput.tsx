@@ -7,10 +7,11 @@ type CustomTextInputProps = {
     keyboardType: KeyboardType
     secureTextEntry?: boolean
     property: string
+    editable?: boolean 
     onChangeText: (property: string, value: any) => void
 }
 
-export const CustomTextInput = ({image, placeholder, value, keyboardType, secureTextEntry = false, property, onChangeText}: CustomTextInputProps) => {
+export const CustomTextInput = ({image, placeholder, value, keyboardType, secureTextEntry = false, property, editable = true, onChangeText}: CustomTextInputProps) => {
   return (
     <View style={styles.formInput}>
         <Image
@@ -21,6 +22,7 @@ export const CustomTextInput = ({image, placeholder, value, keyboardType, secure
             style={styles.formTextInput}
             placeholder={placeholder}
             keyboardType={keyboardType}
+            editable={editable}
             value={value}
             onChangeText={(text) => onChangeText(property, text)}
             secureTextEntry={secureTextEntry}
