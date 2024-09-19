@@ -6,7 +6,7 @@ const ClientAddressCreateViewModel = () => {
     const [responseMessage, setResponseMessage] = useState("")
     const [values, setValues] = useState({
         address: "",
-        neightborhood: "",
+        neighborhood: "",
         refPoint: ""
     })
     const [file, setFile] = useState<ImagePicker.ImagePickerAsset>()

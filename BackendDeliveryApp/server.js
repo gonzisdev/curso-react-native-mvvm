@@ -4,6 +4,7 @@ import cors from "cors"
 import userRoutes from "./routes/userRoutes.js"
 import categoryRoutes from "./routes/categoryRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
+import addressRoutes from "./routes/addressRoutes.js"
 import passport from "passport"
 import { auth } from "./config/passport.js"
 
@@ -42,4 +43,5 @@ const SERVER = app.listen(PORT, () => {
 app.use('/api/users', userRoutes)
 app.use('/api/categories', categoryRoutes)
 app.use('/api/products', productRoutes)
+app.use('/api/address', addressRoutes)
 

@@ -8,7 +8,7 @@ import styles from "./Styles"
 
 export const ClientAddressCreateScreen = () => {
 
-    const { address, neightborhood, refPoint, onChange, loading, responseMessage } = useViewModel()
+    const { address, neighborhood, refPoint, onChange, loading, responseMessage } = useViewModel()
     const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
@@ -42,9 +42,9 @@ export const ClientAddressCreateScreen = () => {
                 placeholder="Barrio"
                 image={require('../../../../../../assets/description.png')}
                 keyboardType="default"
-                value={neightborhood}
+                value={neighborhood}
                 onChangeText={onChange}
-                property="neightborhood"
+                property="neighborhood"
             />
             <CustomTextInput 
                 placeholder="Punto de referencia"
