@@ -70,6 +70,7 @@ export class Order {
 						'id', CONVERT(U.id, CHAR),
 						'name', U.name,
 						'lastname', U.lastname,
+						'phone', U.phone,						
 						'image', U.image
 					) AS client,
 					CONCAT(
