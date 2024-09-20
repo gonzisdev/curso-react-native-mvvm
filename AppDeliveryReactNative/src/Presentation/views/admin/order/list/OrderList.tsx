@@ -3,6 +3,7 @@ import { View, Text, useWindowDimensions, FlatList } from "react-native"
 import { SceneMap, TabBar, TabView } from "react-native-tab-view"
 import { Order } from "../../../../../Domain/entities/Order"
 import useViewModel from "./ViewModel"
+import { OrderListItem } from "./Item"
 
 type OrderListViewProps = {
   status: Order['status']
@@ -21,7 +22,7 @@ const OrderListView = ({status}: OrderListViewProps) => {
         <FlatList 
           data={orders}
           keyExtractor={(item) => item.id!}
-          renderItem={({item}) => <Text>{item.id}</Text>}
+          renderItem={({item}) => <OrderListItem order={item} />}
         />
     </View>
   )
@@ -67,7 +68,7 @@ export const AdminOrderListScreen = () => {
           activeColor="black"
           inactiveColor="gray"
           scrollEnabled={true}
-          style={{backgroundColor: 'white', height: 60, alignItems: "center", justifyContent: "center"}}
+          style={{paddingTop: 10, backgroundColor: 'white', height: 60, alignItems: "center", justifyContent: "center"}}
         />
       )}
     />
