@@ -9,7 +9,6 @@ const AdminOrderListViewModel = () => {
     const getOrders = async (status: Order['status']) => {
         const result = await GetByStatusOrderUseCase(status)
         setOrders(result)
-        console.log(result);
     }
 
   return  {
