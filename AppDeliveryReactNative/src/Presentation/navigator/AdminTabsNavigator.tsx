@@ -1,8 +1,8 @@
-import { Image, TouchableOpacity } from "react-native"
+import { Image } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { AdminOrderListScreen } from "../views/admin/order/list/OrderList"
 import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo"
 import { AdminCategoryNavigator } from "./AdminCategoryNavigator"
+import { AdminOrderStackNavigator } from "./AdminOrderStackNavigator"
 
 export const AdminTabsNavigator = () => {
 
@@ -32,8 +32,8 @@ export const AdminTabsNavigator = () => {
           )}
         />
         <Tab.Screen 
-          name="AdminOrderListScreen" 
-          component={AdminOrderListScreen} 
+          name="AdminOrderStackNavigator" 
+          component={AdminOrderStackNavigator} 
           options={{
             title: "Pedidos",
             tabBarLabel: "Pedidos",

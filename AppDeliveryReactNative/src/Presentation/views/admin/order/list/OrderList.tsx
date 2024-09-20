@@ -4,6 +4,9 @@ import { SceneMap, TabBar, TabView } from "react-native-tab-view"
 import { Order } from "../../../../../Domain/entities/Order"
 import useViewModel from "./ViewModel"
 import { OrderListItem } from "./Item"
+import { useNavigation } from "@react-navigation/native"
+import { NativeStackNavigationProp } from "@react-navigation/native-stack"
+import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackNavigator"
 
 type OrderListViewProps = {
   status: Order['status']
@@ -12,6 +15,7 @@ type OrderListViewProps = {
 const OrderListView = ({status}: OrderListViewProps) => {
 
   const { orders, getOrders } = useViewModel()
+  const navigation = useNavigation<NativeStackNavigationProp<AdminOrderStackParamList, "AdminOrderListScreen", undefined>>()
 
   useEffect(() => {
     getOrders(status?.toString())
@@ -22,7 +26,7 @@ const OrderListView = ({status}: OrderListViewProps) => {
         <FlatList 
           data={orders}
           keyExtractor={(item) => item.id!}
-          renderItem={({item}) => <OrderListItem order={item} />}
+          renderItem={({item}) => <OrderListItem order={item} navigation={navigation} />}
         />
     </View>
   )
