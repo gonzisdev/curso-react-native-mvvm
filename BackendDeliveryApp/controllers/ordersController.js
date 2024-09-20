@@ -24,4 +24,28 @@ export class ordersController {
             })
         }
     }
+
+    static findByStatus = async (req, res) => {
+        const status = req.params.status
+        try {
+            const data = await Order.findByStatus(status)
+            for(const d of data) {
+                d.address = JSON.parse(d.address)
+                d.client = JSON.parse(d.client)
+                d.products = JSON.parse(d.products)
+            }
+            return res.status(201).json({
+                success: true,
+                message: 'Las ordenes se listaron correctamente', 
+                data
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error listando las ordenes',
+                error: error.message
+            })
+        }
+    }
 }
