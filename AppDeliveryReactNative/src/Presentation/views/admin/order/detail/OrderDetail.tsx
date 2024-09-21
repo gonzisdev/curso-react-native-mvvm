@@ -1,11 +1,12 @@
+import { useEffect } from "react"
 import { View, Text, FlatList, Image } from "react-native"
-import styles from "./Styles"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackNavigator"
 import { OrderDetailItem } from "./Item"
 import { DateFormatter } from "../../../../utils/DateFormatter"
-import useViewModel from "./ViewModel"
 import { RoundedButton } from "../../../../components/RoundedButton"
+import useViewModel from "./ViewModel"
+import styles from "./Styles"
 
 type AdminOrderDetailScreenProps = NativeStackScreenProps<AdminOrderStackParamList, 'AdminOrderDetailScreen'>
 
@@ -13,7 +14,14 @@ export const AdminOrderDetailScreen = ({navigation, route}: AdminOrderDetailScre
 
   const { order } = route.params
 
-  const { total } = useViewModel(order)
+  useEffect(() => {
+    if (total == 0.0) {
+        getTotal()
+    }
+    getDeliveryMen()
+  }, [])
+
+  const { total, getTotal, getDeliveryMen, deliveryMen } = useViewModel(order)
 
   return (
     <View style={styles.container}>

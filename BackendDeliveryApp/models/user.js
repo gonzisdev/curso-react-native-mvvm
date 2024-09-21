@@ -142,7 +142,7 @@ export class User {
 				GROUP BY
 					U.id
             `;
-			const [rows] = await db.query(query)
+			const [rows] = await db.query(query, [email])
 			if (rows.length > 0) {                
 				return rows[0];
 			} else {
@@ -177,7 +177,7 @@ export class User {
 				WHERE
 					R.id = 2
             `;
-			const [rows] = await db.query(query, [email])
+			const [rows] = await db.query(query)
 			if (rows.length > 0) {                
 				return rows;
 			} else {

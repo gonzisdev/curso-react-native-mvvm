@@ -3,6 +3,7 @@ import { ResponseApiDelivery } from "../../Data/sources/remote/models/ResponseAp
 import { User } from "../entities/User"
 
 export type UserRepository = {
+    getDeliveryMen(): Promise<User[]>
     update(user: User): Promise<ResponseApiDelivery>
     updateWithImage(user: User, file: ImagePicker.ImagePickerAsset): Promise<ResponseApiDelivery>
 }
