@@ -72,6 +72,19 @@ const DeliveryOrderMapStyles = StyleSheet.create({
     imagePhone: {
         height: 35,
         width: 35
+    },
+    markerImage: {
+        height: 50,
+        width: 50
+    },
+    backContainer: {
+        position: "absolute",
+        top: 50,
+        left: 20
+    },
+    back: {
+        height: 30,
+        width: 30
     }
 })
 

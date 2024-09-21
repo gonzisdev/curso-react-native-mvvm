@@ -1,19 +1,19 @@
 import { useEffect } from "react"
-import { Image, ToastAndroid, View, Text } from "react-native"
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps"
+import { Image, ToastAndroid, View, Text, TouchableOpacity } from "react-native"
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import { RoundedButton } from "../../../../components/RoundedButton"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { DeliveryOrderStackParamList } from "../../../../navigator/DeliveryOrderStackNavigator"
 import useViewModel from "./ViewModel"
 import stylesMap from "./StylesMap"
 import styles from "./Styles"
-import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { DeliveryOrderStackParamList } from "../../../../navigator/DeliveryOrderStackNavigator"
 
 type DeliveryOrderMapScreenProps = NativeStackScreenProps<DeliveryOrderStackParamList, 'DeliveryOrderMapScreen'>
 
 export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScreenProps) => {
 
     const { order } = route.params
-    const { messagePermissions, postition, mapRef, onRegionChangeComplete, name, latitude, longitude } = useViewModel()
+    const { messagePermissions, postition, mapRef, stopForegroundUpdate } = useViewModel()
 
     useEffect(() => {
         if (messagePermissions != '') {
@@ -21,18 +21,32 @@ export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScre
         }
     }, [messagePermissions])
 
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('beforeRemove', () => {
+            stopForegroundUpdate()
+        })
+        unsubscribe()
+    }, [navigation])
+
   return (
     <View style={styles.container}>
         <MapView 
             ref={mapRef}
             customMapStyle={stylesMap}
-            style={{height: "100%", width: "100%"}}
+            style={{height: "67%", width: "100%", position: "absolute", top: 0}}
             provider={PROVIDER_GOOGLE}
-        />
-        <Image 
-            style={styles.imageLocation}
-            source={require('../../../../../../assets/location_home.png')}
-        />
+        >
+            {postition !== undefined && 
+                <Marker 
+                    coordinate={postition}
+                >
+                    <Image 
+                        style={styles.markerImage}
+                        source={require('../../../../../../assets/delivery.png')}
+                    />
+                </Marker>
+            }
+        </MapView>
         <View style={styles.info}>
             <View style={styles.infoRow}>
                 <View style={styles.infoText}>
@@ -40,8 +54,8 @@ export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScre
                 <Text style={styles.infoDescription}>{order.address?.neighborhood}</Text>
                 </View>
                 <Image 
-                style={styles.infoImage}
-                source={require('../../../../../../assets/location.png')}
+                    style={styles.infoImage}
+                    source={require('../../../../../../assets/location.png')}
                 />
             </View>
             <View style={styles.infoRow}>
@@ -72,6 +86,12 @@ export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScre
                 }} />
             </View>
         </View>
+        <TouchableOpacity style={styles.backContainer} onPress={() => navigation.goBack()}>
+            <Image 
+                style={styles.back}
+                source={require('../../../../../../assets/back.png')}
+            />
+        </TouchableOpacity>
     </View>
   )
 }

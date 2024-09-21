@@ -12,6 +12,7 @@ const DeliveryOrderMapViewModel = () => {
     })
     const [postition, setPosition] = useState<Location.LocationObjectCoords>()
     const mapRef = useRef<MapView | null>(null)
+    let positionSubscription: Location.LocationSubscription
 
     useEffect(() => {
         const requestPermissions = async () => {
@@ -66,6 +67,20 @@ const DeliveryOrderMapViewModel = () => {
             altitude: 0
         }
         mapRef.current?.animateCamera(newCamera, {duration: 2000})
+        positionSubscription.remove()
+        positionSubscription = await Location.watchPositionAsync(
+            {
+                accuracy: Location.Accuracy.BestForNavigation
+            },
+            location => {
+                setPosition(location?.coords)
+            }
+        )
+    }
+
+    const stopForegroundUpdate = () => {
+        positionSubscription.remove()
+        setPosition(undefined)
     }
 
   return {
@@ -73,7 +88,8 @@ const DeliveryOrderMapViewModel = () => {
     postition,
     mapRef,
     onRegionChangeComplete,
-    ...refPoint
+    ...refPoint,
+    stopForegroundUpdate
   }
 }
 
