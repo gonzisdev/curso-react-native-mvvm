@@ -5,6 +5,7 @@ import { User } from "./User"
 export type Order = {
     id?: string
     id_client: User['id']
+    id_delivery?: User['id']
     id_address: Address['id']
     status?: string
     lat?: number

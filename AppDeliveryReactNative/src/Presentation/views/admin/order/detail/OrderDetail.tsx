@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { View, Text, FlatList, Image } from "react-native"
+import { View, Text, FlatList, Image, ToastAndroid } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackNavigator"
 import { OrderDetailItem } from "./Item"
@@ -14,6 +14,7 @@ type AdminOrderDetailScreenProps = NativeStackScreenProps<AdminOrderStackParamLi
 export const AdminOrderDetailScreen = ({navigation, route}: AdminOrderDetailScreenProps) => {
 
   const { order } = route.params
+  const { total, getTotal, getDeliveryMen, deliveryMen, open, value, items, setOpen, setValue, setItems, dispatchOrder, responseMessage } = useViewModel(order)
 
   useEffect(() => {
     if (total == 0.0) {
@@ -22,7 +23,11 @@ export const AdminOrderDetailScreen = ({navigation, route}: AdminOrderDetailScre
     getDeliveryMen()
   }, [])
 
-  const { total, getTotal, getDeliveryMen, deliveryMen, open, value, items, setOpen, setValue, setItems, dispatchOrder } = useViewModel(order)
+  useEffect(() => {
+    if (responseMessage !== '') {
+      ToastAndroid.show(responseMessage, ToastAndroid.LONG)
+    }
+  }, [responseMessage])
 
   return (
     <View style={styles.container}>
@@ -64,21 +69,27 @@ export const AdminOrderDetailScreen = ({navigation, route}: AdminOrderDetailScre
               source={require('../../../../../../assets/location.png')}
             />
           </View>
-          <Text style={styles.deliveries}>REPARTIDORES DISPONIBLES</Text>
-          <View style={styles.dropdown}>
-            <DropDownPicker
-              open={open}
-              value={value}
-              items={items}
-              setOpen={setOpen}
-              setValue={setValue}
-              setItems={setItems}
-            />
-          </View>
+          {
+            order.status === "PAGADO" ? (
+              <>
+                <Text style={styles.deliveries}>REPARTIDORES DISPONIBLES</Text>
+                <View style={styles.dropdown}>
+                  <DropDownPicker
+                    open={open}
+                    value={value}
+                    items={items}
+                    setOpen={setOpen}
+                    setValue={setValue}
+                    setItems={setItems}
+                  />
+                </View>
+              </>
+            ) : <Text style={styles.deliveries}>REPARTIDORES ASIGNADO: {order.delivery?.name} {order.delivery?.lastname}</Text>
+          }
           <View style={styles.totalInfo}>
             <Text style={styles.total}>Total: {total}€</Text>
             <View style={styles.button}>
-              <RoundedButton text="DESPACHAR ORDEN" onPress={() => dispatchOrder()} />
+              {order.status === "PAGADO" && <RoundedButton text="DESPACHAR ORDEN" onPress={() => dispatchOrder()} />}
             </View>
           </View>
         </View>
