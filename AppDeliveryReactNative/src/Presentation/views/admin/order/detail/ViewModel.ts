@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Order } from "../../../../../Domain/entities/Order"
 import { User } from "../../../../../Domain/entities/User"
 import { GetDeliveryMenUserUseCase } from "../../../../../Domain/useCases/user/GetDeliveryMenUser"
 import { UpdateToDispatchedOrderUseCase } from "../../../../../Domain/useCases/order/UpdateToDispatchedOrder"
+import { OrderContext } from "../../../../context/OrderContext"
 
 type DropDownProps = {
     label: string
@@ -19,6 +20,8 @@ const AdminOrderDetailViewModel = (order: Order) => {
     const [value, setValue] = useState(null)
     const [items, setItems] = useState<DropDownProps[]>([])
 
+    const { updateToDispatched } = useContext(OrderContext)
+
     useEffect(() => {
         setDropDownItems()
     }, [deliveryMen])
@@ -26,7 +29,7 @@ const AdminOrderDetailViewModel = (order: Order) => {
     const dispatchOrder = async () => {
         if (value !== null) {
             order.id_delivery = value!
-            const result = await UpdateToDispatchedOrderUseCase(order)
+            const result = await updateToDispatched(order)
             setResponseMessage(result.message)
         } else {
             setResponseMessage('Selecciona el repartidor')

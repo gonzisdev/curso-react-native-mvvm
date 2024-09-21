@@ -14,7 +14,7 @@ export const OrderListItem = ({order, navigation}: OrderListItemProps) => {
   return (
     <TouchableOpacity onPress={() => navigation.navigate('AdminOrderDetailScreen', {order: order})}>
         <View style={styles.container}>
-            <Text style={styles.order}>Order #{order.id}</Text>
+            <Text style={styles.order}>Orden #{order.id}</Text>
             <Text style={{...styles.info, marginTop: 10}}>Fecha del pedido: {DateFormatter(order.timestamp)}</Text>
             <Text style={styles.info}>Cliente: {order.client?.name} {order.client?.lastname}</Text>
             <Text style={styles.info}>Dirección: {order.address?.address}</Text>

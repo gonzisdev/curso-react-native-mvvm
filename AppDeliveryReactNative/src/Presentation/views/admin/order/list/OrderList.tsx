@@ -14,7 +14,7 @@ type OrderListViewProps = {
 
 const OrderListView = ({status}: OrderListViewProps) => {
 
-  const { orders, getOrders } = useViewModel()
+  const { ordersPaid, ordersDispatched, ordersOnTheWay, ordersDelivery, getOrders } = useViewModel()
   const navigation = useNavigation<NativeStackNavigationProp<AdminOrderStackParamList, "AdminOrderListScreen", undefined>>()
 
   useEffect(() => {
@@ -24,7 +24,17 @@ const OrderListView = ({status}: OrderListViewProps) => {
   return (
     <View>
         <FlatList 
-          data={orders}
+          data={
+            status === 'PAGADO' 
+            ? ordersPaid 
+            : status === 'DESPACHADO'
+            ? ordersDispatched 
+            : status === 'EN CAMINO'
+            ? ordersOnTheWay 
+            : status === 'ENTREGADO'
+            ? ordersDelivery 
+            : []
+          }
           keyExtractor={(item) => item.id!}
           renderItem={({item}) => <OrderListItem order={item} navigation={navigation} />}
         />
