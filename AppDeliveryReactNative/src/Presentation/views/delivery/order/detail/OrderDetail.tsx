@@ -5,7 +5,6 @@ import { DeliveryOrderStackParamList } from "../../../../navigator/DeliveryOrder
 import { OrderDetailItem } from "./Item"
 import { DateFormatter } from "../../../../utils/DateFormatter"
 import { RoundedButton } from "../../../../components/RoundedButton"
-import DropDownPicker from 'react-native-dropdown-picker'
 import useViewModel from "./ViewModel"
 import styles from "./Styles"
 
@@ -14,13 +13,12 @@ type DeliveryOrderDetailScreenProps = NativeStackScreenProps<DeliveryOrderStackP
 export const DeliveryOrderDetailScreen = ({navigation, route}: DeliveryOrderDetailScreenProps) => {
 
   const { order } = route.params
-  const { total, getTotal, getDeliveryMen, deliveryMen, open, value, items, setOpen, setValue, setItems, dispatchOrder, responseMessage } = useViewModel(order)
+  const { total, getTotal, updateToOnTheWayOrder, responseMessage } = useViewModel(order)
 
   useEffect(() => {
     if (total == 0.0) {
         getTotal()
     }
-    getDeliveryMen()
   }, [])
 
   useEffect(() => {
@@ -69,27 +67,20 @@ export const DeliveryOrderDetailScreen = ({navigation, route}: DeliveryOrderDeta
               source={require('../../../../../../assets/location.png')}
             />
           </View>
-          {
-            order.status === "PAGADO" ? (
-              <>
-                <Text style={styles.deliveries}>REPARTIDORES DISPONIBLES</Text>
-                <View style={styles.dropdown}>
-                  <DropDownPicker
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                  />
-                </View>
-              </>
-            ) : <Text style={styles.deliveries}>REPARTIDOR ASIGNADO: {order.delivery?.name} {order.delivery?.lastname}</Text>
-          }
+          <View style={styles.infoRow}>
+            <View style={styles.infoText}>
+              <Text style={styles.infoTitle}>REPARTIDOR ASIGNADO</Text>
+              <Text style={styles.infoDescription}>{order.delivery?.name} {order.delivery?.lastname}</Text>
+            </View>
+            <Image 
+              style={styles.infoImage}
+              source={require('../../../../../../assets/my_user.png')}
+            />
+          </View>
           <View style={styles.totalInfo}>
             <Text style={styles.total}>Total: {total}€</Text>
             <View style={styles.button}>
-              {order.status === "PAGADO" && <RoundedButton text="DESPACHAR ORDEN" onPress={() => dispatchOrder()} />}
+              {order.status === "DESPACHADO" && <RoundedButton text="INICIAR ENTREGA" onPress={() => updateToOnTheWayOrder()} />}
             </View>
           </View>
         </View>

@@ -7,11 +7,11 @@ const DeliveryOrderDetailStyles = StyleSheet.create({
     },
     products: {
         width: "100%",
-        height: "40%"
+        height: "50%"
     },
     info: {
         width: "100%",
-        height: "60%",
+        height: "50%",
         backgroundColor: "white",
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,

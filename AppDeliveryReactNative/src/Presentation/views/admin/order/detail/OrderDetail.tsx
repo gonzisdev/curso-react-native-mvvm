@@ -14,7 +14,7 @@ type AdminOrderDetailScreenProps = NativeStackScreenProps<AdminOrderStackParamLi
 export const AdminOrderDetailScreen = ({navigation, route}: AdminOrderDetailScreenProps) => {
 
   const { order } = route.params
-  const { total, getTotal, getDeliveryMen, deliveryMen, open, value, items, setOpen, setValue, setItems, dispatchOrder, responseMessage } = useViewModel(order)
+  const { total, getTotal, getDeliveryMen, open, value, items, setOpen, setValue, setItems, dispatchOrder, responseMessage } = useViewModel(order)
 
   useEffect(() => {
     if (total == 0.0) {

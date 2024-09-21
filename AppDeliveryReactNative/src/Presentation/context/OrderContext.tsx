@@ -1,9 +1,10 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { Order } from '../../Domain/entities/Order'
 import { ResponseApiDelivery } from '../../Data/sources/remote/models/ResponseApiDelivery'
 import { GetByStatusOrderUseCase } from '../../Domain/useCases/order/GetByStatusOrder'
 import { GetByDeliveryAndStatusOrderUseCase } from '../../Domain/useCases/order/GetByDelivertAndStatusOrder'
 import { UpdateToDispatchedOrderUseCase } from '../../Domain/useCases/order/UpdateToDispatchedOrder'
+import { UpdateToOnTheWayOrderUseCase } from '../../Domain/useCases/order/UpdateToOnTheWayOrder'
 
 export type OrderContextProps = {
     ordersPaid: Order[]
@@ -13,6 +14,7 @@ export type OrderContextProps = {
     getOrderByStatus(status: Order['status']): Promise<void>
     getOrderByDeliveryAndStatus(id_delivery: Order['id_delivery'], status: Order['status']): Promise<void>
     updateToDispatched(order: Order): Promise<ResponseApiDelivery>
+    updateToOnTheWay(order: Order): Promise<ResponseApiDelivery>
 }
 
 export type OrderProviderProps = {
@@ -27,6 +29,13 @@ export const OrderProvider= ({children}: OrderProviderProps) => {
     const [ordersDispatched, setOrdersDispatched] = useState<Order[]>([])
     const [ordersOnTheWay, setOrdersOnTheWay] = useState<Order[]>([])
     const [ordersDelivery, setOrdersDelivery] = useState<Order[]>([])
+
+    useEffect(() => {
+        setOrdersPaid([])
+        setOrdersDispatched([])
+        setOrdersOnTheWay([])
+        setOrdersDelivery([])
+    }, [])
 
     const getOrderByStatus = async (status: Order['status']) => {
         const result = await GetByStatusOrderUseCase(status)
@@ -61,6 +70,13 @@ export const OrderProvider= ({children}: OrderProviderProps) => {
         return result
     }
 
+    const updateToOnTheWay = async (order: Order) => {
+        const result = await UpdateToOnTheWayOrderUseCase(order)
+        getOrderByDeliveryAndStatus(order.id_delivery, 'DESPACHADO')
+        getOrderByDeliveryAndStatus(order.id_delivery, 'EN CAMINO')
+        return result
+    }
+
   return (
     <OrderContext.Provider
         value={{
@@ -70,7 +86,8 @@ export const OrderProvider= ({children}: OrderProviderProps) => {
             ordersDelivery,
             getOrderByStatus,
             getOrderByDeliveryAndStatus,
-            updateToDispatched
+            updateToDispatched,
+            updateToOnTheWay
         }}
     >
         {children}

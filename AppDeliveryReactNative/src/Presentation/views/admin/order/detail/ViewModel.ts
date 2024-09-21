@@ -61,7 +61,6 @@ const AdminOrderDetailViewModel = (order: Order) => {
     total,
     getTotal,
     getDeliveryMen,
-    deliveryMen,
     open,
     value,
     items,
