@@ -9,7 +9,7 @@ type DropDownProps = {
     value: string
 }
 
-const AdminOrderDetailViewModel = (order: Order) => {
+const deliveryOrderDetailViewModel = (order: Order) => {
 
     const [total, setTotal] = useState(0.0)
     const [deliveryMen, setDeliveryMen] = useState<User[]>([])
@@ -73,4 +73,4 @@ const AdminOrderDetailViewModel = (order: Order) => {
   }
 }
 
-export default AdminOrderDetailViewModel
+export default deliveryOrderDetailViewModel

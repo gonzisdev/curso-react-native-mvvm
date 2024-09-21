@@ -5,7 +5,7 @@ import { Order } from "../../../../../Domain/entities/Order"
 import { OrderListItem } from "./Item"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
-import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackNavigator"
+import { DeliveryOrderStackParamList } from "../../../../navigator/DeliveryOrderStackNavigator"
 import useViewModel from "./ViewModel"
 
 type OrderListViewProps = {
@@ -14,20 +14,18 @@ type OrderListViewProps = {
 
 const OrderListView = ({status}: OrderListViewProps) => {
 
-  const { ordersPaid, ordersDispatched, ordersOnTheWay, ordersDelivery, getOrders } = useViewModel()
-  const navigation = useNavigation<NativeStackNavigationProp<AdminOrderStackParamList, "AdminOrderListScreen", undefined>>()
+  const { ordersPaid, ordersDispatched, ordersOnTheWay, ordersDelivery, getOrders, user } = useViewModel()
+  const navigation = useNavigation<NativeStackNavigationProp<DeliveryOrderStackParamList, "DeliveryOrderListScreen", undefined>>()
 
   useEffect(() => {
-    getOrders(status?.toString())
-  }, [])
+    getOrders(user?.id!, status?.toString())
+  }, [user])
 
   return (
     <View>
         <FlatList 
           data={
-            status === 'PAGADO' 
-            ? ordersPaid 
-            : status === 'DESPACHADO'
+            status === 'DESPACHADO'
             ? ordersDispatched 
             : status === 'EN CAMINO'
             ? ordersOnTheWay 
@@ -44,8 +42,6 @@ const OrderListView = ({status}: OrderListViewProps) => {
 
 const renderScene = ({route}: any) => {
   switch (route.key) {
-    case 'first':
-      return <OrderListView status={'PAGADO'} />
     case 'second':
       return <OrderListView status={'DESPACHADO'} />
     case 'third':
@@ -53,17 +49,16 @@ const renderScene = ({route}: any) => {
     case 'fourth':
       return <OrderListView status={'ENTREGADO'} />
     default:
-      return <OrderListView status={'PAGADO'} />
+      return <OrderListView status={'DESPACHADO'} />
   }
 }
 
-export const AdminOrderListScreen = () => {
+export const DeliveryOrderListScreen = () => {
 
   const layout = useWindowDimensions()
 
   const [index, setIndex] = useState(0)
   const [routes] = useState([
-    { key: 'first', title: 'PAGADO' },
     { key: 'second', title: 'DESPACHADO' },
     { key: 'third', title: 'EN CAMINO' },
     { key: 'fourth', title: 'ENTREGADO' }

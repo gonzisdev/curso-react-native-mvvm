@@ -2,6 +2,7 @@ import { createContext, useState } from 'react'
 import { Order } from '../../Domain/entities/Order'
 import { ResponseApiDelivery } from '../../Data/sources/remote/models/ResponseApiDelivery'
 import { GetByStatusOrderUseCase } from '../../Domain/useCases/order/GetByStatusOrder'
+import { GetByDeliveryAndStatusOrderUseCase } from '../../Domain/useCases/order/GetByDelivertAndStatusOrder'
 import { UpdateToDispatchedOrderUseCase } from '../../Domain/useCases/order/UpdateToDispatchedOrder'
 
 export type OrderContextProps = {
@@ -10,6 +11,7 @@ export type OrderContextProps = {
     ordersOnTheWay: Order[]
     ordersDelivery: Order[]
     getOrderByStatus(status: Order['status']): Promise<void>
+    getOrderByDeliveryAndStatus(id_delivery: Order['id_delivery'], status: Order['status']): Promise<void>
     updateToDispatched(order: Order): Promise<ResponseApiDelivery>
 }
 
@@ -39,6 +41,19 @@ export const OrderProvider= ({children}: OrderProviderProps) => {
         } 
     }
 
+    const getOrderByDeliveryAndStatus = async (id_delivery: Order['id_delivery'], status: Order['status']) => {
+        const result = await GetByDeliveryAndStatusOrderUseCase(id_delivery, status)
+        if (status === 'PAGADO') {
+            setOrdersPaid(result)
+        } else if (status === 'DESPACHADO') {
+            setOrdersDispatched(result)
+        } else if (status === 'EN CAMINO') {
+            setOrdersOnTheWay(result)
+        } else if (status === 'ENTREGADO') {
+            setOrdersDelivery(result)
+        } 
+    }
+
     const updateToDispatched = async (order: Order) => {
         const result = await UpdateToDispatchedOrderUseCase(order)
         getOrderByStatus('PAGADO')
@@ -54,6 +69,7 @@ export const OrderProvider= ({children}: OrderProviderProps) => {
             ordersOnTheWay,
             ordersDelivery,
             getOrderByStatus,
+            getOrderByDeliveryAndStatus,
             updateToDispatched
         }}
     >

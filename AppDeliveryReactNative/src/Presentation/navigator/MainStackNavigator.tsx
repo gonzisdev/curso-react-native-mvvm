@@ -7,6 +7,7 @@ import { RolesScreen } from "../views/roles/Roles"
 import { AdminTabsNavigator } from "./AdminTabsNavigator"
 import { ClientTabsNavigator } from "./ClientTabsNavigator"
 import { User } from "../../Domain/entities/User"
+import { DeliveryTabsNavigator } from "./DeliveryTabsNavigator"
 
 
 export type RootStackParamList = {
@@ -15,6 +16,7 @@ export type RootStackParamList = {
     RolesScreen: undefined
     AdminTabsNavigator: undefined
     ClientTabsNavigator: undefined
+    DeliveryTabsNavigator: undefined
     ProfileUpdateScreen: {user: User}
   }
 
@@ -55,6 +57,10 @@ export const MainStackNavigator = () => {
         <Stack.Screen 
             name="ClientTabsNavigator"
             component={ClientTabsNavigator}
+        />
+        <Stack.Screen 
+            name="DeliveryTabsNavigator"
+            component={DeliveryTabsNavigator}
         />
         <Stack.Screen 
             name="ProfileUpdateScreen"
