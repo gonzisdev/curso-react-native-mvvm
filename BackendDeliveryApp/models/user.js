@@ -142,9 +142,44 @@ export class User {
 				GROUP BY
 					U.id
             `;
-			const [rows] = await db.query(query, [email])
+			const [rows] = await db.query(query)
 			if (rows.length > 0) {                
 				return rows[0];
+			} else {
+				return null
+			}
+		} catch (error) {
+			console.error("Error fetching delivery men:", error);
+			throw error
+		}
+	}
+
+	static async findDeliveryMen() {
+		try {
+			const query = `
+				SELECT 
+					U.id,
+					U.email,
+					U.name,
+					U.lastname,
+					U.phone,
+					U.image	
+				FROM
+					${this.table} AS U
+				INNER JOIN
+					user_has_roles AS UHR 
+				ON 
+					UHR.id_user = U.id
+				INNER JOIN
+					roles AS R 
+				ON 
+					UHR.id_rol = R.id
+				WHERE
+					R.id = 2
+            `;
+			const [rows] = await db.query(query, [email])
+			if (rows.length > 0) {                
+				return rows;
 			} else {
 				return null
 			}

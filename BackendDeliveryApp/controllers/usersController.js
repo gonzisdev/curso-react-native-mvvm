@@ -7,6 +7,24 @@ import storage from "../utils/cloud_storage.js"
 
 export class userController {
 
+    static findDeliveryMen = async (req, res) => {
+        try {
+            const deliveryMen = await User.findDeliveryMen()
+            return res.status(201).json({
+                success: true,
+                message: 'Los repartidores fueron encontrados',
+                data: deliveryMen
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error buscando los repartidores',
+                error: error.message
+            })
+        }
+    }
+
     static login = async (req, res) => {
         const email = req.body.email
         const password = req.body.password

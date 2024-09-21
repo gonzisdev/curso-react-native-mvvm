@@ -9,6 +9,7 @@ export const upload = multer({
     storage: multer.memoryStorage()
 })
 
+router.route('/findDeliveryMen').get(passport.authenticate('jwt', {session: false}), userController.findDeliveryMen)
 router.route('/create').post(userController.register)
 router.route('/createWithImage').post(upload.single('image', 1), userController.registerWithImage)
 router.route('/login').post(userController.login)
