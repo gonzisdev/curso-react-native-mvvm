@@ -48,4 +48,23 @@ export class ordersController {
             })
         }
     }
+
+    static updateToDispatched = async (req, res) => {
+        const order = req.body
+        try {
+            const toDispatched = await Order.updateToDispatched(order.id, order.id_delivery)
+            return res.status(201).json({
+                success: true,
+                message: 'El estado de la orden se cambió a despachado correctamente', 
+                data: `${toDispatched}`
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error cambiando el estado a despachado',
+                error: error.message
+            })
+        }
+    }
 }
