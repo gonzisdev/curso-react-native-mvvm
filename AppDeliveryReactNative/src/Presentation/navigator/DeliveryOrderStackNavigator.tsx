@@ -3,10 +3,12 @@ import { Order } from "../../Domain/entities/Order"
 import { OrderProvider } from "../context/OrderContext"
 import { DeliveryOrderListScreen } from "../views/delivery/order/list/OrderList"
 import { DeliveryOrderDetailScreen } from "../views/delivery/order/detail/OrderDetail"
+import { DeliveryOrderMapScreen } from "../views/delivery/order/map/OrderMap"
 
 export type DeliveryOrderStackParamList = {
     DeliveryOrderListScreen: undefined
     DeliveryOrderDetailScreen: {order: Order}
+    DeliveryOrderMapScreen: {order: Order}
 }
 
 export const DeliveryOrderStackNavigator = () => {
@@ -29,6 +31,13 @@ export const DeliveryOrderStackNavigator = () => {
                 options={{
                     headerShown: true,
                     title: "Detalle de la orden"
+                }}
+            />
+            <Stack.Screen 
+                name="DeliveryOrderMapScreen"
+                component={DeliveryOrderMapScreen}
+                options={{
+                    headerShown: false
                 }}
             />
         </Stack.Navigator>

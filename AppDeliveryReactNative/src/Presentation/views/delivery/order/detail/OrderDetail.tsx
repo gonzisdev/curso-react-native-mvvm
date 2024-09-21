@@ -81,6 +81,7 @@ export const DeliveryOrderDetailScreen = ({navigation, route}: DeliveryOrderDeta
             <Text style={styles.total}>Total: {total}€</Text>
             <View style={styles.button}>
               {order.status === "DESPACHADO" && <RoundedButton text="INICIAR ENTREGA" onPress={() => updateToOnTheWayOrder()} />}
+              {order.status === "EN CAMINO" && <RoundedButton text="IR A LA RUTA" onPress={() => navigation.navigate('DeliveryOrderMapScreen', {order: order})} />}
             </View>
           </View>
         </View>
