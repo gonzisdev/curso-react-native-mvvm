@@ -5,6 +5,7 @@ import { AdminOrderStackParamList } from "../../../../navigator/AdminOrderStackN
 import { OrderDetailItem } from "./Item"
 import { DateFormatter } from "../../../../utils/DateFormatter"
 import { RoundedButton } from "../../../../components/RoundedButton"
+import DropDownPicker from 'react-native-dropdown-picker'
 import useViewModel from "./ViewModel"
 import styles from "./Styles"
 
@@ -21,7 +22,7 @@ export const AdminOrderDetailScreen = ({navigation, route}: AdminOrderDetailScre
     getDeliveryMen()
   }, [])
 
-  const { total, getTotal, getDeliveryMen, deliveryMen } = useViewModel(order)
+  const { total, getTotal, getDeliveryMen, deliveryMen, open, value, items, setOpen, setValue, setItems, dispatchOrder } = useViewModel(order)
 
   return (
     <View style={styles.container}>
@@ -64,10 +65,20 @@ export const AdminOrderDetailScreen = ({navigation, route}: AdminOrderDetailScre
             />
           </View>
           <Text style={styles.deliveries}>REPARTIDORES DISPONIBLES</Text>
+          <View style={styles.dropdown}>
+            <DropDownPicker
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+            />
+          </View>
           <View style={styles.totalInfo}>
             <Text style={styles.total}>Total: {total}€</Text>
             <View style={styles.button}>
-              <RoundedButton text="DESPACHAR ORDEN" onPress={() => {}} />
+              <RoundedButton text="DESPACHAR ORDEN" onPress={() => dispatchOrder()} />
             </View>
           </View>
         </View>

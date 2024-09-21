@@ -19,7 +19,7 @@ const AdminOrderDetailStyles = StyleSheet.create({
     },
     infoRow: {
         flexDirection: "row",
-        marginTop: 15
+        marginTop: 30
     },
     infoText: {
         flex: 1
@@ -38,7 +38,7 @@ const AdminOrderDetailStyles = StyleSheet.create({
     },
     deliveries: {
         fontWeight: "bold",
-        marginTop: 15,
+        marginTop: 30,
         color: MyColors.primary
     },
     totalInfo: {
@@ -53,6 +53,10 @@ const AdminOrderDetailStyles = StyleSheet.create({
     },
     button: {
         width: "50%"
+    },
+    dropdown: {
+        marginTop: 15,
+        marginBottom: 30
     }
 })
 
