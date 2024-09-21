@@ -276,4 +276,33 @@ export class Order {
 			throw error
 		}
 	}
+
+	static async updateToDelivered(id_order, id_delivery) {
+		try {
+			const query = `
+				UPDATE
+					${this.table}
+				SET
+					id_delivery = ?,
+					status = ?,
+					updated_at = ?
+				WHERE
+					id = ?
+			`
+			const result = await db.query(query, [
+				id_delivery,
+				'ENTREGADO',
+				new Date(),
+                id_order
+			])
+			if (result[0].affectedRows > 0) {                
+				return result[0].insertId
+			} else {
+				return null
+			}
+		} catch (error) {
+			console.error("Error updating order to delivered:", error);
+			throw error
+		}
+	}
 }

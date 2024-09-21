@@ -113,4 +113,23 @@ export class ordersController {
             })
         }
     }
+
+    static updateToDelivered = async (req, res) => {
+        const order = req.body
+        try {
+            const toDelivered = await Order.updateToDelivered(order.id, order.id_delivery)
+            return res.status(201).json({
+                success: true,
+                message: 'El estado de la orden se cambió a entregado correctamente', 
+                data: `${toDelivered}`
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error cambiando el estado a entregado',
+                error: error.message
+            })
+        }
+    }
 }

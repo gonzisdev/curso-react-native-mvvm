@@ -9,5 +9,6 @@ router.route('/findByStatus/:status').get(passport.authenticate('jwt', {session:
 router.route('/findByDeliveryAndStatus/:id_delivery/:status').get(passport.authenticate('jwt', {session: false}), ordersController.findByDeliveryAndStatus)
 router.route('/updateToDispatched').put(passport.authenticate('jwt', {session: false}), ordersController.updateToDispatched)
 router.route('/updateToOnTheWay').put(passport.authenticate('jwt', {session: false}), ordersController.updateToOnTheWay)
+router.route('/updateToDelivered').put(passport.authenticate('jwt', {session: false}), ordersController.updateToDelivered)
 
 export default router
