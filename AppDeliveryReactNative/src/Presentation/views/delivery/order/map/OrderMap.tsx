@@ -7,13 +7,17 @@ import { DeliveryOrderStackParamList } from "../../../../navigator/DeliveryOrder
 import useViewModel from "./ViewModel"
 import stylesMap from "./StylesMap"
 import styles from "./Styles"
+import MapViewDirections from "react-native-maps-directions"
+import * as dotenv from 'dotenv'
+
+dotenv.config();
 
 type DeliveryOrderMapScreenProps = NativeStackScreenProps<DeliveryOrderStackParamList, 'DeliveryOrderMapScreen'>
 
 export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScreenProps) => {
 
     const { order } = route.params
-    const { messagePermissions, postition, mapRef, stopForegroundUpdate } = useViewModel()
+    const { messagePermissions, postition, mapRef, stopForegroundUpdate, origin, destination } = useViewModel(order)
 
     useEffect(() => {
         if (messagePermissions != '') {
@@ -45,6 +49,25 @@ export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScre
                         source={require('../../../../../../assets/delivery.png')}
                     />
                 </Marker>
+            }
+            {order.address !== undefined && 
+                <Marker 
+                    coordinate={{latitude: order.address.lat, longitude: order.address.lng}}
+                >
+                    <Image 
+                        style={styles.markerImage}
+                        source={require('../../../../../../assets/home.png')}
+                    />
+                </Marker>
+            }
+            {origin.latitude !== 0.0 &&
+                <MapViewDirections 
+                    origin={origin}
+                    destination={destination}
+                    apikey={process.env.GOOGLE_MAPS_API_KEY!}
+                    strokeWidth={3}
+                    strokeColor="orange"
+                />
             }
         </MapView>
         <View style={styles.info}>
