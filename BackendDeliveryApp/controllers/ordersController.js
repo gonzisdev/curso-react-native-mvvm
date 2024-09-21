@@ -94,4 +94,23 @@ export class ordersController {
             })
         }
     }
+
+    static updateToOnTheWay = async (req, res) => {
+        const order = req.body
+        try {
+            const toOnTheWay = await Order.updateToOnTheWay(order.id, order.id_delivery)
+            return res.status(201).json({
+                success: true,
+                message: 'El estado de la orden se cambió a en camino correctamente', 
+                data: `${toOnTheWay}`
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error cambiando el estado a en camino',
+                error: error.message
+            })
+        }
+    }
 }

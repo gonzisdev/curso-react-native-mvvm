@@ -84,7 +84,7 @@ export const DeliveryOrderDetailScreen = ({navigation, route}: DeliveryOrderDeta
                   />
                 </View>
               </>
-            ) : <Text style={styles.deliveries}>REPARTIDORES ASIGNADO: {order.delivery?.name} {order.delivery?.lastname}</Text>
+            ) : <Text style={styles.deliveries}>REPARTIDOR ASIGNADO: {order.delivery?.name} {order.delivery?.lastname}</Text>
           }
           <View style={styles.totalInfo}>
             <Text style={styles.total}>Total: {total}€</Text>
