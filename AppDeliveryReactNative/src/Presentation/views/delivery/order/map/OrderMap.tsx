@@ -17,7 +17,7 @@ type DeliveryOrderMapScreenProps = NativeStackScreenProps<DeliveryOrderStackPara
 export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScreenProps) => {
 
     const { order } = route.params
-    const { messagePermissions, postition, mapRef, stopForegroundUpdate, origin, destination, updateToDeliveredOrder, responseMessage } = useViewModel(order)
+    const { messagePermissions, postition, mapRef, stopForegroundUpdate, origin, destination, updateToDeliveredOrder, responseMessage, socket } = useViewModel(order)
 
     useEffect(() => {
         if (messagePermissions != '') {
@@ -34,6 +34,7 @@ export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScre
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', () => {
             stopForegroundUpdate()
+            socket.disconnect()
         })
         unsubscribe()
     }, [navigation])

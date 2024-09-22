@@ -8,6 +8,9 @@ import addressRoutes from "./routes/addressRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
 import passport from "passport"
 import { auth } from "./config/passport.js"
+import { Server } from "socket.io"
+import { createServer } from "http"
+import { socketHandler } from "./sockets/ordersSocket.js"
 
 const app = express()
 app.use(express.json())
@@ -35,14 +38,24 @@ app.use(passport.initialize())
 app.use(passport.session())
 auth(passport)
 
-const PORT = process.env.PORT || 4000
-const SERVER = app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`)
-})
-
 app.use('/api/users', userRoutes)
 app.use('/api/categories', categoryRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/address', addressRoutes)
 app.use('/api/orders', orderRoutes)
 
+const httpServer = createServer(app)
+
+const io = new Server(httpServer, {
+    cors: {
+        origin: process.env.FRONTEND_URL, 
+        methods: ["GET", "POST"],         
+    },
+})
+
+socketHandler(io)
+
+const PORT = process.env.PORT || 4000
+httpServer.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`)
+})

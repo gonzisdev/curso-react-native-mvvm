@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react"
 import MapView, { Camera } from "react-native-maps"
 import { Order } from "../../../../../Domain/entities/Order"
 import { OrderContext } from "../../../../context/OrderContext"
+import socket from "../../../../utils/SocketIO"
 
 const DeliveryOrderMapViewModel = (order: Order) => {
 
@@ -27,6 +28,10 @@ const DeliveryOrderMapViewModel = (order: Order) => {
     const { updateToDelivered } = useContext(OrderContext)
 
     useEffect(() => {
+        socket.connect()
+        socket.on('connect', () => {
+            console.log('--------SOCKET IO CONNECTION--------')
+        })
         const requestPermissions = async () => {
             const foreground = await Location.requestForegroundPermissionsAsync()
             if (foreground.granted) {
@@ -113,6 +118,7 @@ const DeliveryOrderMapViewModel = (order: Order) => {
     stopForegroundUpdate,
     origin,
     destination,
+    socket,
     updateToDeliveredOrder,
     responseMessage
   }

@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { View, Text, FlatList, Image, ToastAndroid } from "react-native"
+import { View, Text, FlatList, Image } from "react-native"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator"
 import { OrderDetailItem } from "./Item"
@@ -13,19 +13,13 @@ type ClientOrderDetailScreenProps = NativeStackScreenProps<ClientOrderStackParam
 export const ClientOrderDetailScreen = ({navigation, route}: ClientOrderDetailScreenProps) => {
 
   const { order } = route.params
-  const { total, getTotal, responseMessage } = useViewModel(order)
+  const { total, getTotal } = useViewModel(order)
 
   useEffect(() => {
     if (total == 0.0) {
         getTotal()
     }
   }, [])
-
-  useEffect(() => {
-    if (responseMessage !== '') {
-      ToastAndroid.show(responseMessage, ToastAndroid.LONG)
-    }
-  }, [responseMessage])
 
   return (
     <View style={styles.container}>
