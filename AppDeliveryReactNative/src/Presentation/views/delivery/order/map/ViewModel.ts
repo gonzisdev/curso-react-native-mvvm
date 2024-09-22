@@ -105,6 +105,17 @@ const DeliveryOrderMapViewModel = (order: Order) => {
                     lng: location?.coords.longitude
                 })
                 setPosition(location?.coords)
+                const newCamera: Camera = {
+                    center: {
+                        latitude: location?.coords.latitude!,
+                        longitude: location?.coords.longitude!
+                    },
+                    zoom: 15,
+                    heading: 0,
+                    pitch: 0,
+                    altitude: 0
+                }
+                mapRef.current?.animateCamera(newCamera, {duration: 2000})
             }
         )
     }

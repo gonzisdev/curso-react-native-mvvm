@@ -43,10 +43,6 @@ const ClientOrderMapStyles = StyleSheet.create({
         fontSize: 13,
         marginTop: 3
     },
-    buttonRefPoint: {
-        width: "100%",
-        marginTop: 15
-    },
     divider: {
         height: 1,
         width: "100%",

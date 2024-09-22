@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { Image, ToastAndroid, View, Text, TouchableOpacity } from "react-native"
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"
-import { RoundedButton } from "../../../../components/RoundedButton"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { ClientOrderStackParamList } from "../../../../navigator/ClientOrderStackNavigator"
 import MapViewDirections from "react-native-maps-directions"
@@ -17,7 +16,7 @@ type ClientOrderMapScreenProps = NativeStackScreenProps<ClientOrderStackParamLis
 export const ClientOrderMapScreen = ({navigation, route}: ClientOrderMapScreenProps) => {
 
     const { order } = route.params
-    const { messagePermissions, postition, mapRef, stopForegroundUpdate, origin, destination, updateToDeliveredOrder, responseMessage } = useViewModel(order)
+    const { messagePermissions, postition, mapRef, origin, destination, socket } = useViewModel(order)
 
     useEffect(() => {
         if (messagePermissions != '') {
@@ -26,14 +25,8 @@ export const ClientOrderMapScreen = ({navigation, route}: ClientOrderMapScreenPr
     }, [messagePermissions])
 
     useEffect(() => {
-        if (responseMessage != '') {
-            ToastAndroid.show(responseMessage, ToastAndroid.LONG)
-        }
-    }, [responseMessage])
-
-    useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', () => {
-            stopForegroundUpdate()
+            socket.disconnect()
         })
         unsubscribe()
     }, [navigation])
@@ -47,7 +40,7 @@ export const ClientOrderMapScreen = ({navigation, route}: ClientOrderMapScreenPr
             style={{height: "67%", width: "100%", position: "absolute", top: 0}}
             provider={PROVIDER_GOOGLE}
         >
-            {postition !== undefined && 
+            {postition.latitude !== 0.0 && 
                 <Marker 
                     coordinate={postition}
                 >
@@ -102,16 +95,13 @@ export const ClientOrderMapScreen = ({navigation, route}: ClientOrderMapScreenPr
             <View style={styles.infoClient}>
                 <Image 
                     style={styles.imageClient}
-                    source={{uri: order.client?.image}}
+                    source={{uri: order.delivery?.image}}
                 />
-                <Text style={styles.nameClient}>{order.client?.name} {order.client?.lastname}</Text>
+                <Text style={styles.nameClient}>{order.delivery?.name} {order.delivery?.lastname}</Text>
                 <Image 
                     style={styles.imagePhone}
                     source={require('../../../../../../assets/phone.png')}
                 />
-            </View>
-            <View style={styles.buttonRefPoint}> 
-                <RoundedButton text="ENTREGAR PEDIDO" onPress={() => updateToDeliveredOrder()} />
             </View>
         </View>
         <TouchableOpacity style={styles.backContainer} onPress={() => navigation.goBack()}>
