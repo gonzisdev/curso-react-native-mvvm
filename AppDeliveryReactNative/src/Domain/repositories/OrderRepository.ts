@@ -7,4 +7,5 @@ export type OrderRepository = {
     getByDeliveryAndStatus(id_delivery: Order['id_delivery'], status: Order['status']): Promise<Order[]>
     updateToDispatched(order: Order): Promise<ResponseApiDelivery>
     updateToOnTheWay(order: Order): Promise<ResponseApiDelivery>
+    updateToDelivered(order: Order): Promise<ResponseApiDelivery>
 }

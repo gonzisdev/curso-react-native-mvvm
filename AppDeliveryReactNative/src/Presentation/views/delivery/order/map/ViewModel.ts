@@ -1,11 +1,13 @@
 import * as Location from "expo-location"
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import MapView, { Camera } from "react-native-maps"
 import { Order } from "../../../../../Domain/entities/Order"
+import { OrderContext } from "../../../../context/OrderContext"
 
 const DeliveryOrderMapViewModel = (order: Order) => {
 
     const [messagePermissions, setMessagePermissions] = useState('')
+    const [responseMessage, setResponseMessage] = useState('')
     const [refPoint, setRefPoint] = useState({
         name: '',
         latitude: 0.0,
@@ -22,6 +24,7 @@ const DeliveryOrderMapViewModel = (order: Order) => {
     })
     const mapRef = useRef<MapView | null>(null)
     let positionSubscription: Location.LocationSubscription
+    const { updateToDelivered } = useContext(OrderContext)
 
     useEffect(() => {
         const requestPermissions = async () => {
@@ -33,6 +36,10 @@ const DeliveryOrderMapViewModel = (order: Order) => {
         requestPermissions()
     }, [])
 
+    const updateToDeliveredOrder = async () => {
+        const result = await updateToDelivered(order)
+        setResponseMessage(result.message)
+    }
 
     const onRegionChangeComplete = async (latitude: number, longitude: number) => {
         try {
@@ -105,7 +112,9 @@ const DeliveryOrderMapViewModel = (order: Order) => {
     ...refPoint,
     stopForegroundUpdate,
     origin,
-    destination
+    destination,
+    updateToDeliveredOrder,
+    responseMessage
   }
 }
 

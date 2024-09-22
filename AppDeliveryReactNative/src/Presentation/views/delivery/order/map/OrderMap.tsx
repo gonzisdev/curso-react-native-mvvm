@@ -4,10 +4,10 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps"
 import { RoundedButton } from "../../../../components/RoundedButton"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { DeliveryOrderStackParamList } from "../../../../navigator/DeliveryOrderStackNavigator"
+import MapViewDirections from "react-native-maps-directions"
 import useViewModel from "./ViewModel"
 import stylesMap from "./StylesMap"
 import styles from "./Styles"
-import MapViewDirections from "react-native-maps-directions"
 import * as dotenv from 'dotenv'
 
 dotenv.config();
@@ -17,13 +17,19 @@ type DeliveryOrderMapScreenProps = NativeStackScreenProps<DeliveryOrderStackPara
 export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScreenProps) => {
 
     const { order } = route.params
-    const { messagePermissions, postition, mapRef, stopForegroundUpdate, origin, destination } = useViewModel(order)
+    const { messagePermissions, postition, mapRef, stopForegroundUpdate, origin, destination, updateToDeliveredOrder, responseMessage } = useViewModel(order)
 
     useEffect(() => {
         if (messagePermissions != '') {
             ToastAndroid.show(messagePermissions, ToastAndroid.LONG)
         }
     }, [messagePermissions])
+
+    useEffect(() => {
+        if (responseMessage != '') {
+            ToastAndroid.show(responseMessage, ToastAndroid.LONG)
+        }
+    }, [responseMessage])
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('beforeRemove', () => {
@@ -37,6 +43,7 @@ export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScre
         <MapView 
             ref={mapRef}
             customMapStyle={stylesMap}
+            zoomControlEnabled={true}
             style={{height: "67%", width: "100%", position: "absolute", top: 0}}
             provider={PROVIDER_GOOGLE}
         >
@@ -104,9 +111,7 @@ export const DeliveryOrderMapScreen = ({navigation, route}: DeliveryOrderMapScre
                 />
             </View>
             <View style={styles.buttonRefPoint}> 
-                <RoundedButton text="ENTREGAR PEDIDO" onPress={() => {
-
-                }} />
+                <RoundedButton text="ENTREGAR PEDIDO" onPress={() => updateToDeliveredOrder()} />
             </View>
         </View>
         <TouchableOpacity style={styles.backContainer} onPress={() => navigation.goBack()}>
