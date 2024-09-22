@@ -10,6 +10,7 @@ import { ClientShoppingBagScreen } from "../views/client/shopping_bag/ShoppingBa
 import { ClientAddressListScreen } from "../views/client/address/list/AddressList"
 import { ClientAddressCreateScreen } from "../views/client/address/create/AddressCreate"
 import { ClientAddressMapScreen } from "../views/client/address/map/AddressMap"
+import { ClientPaymentFormScreen } from "../views/client/payment/form/PaymentForm"
 
 export type ClientStackParamList = {
     ClientCategoryListScreen: undefined
@@ -19,6 +20,7 @@ export type ClientStackParamList = {
     ClientAddressListScreen: undefined
     ClientAddressCreateScreen: {refPoint: string, latitude: number, longitude: number} | undefined
     ClientAddressMapScreen: undefined
+    ClientPaymentFormScreen: undefined
 }
 
 export const ClientStackNavigator = () => {
@@ -110,6 +112,14 @@ export const ClientStackNavigator = () => {
                     component={ClientAddressMapScreen}
                     options={{
                         title: "Ubica tu dirección en el mapa",
+                        headerShown: true
+                    }}
+              />
+              <Stack.Screen 
+                    name="ClientPaymentFormScreen"
+                    component={ClientPaymentFormScreen}
+                    options={{
+                        title: "Formulario de pago",
                         headerShown: true
                     }}
               />
