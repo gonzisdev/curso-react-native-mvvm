@@ -96,9 +96,14 @@ const DeliveryOrderMapViewModel = (order: Order) => {
         positionSubscription.remove()
         positionSubscription = await Location.watchPositionAsync(
             {
-                accuracy: Location.Accuracy.BestForNavigation
+                accuracy: Location.Accuracy.Balanced
             },
             location => {
+                socket.emit('position', {
+                    id_order: order.id!,
+                    lat: location?.coords.latitude,
+                    lng: location?.coords.longitude
+                })
                 setPosition(location?.coords)
             }
         )
