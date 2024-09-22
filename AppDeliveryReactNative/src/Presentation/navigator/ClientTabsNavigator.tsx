@@ -1,8 +1,8 @@
 import { Image } from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { ClientOrderListScreen } from "../views/client/order/list/OrderList"
 import { ProfileInfoScreen } from "../views/profile/info/ProfileInfo"
 import { ClientStackNavigator } from "./ClientStackNavigator"
+import { ClientOrderStackNavigator } from "./ClientOrderStackNavigator"
 
 export const ClientTabsNavigator = () => {
   
@@ -28,8 +28,8 @@ export const ClientTabsNavigator = () => {
           )}
         />
         <Tab.Screen 
-          name="AdminOrderListScreen" 
-          component={ClientOrderListScreen} 
+          name="ClientOrderStackNavigator" 
+          component={ClientOrderStackNavigator} 
           options={{
             title: "Pedidos",
             tabBarLabel: "Pedidos",

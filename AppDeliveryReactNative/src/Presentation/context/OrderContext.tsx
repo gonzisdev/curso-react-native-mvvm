@@ -3,6 +3,7 @@ import { Order } from '../../Domain/entities/Order'
 import { ResponseApiDelivery } from '../../Data/sources/remote/models/ResponseApiDelivery'
 import { GetByStatusOrderUseCase } from '../../Domain/useCases/order/GetByStatusOrder'
 import { GetByDeliveryAndStatusOrderUseCase } from '../../Domain/useCases/order/GetByDelivertAndStatusOrder'
+import { GetByClientAndStatusOrderUseCase } from '../../Domain/useCases/order/GetByClientAndStatusOrder'
 import { UpdateToDispatchedOrderUseCase } from '../../Domain/useCases/order/UpdateToDispatchedOrder'
 import { UpdateToOnTheWayOrderUseCase } from '../../Domain/useCases/order/UpdateToOnTheWayOrder'
 import { UpdateToDeliveredOrderUseCase } from '../../Domain/useCases/order/UpdateToDeliveredOrder'
@@ -14,6 +15,7 @@ export type OrderContextProps = {
     ordersDelivery: Order[]
     getOrderByStatus(status: Order['status']): Promise<void>
     getOrderByDeliveryAndStatus(id_delivery: Order['id_delivery'], status: Order['status']): Promise<void>
+    getOrderByClientAndStatus(id_client: Order['id_client'], status: Order['status']): Promise<void>
     updateToDispatched(order: Order): Promise<ResponseApiDelivery>
     updateToOnTheWay(order: Order): Promise<ResponseApiDelivery>
     updateToDelivered(order: Order): Promise<ResponseApiDelivery>
@@ -65,6 +67,19 @@ export const OrderProvider= ({children}: OrderProviderProps) => {
         } 
     }
 
+    const getOrderByClientAndStatus = async (id_client: Order['id_client'], status: Order['status']) => {
+        const result = await GetByClientAndStatusOrderUseCase(id_client, status)
+        if (status === 'PAGADO') {
+            setOrdersPaid(result)
+        } else if (status === 'DESPACHADO') {
+            setOrdersDispatched(result)
+        } else if (status === 'EN CAMINO') {
+            setOrdersOnTheWay(result)
+        } else if (status === 'ENTREGADO') {
+            setOrdersDelivery(result)
+        } 
+    }
+
     const updateToDispatched = async (order: Order) => {
         const result = await UpdateToDispatchedOrderUseCase(order)
         getOrderByStatus('PAGADO')
@@ -95,6 +110,7 @@ export const OrderProvider= ({children}: OrderProviderProps) => {
             ordersDelivery,
             getOrderByStatus,
             getOrderByDeliveryAndStatus,
+            getOrderByClientAndStatus,
             updateToDispatched,
             updateToOnTheWay,
             updateToDelivered
