@@ -6,6 +6,7 @@ import categoryRoutes from "./routes/categoryRoutes.js"
 import productRoutes from "./routes/productRoutes.js"
 import addressRoutes from "./routes/addressRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
+import mercadoPagoRoutes from "./routes/mercadopagoRoutes.js"
 import passport from "passport"
 import { auth } from "./config/passport.js"
 import { Server } from "socket.io"
@@ -43,6 +44,7 @@ app.use('/api/categories', categoryRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/address', addressRoutes)
 app.use('/api/orders', orderRoutes)
+app.use('/api/payments', mercadoPagoRoutes)
 
 const httpServer = createServer(app)
 

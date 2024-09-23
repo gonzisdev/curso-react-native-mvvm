@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react
+import { useRef, useState, useEffect, useCallback } from 'react'
 import { IdentificationType } from '../../../../../Domain/entities/IdentificationType'
 import { GetIdentificationTypesMercadoPagoUseCase } from '../../../../../Domain/useCases/mercado_pago/GetIdentificationTypesMercadoPago'
 import { CreateCardTokenMercadoPagoUseCase } from '../../../../../Domain/useCases/mercado_pago/CreateCardTokenMercadoPago'
@@ -103,7 +103,7 @@ const ClientPaymentFormViewModel = () => {
     setItems(itemsIdentification);
 }
 
-  const handleSubmit = React.useCallback(() => {
+  const handleSubmit = useCallback(() => {
     console.log('HANDLE SUBMIT');
     
     if (creditCardRef.current) {

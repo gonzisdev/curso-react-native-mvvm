@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { ClientCategoryListScreen } from "../views/client/category/list/CategoryList"
 import { ClientProductListScreen } from "../views/client/product/list/ProductList"
-import { Category } from "../../Domain/entities/Category"
 import { ClientProductDetailScreen } from "../views/client/product/detail/ProductDetail"
 import { Product } from "../../Domain/entities/Product"
 import { ShoppingBagProvider } from "../context/ShoppingBagContext"
@@ -11,16 +10,22 @@ import { ClientAddressListScreen } from "../views/client/address/list/AddressLis
 import { ClientAddressCreateScreen } from "../views/client/address/create/AddressCreate"
 import { ClientAddressMapScreen } from "../views/client/address/map/AddressMap"
 import { ClientPaymentFormScreen } from "../views/client/payment/form/PaymentForm"
+import { ResponseMercadoPagoCardToken } from "../../Data/sources/remote/models/ResponseMercadoPagoCardToken"
+import { ResponseMercadoPagoPayment } from "../../Data/sources/remote/models/ResponseMercadoPagoPayment"
+import { ClientPaymentInstallmentsScreen } from "../views/client/payment/installments/PaymentInstallments"
+import { ClientPaymentStatusScreen } from "../views/client/payment/status/PaymentStatus"
 
 export type ClientStackParamList = {
-    ClientCategoryListScreen: undefined
-    ClientProductListScreen: {id_category: Category['id']}
-    ClientProductDetailScreen: {product: Product}
-    ClientShoppingBagScreen: undefined
-    ClientAddressListScreen: undefined
-    ClientAddressCreateScreen: {refPoint: string, latitude: number, longitude: number} | undefined
-    ClientAddressMapScreen: undefined
-    ClientPaymentFormScreen: undefined
+  ClientCategoryListScreen: undefined,
+  ClientProductListScreen: {idCategory: string},
+  ClientProductDetailScreen: {product: Product},
+  ClientShoppingBagScreen: undefined,
+  ClientAddressListScreen: undefined,
+  ClientAddressCreateScreen: { refPoint: string, latitude: number, longitude: number } | undefined,
+  ClientAddressMapScreen: undefined,
+  ClientPaymentFormScreen: undefined,
+  ClientPaymentInstallmentsScreen: { cardToken: ResponseMercadoPagoCardToken },
+  ClientPaymentStatusScreen: { paymentData: ResponseMercadoPagoPayment }
 }
 
 export const ClientStackNavigator = () => {
@@ -122,6 +127,21 @@ export const ClientStackNavigator = () => {
                         title: "Formulario de pago",
                         headerShown: true
                     }}
+              />
+              <Stack.Screen 
+                    name='ClientPaymentInstallmentsScreen'
+                    component={ ClientPaymentInstallmentsScreen }
+                    options={{
+                      title: 'Numero de coutas',
+                      headerShown: true
+                    }}
+               />
+              <Stack.Screen 
+                name='ClientPaymentStatusScreen'
+                component={ ClientPaymentStatusScreen }
+                options={{
+                  headerShown: false
+                }}
               />
             </Stack.Navigator>    
         </ShoppingBagState>
