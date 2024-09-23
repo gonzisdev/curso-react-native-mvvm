@@ -131,3 +131,5 @@ CREATE TABLE order_has_products(
     FOREIGN KEY(id_order) REFERENCES orders(id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(id_product) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+ALTER TABLE 'users' ADD COLUMN 'notification_token' VARCHAR(255) NULL AFTER 'updated_at';

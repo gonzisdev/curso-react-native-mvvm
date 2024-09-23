@@ -3,6 +3,7 @@ import { Order } from "../../../../../Domain/entities/Order"
 import { User } from "../../../../../Domain/entities/User"
 import { GetDeliveryMenUserUseCase } from "../../../../../Domain/useCases/user/GetDeliveryMenUser"
 import { OrderContext } from "../../../../context/OrderContext"
+import { NotificationPush } from "../../../../utils/NotificationPush"
 
 type DropDownProps = {
     label: string
@@ -20,6 +21,7 @@ const AdminOrderDetailViewModel = (order: Order) => {
     const [items, setItems] = useState<DropDownProps[]>([])
 
     const { updateToDispatched } = useContext(OrderContext)
+    const { sendPushNotification } = NotificationPush()
 
     useEffect(() => {
         setDropDownItems()
@@ -30,6 +32,10 @@ const AdminOrderDetailViewModel = (order: Order) => {
             order.id_delivery = value!
             const result = await updateToDispatched(order)
             setResponseMessage(result.message)
+            if (result.success) {
+                const index = deliveryMen.findIndex((delivery) => delivery.id ==  value!)
+                await sendPushNotification(deliveryMen[index].notification_token!, 'PEDIDO ASIGNADO', 'Te han asignado un pedido')
+            }
         } else {
             setResponseMessage('Selecciona el repartidor')
         }

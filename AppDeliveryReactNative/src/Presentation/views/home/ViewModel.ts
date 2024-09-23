@@ -1,6 +1,8 @@
 import { useContext, useState } from "react"
 import { LoginAuthUseCase } from "../../../Domain/useCases/auth/LoginAuth"
+import { UpdateNotificationTokenUserUseCase } from "../../../Domain/useCases/user/UpdateNotificationTokenUser"
 import { UserContext } from "../../context/UserContext"
+import { User } from "../../../Domain/entities/User"
 
 const HomeViewModel = () => {
 
@@ -32,6 +34,10 @@ const HomeViewModel = () => {
         }
     }
 
+    const updateNotificationToken = async (id: User['id'], token: User['notification_token']) => {
+        const result = await UpdateNotificationTokenUserUseCase(id, token)
+    }
+
     const isValidForm = (): boolean => {
         if (values.email === '') {
             setErrorMessage("Introduce tu email")
@@ -49,7 +55,8 @@ const HomeViewModel = () => {
         onChange,
         login,
         errorMessage,
-        user
+        user,
+        updateNotificationToken
     }
 }
 

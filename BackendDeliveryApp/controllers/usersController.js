@@ -155,4 +155,24 @@ export class userController {
             })
         }
     }
+
+    static updateNotificationToken = async (req, res) => {
+        const id = req.body.id
+        const token = req.body.token
+        try {
+            const update = await User.updateNotificationToken(id, token)
+            return res.status(201).json({
+                success: true,
+                message: 'El token de notificación se actualizó correctamente', 
+                data: update
+            })
+        } catch (error) {
+            console.log(error);
+            return res.status(501).json({ 
+                success: false,
+                message: 'Hubo un error con la actualización del token de notificación',
+                error: error.message
+            })
+        }
+    }
 }

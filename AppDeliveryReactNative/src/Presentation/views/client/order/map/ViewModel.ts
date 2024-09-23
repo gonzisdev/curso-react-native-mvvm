@@ -17,14 +17,22 @@ const ClientOrderMapViewModel = (order: Order) => {
         longitude: 0.0
     })
     const [origin, setOrigin] = useState({
-        latitude: 0.0,
-        longitude: 0.0
-    })
-    const [destination, setDestination] = useState({
         latitude: order.address?.lat!,
         longitude: order.address?.lng!
     })
+    const [postitionOnce, setPositionOnce] = useState({
+        latitude: 0.0,
+        longitude: 0.0
+    })
     const mapRef = useRef<MapView | null>(null)
+
+    useEffect(() => {
+        if (postition.latitude !== 0.0 && postition.longitude !== 0.0) {
+            if (postitionOnce.latitude === 0.0 && postitionOnce.longitude === 0.0) {
+                setPositionOnce(postition)
+            }
+        }
+    }, [postition])
 
     useEffect(() => {
         socket.connect()
@@ -74,7 +82,7 @@ const ClientOrderMapViewModel = (order: Order) => {
     ...refPoint,
     origin,
     socket,
-    destination,
+    postitionOnce
   }
 }
 

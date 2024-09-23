@@ -6,12 +6,24 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { RootStackParamList } from "../../navigator/MainStackNavigator"
 import useViewModel from "./ViewModel"
 import styles from "./Styles"
+import * as Notifications from 'expo-notifications'
+import { NotificationPush } from "../../utils/NotificationPush"
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+})
+
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamList, 'HomeScreen'>
 
 export const HomeScreen = ({navigation, route}: HomeScreenProps) => {
 
-    const { email, password, onChange, login, errorMessage, user } = useViewModel()
+    const { email, password, onChange, login, errorMessage, user, updateNotificationToken } = useViewModel()
+    const { notification, notificationListener, responseListener, registerForPushNotificationsAsync, setNotification } = NotificationPush()
 
     useEffect(() => {
         if (errorMessage !== "") {
@@ -21,11 +33,25 @@ export const HomeScreen = ({navigation, route}: HomeScreenProps) => {
 
     useEffect(() => {
         if (user?.id !== null && user?.id !== undefined && user?.id !== '') {
-            if (user.roles?.length! > 1) {
-                navigation.replace('RolesScreen')
-            } else {
-                navigation.replace('ClientTabsNavigator')
-            }
+            registerForPushNotificationsAsync().then(token => {
+                console.log('TOKEN:' + token);
+                updateNotificationToken(user?.id!, token!)
+                if (user.roles?.length! > 1) {
+                    navigation.replace('RolesScreen')
+                } else {
+                    navigation.replace('ClientTabsNavigator')
+                }
+              })
+              notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+                setNotification(notification)
+              })
+              responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+                console.log(response);
+              })
+              return () => {
+                Notifications.removeNotificationSubscription(notificationListener.current);
+                Notifications.removeNotificationSubscription(responseListener.current)
+              }
         }
     }, [user])
 

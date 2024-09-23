@@ -11,6 +11,7 @@ export type User = {
     password: string
     confirmPassword: string
     session_token?: string
+    notification_token?: string
     roles?: Rol[]
     address?: Address
 }

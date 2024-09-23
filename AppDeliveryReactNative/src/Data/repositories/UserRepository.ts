@@ -49,4 +49,19 @@ export class UserRepositoryImpl implements UserRepository{
             return Promise.resolve(apiError)
         }
     }
+
+    async updateNotificationToken(id: User["id"], token: User["notification_token"]): Promise<ResponseApiDelivery> {
+        try {
+            const response = await ApiDelivery.put<ResponseApiDelivery>('/users/updateNotifcationToken', {
+                id: id,
+                token: token
+            })
+            return Promise.resolve(response.data)
+        } catch (error) {
+            let e = (error as AxiosError)
+            console.log(JSON.stringify(e.response?.data))
+            const apiError: ResponseApiDelivery = JSON.parse(JSON.stringify(e.response?.data))
+            return Promise.resolve(apiError)
+        }
+    }
 }

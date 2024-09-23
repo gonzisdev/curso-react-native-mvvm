@@ -6,4 +6,5 @@ export type UserRepository = {
     getDeliveryMen(): Promise<User[]>
     update(user: User): Promise<ResponseApiDelivery>
     updateWithImage(user: User, file: ImagePicker.ImagePickerAsset): Promise<ResponseApiDelivery>
+    updateNotificationToken(id: User['id'], token: User['notification_token']): Promise<ResponseApiDelivery>
 }

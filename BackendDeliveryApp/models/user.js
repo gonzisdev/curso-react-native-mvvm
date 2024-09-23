@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 export class User {
     static table = "users";
 
-	constructor({id, email, name,lastname, phone, image, password, created_at, updated_at}) {
+	constructor({id, email, name,lastname, phone, image, password, created_at, updated_at, notification_token}) {
 		this.id = id
 		this.email = email
 		this.name = name
@@ -14,6 +14,7 @@ export class User {
         this.password = password
         this.created_at = created_at
         this.updated_at = updated_at
+		this.notification_token = notification_token
 	}
 
     static async create(user) {
@@ -163,7 +164,8 @@ export class User {
 					U.name,
 					U.lastname,
 					U.phone,
-					U.image	
+					U.image,
+					U.notification_token	
 				FROM
 					${this.table} AS U
 				INNER JOIN
@@ -253,4 +255,30 @@ export class User {
 		}
 	}
 
+	static async updateNotificationToken(id, token) {
+		try {
+			const query = `
+                UPDATE 
+                    ${this.table}
+				SET
+					notification_token = ?,
+					updated_at = ?
+				WHERE
+					id = ?
+            `;
+			const result = await db.query(query, [
+				notification_token,
+                new Date(),
+				id
+			])
+			if (result[0].affectedRows > 0) {                
+				return id
+			} else {
+				return null;
+			};
+		} catch (error) {
+			console.error("Error updating notification token:", error)
+			throw error
+		}
+	}
 }

@@ -16,7 +16,7 @@ type ClientOrderMapScreenProps = NativeStackScreenProps<ClientOrderStackParamLis
 export const ClientOrderMapScreen = ({navigation, route}: ClientOrderMapScreenProps) => {
 
     const { order } = route.params
-    const { messagePermissions, postition, mapRef, origin, destination, socket } = useViewModel(order)
+    const { messagePermissions, postition, mapRef, origin, socket, postitionOnce } = useViewModel(order)
 
     useEffect(() => {
         if (messagePermissions != '') {
@@ -60,10 +60,10 @@ export const ClientOrderMapScreen = ({navigation, route}: ClientOrderMapScreenPr
                     />
                 </Marker>
             }
-            {origin.latitude !== 0.0 &&
+            {(origin.latitude !== 0.0 && postitionOnce) &&
                 <MapViewDirections 
                     origin={origin}
-                    destination={destination}
+                    destination={postition}
                     apikey={process.env.GOOGLE_MAPS_API_KEY!}
                     strokeWidth={3}
                     strokeColor="orange"

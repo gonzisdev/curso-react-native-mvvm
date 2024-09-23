@@ -15,5 +15,6 @@ router.route('/createWithImage').post(upload.single('image', 1), userController.
 router.route('/login').post(userController.login)
 router.route('/update').put(passport.authenticate('jwt', {session: false}), upload.single('image', 1), userController.updateWithImage)
 router.route('/updateWithoutImage').put(passport.authenticate('jwt', {session: false}), userController.updateWithoutImage)
+router.route('/updateNotificationToken').put(passport.authenticate('jwt', {session: false}), userController.updateNotificationToken)
 
 export default router

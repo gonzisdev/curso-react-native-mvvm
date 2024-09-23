@@ -34,6 +34,12 @@ export const ProfileInfoScreen = ({navigation, route}: ProfileInfoScreenProps) =
               style={styles.logoutImage}
           />
         </TouchableOpacity>
+        <TouchableOpacity style={styles.change}  onPress={() => navigation.replace('RolesScreen')}>
+          <Image 
+              source={require('../../../../../assets/back.png')} 
+              style={styles.logoutImage}
+          />
+        </TouchableOpacity>
         <View style={styles.logoContainer}>
           {
             user?.image !== '' 

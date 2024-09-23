@@ -67,6 +67,11 @@ const styles = StyleSheet.create({
     logoutImage: {
         width: 40,
         height: 40,
+    },
+    change: {
+        position: "absolute",
+        top: 80,
+        right: 15
     }
 })
 
